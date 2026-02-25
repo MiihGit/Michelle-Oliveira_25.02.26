@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SennaRecicla | A Vitória é Sustentável</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--amarelo:#FFD700;
+--verde:#008751;
+--azul:#002776;
+--preto:#0a0a0a;
+--cinza:#1a1a1a;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+
+body{background:var(--preto);color:#fff;}
+
+/* NAV */
+.nav-bar{
+position:fixed;
+top:0;
+width:100%;
+padding:15px 5%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(0,0,0,.9);
+border-bottom:2px solid var(--verde);
+z-index:1000;
+}
+
+.logo{font-weight:900;font-style:italic;font-size:1.3rem;}
+.logo span{color:var(--amarelo);}
+
+.menu-btn{
+font-size:1.8rem;
+cursor:pointer;
+color:var(--amarelo);
+padding:10px;
+}
+
+/* SIDEBAR */
+.sidebar{
+position:fixed;
+top:0;
+right:-260px;
+width:250px;
+height:100%;
+background:#111;
+padding:80px 20px;
+transition:.4s;
+z-index:2000;
+border-left:3px solid var(--verde);
+overflow-y:auto;
+}
+
+.sidebar a{
+display:block;
+color:#fff;
+text-decoration:none;
+padding:20px 0;
+border-bottom:1px solid #222;
+font-weight:bold;
+line-height:1.5;
+}
+
+.sidebar a:hover{color:var(--amarelo);}
+
+.sidebar.active{right:0;}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--amarelo);
+    padding: 10px;
+}
+
+/* HERO */
+.hero{
+height:85vh;
+background-color: var(--cinza);
+animation: heroCarousel 15s infinite;
+display:flex;
+align-items:center;
+justify-content:space-around;
+padding:0 10%;
+margin-top:60px;
+}
+
+@keyframes heroCarousel {
+    0%, 30% { background: linear-gradient(to top,var(--preto),transparent), url('https://wallpapercave.com/wp/QgdjgGZ.jpg') center/cover no-repeat; }
+    33%, 63% { background: linear-gradient(to top,var(--preto),transparent), url('https://wallpapercave.com/wp/QgdjgGZ.jpg') center/cover no-repeat; }
+    66%, 100% { background: linear-gradient(to top,var(--preto),transparent), url('https://wallpapercave.com/wp/QgdjgGZ.jpg') center/cover no-repeat; }
+}
+
+.hero-content{max-width:500px;}
+.hero-content h1{
+font-size:3.5rem;
+font-style:italic;
+margin-bottom:20px;
+}
+.hero-content span{color:var(--amarelo);}
+
+.senna-img{
+height:350px;
+border-radius:20px;
+box-shadow:0 0 30px var(--amarelo);
+}
+
+/* SECTIONS */
+section{padding:80px 10%;}
+.section-title{
+margin-bottom:40px;
+border-left:8px solid var(--verde);
+padding-left:15px;
+}
+
+/* PRODUTOS */
+.grid{
+display:grid;
+grid-template-columns:repeat(4, 1fr);
+gap:15px;
+}
+
+.card{
+background:var(--cinza);
+border-radius:15px;
+overflow:hidden;
+transition:.3s;
+}
+
+.card:hover{transform:scale(1.05);}
+
+.card img{
+width:100%;
+height:140px;
+object-fit:cover;
+}
+
+.card-info{padding:15px;}
+.card-info h3{color:var(--amarelo);margin-bottom:10px;}
+.card-info p{margin-bottom:15px;font-size:0.9rem;color:#ddd;}
+.card-info .preco{color:var(--verde);font-weight:bold;font-size:1.1rem;margin-bottom:0;}
+
+/* FORM */
+.form-box{
+background:var(--cinza);
+padding:40px;
+border-radius:20px;
+max-width:600px;
+margin:auto;
+}
+
+.form-group{margin-bottom:20px;}
+
+label{display:block;margin-bottom:8px;color:var(--amarelo);}
+
+input,select{
+width:100%;
+padding:12px;
+border-radius:8px;
+border:1px solid #333;
+background:#222;
+color:white;
+}
+
+button{
+width:100%;
+padding:15px;
+background:var(--amarelo);
+border:none;
+border-radius:8px;
+font-weight:900;
+cursor:pointer;
+}
+
+button:hover{background:var(--verde);color:white;}
+
+.hidden {display:none !important;}
+
+/* Corrige o corte do conteúdo atrás do menu fixo */
+#dashboard-aluno, #dashboard-admin, #rankings {
+    padding-top: 120px;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.btn-sair { background: #333; width: auto; padding: 10px 20px; }
+.btn-sair:hover { background: #cc0000; }
+
+table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #222; border-radius: 10px; overflow: hidden; }
+th, td { padding: 15px; text-align: left; border-bottom: 1px solid #333; }
+th { background: var(--verde); color: white; }
+tr:hover { background: #2a2a2a; }
+
+.action-btn { background: var(--azul); padding: 5px 10px; font-size: 0.8rem; width: auto; }
+.btn-edit { background: var(--amarelo); color: black; margin-right: 5px; cursor: pointer; border:none; padding:5px 10px; border-radius:4px;}
+.btn-delete { background: #cc0000; color: white; cursor: pointer; border:none; padding:5px 10px; border-radius:4px;}
+.saldo-destaque { font-size: 1.5rem; color: var(--amarelo); font-weight: bold; margin: 20px 0; }
+
+/* NOVOS ESTILOS */
+.placar-banner { 
+    background: linear-gradient(to right, #111, #222); 
+    padding: 15px 40px; 
+    border-radius: 50px; 
+    border: 1px solid var(--verde); 
+    margin: 0 auto 60px auto; 
+    width: fit-content; 
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+.placar-banner p { display:inline-block; margin-right:10px; color:#ccc; font-size: 1rem; }
+.placar-banner h2 { display:inline-block; color: var(--amarelo); font-size: 1.5rem; margin: 0; vertical-align: middle;}
+.resumo-box { background: var(--azul); padding: 20px; border-radius: 10px; margin: 20px 0; text-align: center; border: 1px solid #ffffff33; }
+.resumo-box span { font-weight: 900; color: var(--amarelo); font-size: 1.4rem; }
+
+/* RANKING */
+.ranking-box { text-align: center; margin-bottom: 60px; }
+.ranking-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 20px; padding-top: 20px; }
+.rank-card { background: #222; padding: 20px; border-radius: 15px; width: 200px; border: 1px solid #333; position: relative; margin-bottom: 20px; }
+.rank-card.top1 { border: 2px solid var(--amarelo); transform: scale(1.1); z-index: 10; background: linear-gradient(to bottom, #222, #1a1a00); margin-top: 10px; }
+.rank-pos { font-size: 3rem; font-weight: 900; color: #444; position: absolute; top: -20px; left: 10px; opacity: 0.5; }
+.rank-card.top1 .rank-pos { color: var(--amarelo); opacity: 1; }
+.rank-turma { font-size: 1.2rem; font-weight: bold; margin-top: 10px; display: block; }
+.rank-valor { color: var(--verde); font-weight: bold; font-size: 1.1rem; }
+
+/* FOOTER */
+footer{
+background:#000;
+padding:40px;
+text-align:center;
+color:#777;
+border-top:2px solid var(--verde);
+}
+
+/* RESPONSIVO */
+@media(max-width:768px){
+.hero{flex-direction:column;text-align:center;height:auto;padding:50px 20px;}
+.senna-img{height:250px;margin-top:20px;}
+.grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));}
+.hero-content h1{font-size:2.3rem;}
+}
+</style>
+</head>
+
+<body>
+
+<nav class="nav-bar">
+<div class="logo">SENNA<span>RECICLA</span></div>
+<div class="menu-btn" onclick="openMenu()">☰</div>
+</nav>
+
+<div class="sidebar" id="menu">
+<span class="close-btn" onclick="closeMenu()">✖</span>
+<a href="#" onclick="navegarMenu('sobre'); return false;">Sobre Nós</a>
+<a href="#" onclick="navegarMenu('produtos'); return false;">Produtos</a>
+<a href="#rankings" id="menu-rankings" class="hidden" onclick="mostrarRankings()">Rankings</a>
+<a href="#aluno-login" onclick="mostrarLogin('aluno')">Área do Aluno</a>
+<a href="#admin-login" onclick="mostrarLogin('admin')">Área do Administrador</a>
+</div>
+
+<section class="hero">
+<div class="hero-content">
+<h1>RUMO À <span>VITÓRIA</span></h1>
+<p>Inspirado em Ayrton Senna, transformamos reciclagem em conquista.</p>
+</div>
+</section>
+
+<div id="main-content">
+<section id="sobre">
+<h2 class="section-title">Sobre Nós</h2>
+<p>Fundada com o compromisso de formar cidadãos conscientes, nossa escola sempre buscou ir além da sala de aula. Com tradição em ensino de qualidade, acreditamos que a educação é o motor para transformar a sociedade e construir um futuro mais verde e promissor.</p>
+<br>
+<p>O projeto <strong>SennaRecicla</strong> nasceu da união entre a necessidade de arrecadar fundos para a formatura e a urgência de cuidar do nosso planeta. Inspirados pela garra e determinação de Ayrton Senna, nossos alunos competem de forma saudável para ver quem arrecada mais materiais recicláveis. Cada lata, papel ou plástico recolhido é uma vitória para o meio ambiente e um passo a mais rumo à nossa grande celebração.</p>
+</section>
+
+<section id="conscientizacao">
+<h2 class="section-title">Conscientização Ambiental</h2>
+<div style="display:flex; flex-wrap:wrap; gap:30px; align-items:center;">
+<img src="https://www.dgitais.com/wp-content/uploads/2023/09/consciencia-ambiental-nas-empresas.jpg" style="width:100%; max-width:500px; border-radius:15px; flex:1;">
+<div style="flex:1; min-width:300px;">
+<p>A reciclagem é um ato de amor ao próximo e ao planeta. Cada material que você separa deixa de poluir rios e solos, economiza água e energia na produção de novos itens e gera emprego e renda.</p>
+<br>
+<p><strong>Pequenas atitudes, grandes impactos:</strong></p>
+<ul style="margin-left:20px; margin-top:10px; color:#ccc; line-height:1.6;">
+<li>1 latinha de alumínio reciclada economiza energia para manter uma TV ligada por 3 horas.</li>
+<li>Reciclar papel evita o corte de árvores e economiza milhares de litros de água.</li>
+<li>O plástico (como o das tampinhas) pode levar mais de 400 anos para se decompor se descartado incorretamente.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<div class="placar-banner">
+    <p>Total Reciclado:</p>
+    <h2 id="valor-total-geral">0 kg</h2>
+</div>
+
+<section id="produtos">
+<h2 class="section-title">Materiais Recicláveis</h2>
+<div class="grid">
+
+<div class="card">
+<img src="https://www.projetodraft.com/wp-content/uploads/2023/11/Sustentabilidade-na-lata.jpg">
+<div class="card-info">
+<h3>Latinhas</h3>
+<p>Latas de alumínio limpas e amassadas.</p>
+</div>
+</div>
+
+<div class="card">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq1IsMZzNXcGxm_7txNSxZvY3TjpXSUaf3Uw&s">
+<div class="card-info">
+<h3>Papelão</h3>
+<p>Caixas desmontadas, secas e sem fitas.</p>
+</div>
+</div>
+
+<div class="card">
+<img src="https://www.reciclasampa.com.br/imgs/conteudos/10_projeto_coleta_tampinhas_e_ajuda_criancas_com_cancer_padrao.jpg">
+<div class="card-info">
+<h3>Tampinhas</h3>
+<p>Tampinhas plásticas de garrafas e embalagens.</p>
+</div>
+</div>
+
+<div class="card">
+<img src="https://media.istockphoto.com/id/1311288065/pt/foto/industrial-waste-oil-container.jpg?s=612x612&w=0&k=20&c=2OCVNi0swG9Yyy8Mt7fqYxM6eoFOqAFM0RBlrpHyj2I=">
+<div class="card-info">
+<h3>Óleo de Cozinha</h3>
+<p>Óleo usado armazenado em garrafas PET.</p>
+</div>
+</div>
+
+</div>
+</section>
+
+<section id="aluno-login">
+<h2 class="section-title">Área do Aluno</h2>
+
+<!-- LOGIN FORM -->
+<div class="form-box" id="box-login">
+<div class="form-group">
+<label>Telefone</label>
+<input type="number" id="loginNumero" placeholder="Digite seu telefone">
+</div>
+<div class="form-group">
+<label>Senha</label>
+<input type="password" id="loginSenha" placeholder="Digite sua senha">
+</div>
+<button onclick="fazerLogin()">Entrar</button>
+<p style="text-align:center; margin-top:15px; cursor:pointer; color:var(--amarelo); font-size:0.9rem;" onclick="toggleAuth('cadastro')">Não tem conta? Cadastre-se</p>
+<p style="text-align:center; margin-top:10px; cursor:pointer; color:var(--amarelo); font-size:0.9rem;" onclick="alternarLogin()">Sou Administrador</p>
+</div>
+
+<!-- LOGGED IN VIEW -->
+<div class="form-box hidden" id="box-logged-in" style="text-align:center;">
+    <h3>Olá, <span id="user-name-display"></span>!</h3>
+    <p style="margin:15px 0; color:#ccc;">Você já está conectado.</p>
+    <button onclick="abrirDashboard()">Acessar Meu Painel</button>
+    <button onclick="sairSistema()" style="background:#333; margin-top:10px;">Sair</button>
+</div>
+
+<!-- CADASTRO FORM -->
+<div class="form-box hidden" id="box-cadastro">
+<div class="form-group"><label>Telefone</label><input type="number" id="cadNumero" placeholder="Seu telefone"></div>
+<div class="form-group"><label>Nome Completo</label><input type="text" id="cadNome" placeholder="Seu nome"></div>
+<div class="form-group"><label>Ano</label>
+<select id="cadAno">
+<option>6º Ano</option>
+<option>7º Ano</option>
+<option>8º Ano</option>
+<option>9º Ano</option>
+<option>1º Médio</option>
+<option>2º Médio</option>
+<option>3º Médio</option>
+</select>
+</div>
+<div class="form-group"><label>Turma</label>
+<select id="cadTurma">
+<option>A</option>
+<option>B</option>
+<option>C</option>
+</select>
+</div>
+<div class="form-group"><label>Senha</label><input type="password" id="cadSenha" placeholder="Crie uma senha"></div>
+<button onclick="fazerCadastro()">Cadastrar</button>
+<p style="text-align:center; margin-top:15px; cursor:pointer; color:var(--amarelo); font-size:0.9rem;" onclick="toggleAuth('login')">Já tenho conta? Entrar</p>
+</div>
+</section>
+
+<section id="admin-login" class="hidden">
+<h2 class="section-title">Área do Administrador</h2>
+<div class="form-box">
+<div class="form-group">
+<label>Senha de Acesso</label>
+<input type="password" id="senhaAdmin" placeholder="Digite a senha">
+</div>
+<button onclick="entrarAdmin()">Acessar Painel</button>
+<p style="text-align:center; margin-top:15px; cursor:pointer; color:var(--amarelo); font-size:0.9rem;" onclick="alternarLogin()">Voltar para Área do Aluno</p>
+</div>
+</section>
+</div>
+
+<!-- PAINEL DO ALUNO (Escondido inicialmente) -->
+<section id="dashboard-aluno" class="hidden">
+    <div class="dashboard-header">
+        <h2 id="aluno-welcome">Bem-vindo, Aluno</h2>
+        <button class="btn-sair" onclick="voltarParaHome()" style="background:var(--azul); margin-right:10px;">Voltar ao Site</button>
+        <button class="btn-sair" onclick="sairSistema()">Sair</button>
+    </div>
+    
+    <div class="form-box">
+        <h3>Registrar Nova Entrega</h3>
+        <div class="form-group">
+            <label>Material</label>
+            <select id="materialAluno">
+                <option value="Latinhas">Latinhas</option>
+                <option value="Papelão">Papelão</option>
+                <option value="Tampinhas">Tampinhas</option>
+                <option value="Óleo">Óleo</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Quantidade (kg ou litros)</label>
+            <input type="number" id="qtdAluno">
+        </div>
+        <button onclick="adicionarMaterialAluno()">Enviar</button>
+    </div>
+
+    <div class="resumo-box">
+        <h3>Sua Contribuição Total</h3>
+        <p>Você já reciclou <span id="aluno-total-qtd">0</span> kg/L</p>
+    </div>
+
+    <h3 style="margin-top:40px;">Meus Registros</h3>
+    <table id="tabela-aluno">
+        <thead><tr><th>Material</th><th>Qtd</th><th>Status</th></tr></thead>
+        <tbody></tbody>
+    </table>
+</section>
+
+<!-- PAINEL DO ADMIN (Escondido inicialmente) -->
+<section id="dashboard-admin" class="hidden">
+    <div class="dashboard-header">
+        <h2>Painel Administrativo</h2>
+        <button class="btn-sair" onclick="voltarParaHome()" style="background:var(--azul); margin-right:10px;">Voltar ao Site</button>
+        <button class="btn-sair" onclick="sairSistema()">Sair</button>
+    </div>
+    <table id="tabela-admin">
+        <thead><tr><th>Data</th><th>Aluno (Turma)</th><th>Material</th><th>Qtd</th><th>Ações</th></tr></thead>
+        <tbody></tbody>
+    </table>
+</section>
+
+<!-- TELA DE RANKINGS (Acessível pelo menu) -->
+<section id="rankings" class="hidden">
+    <div class="dashboard-header">
+        <h2>🏆 Rankings do Projeto</h2>
+        <button class="btn-sair" onclick="voltarParaHome()">Voltar</button>
+    </div>
+    <div class="ranking-box">
+        <h2 style="color:var(--amarelo); margin-bottom:20px;">👑 Top 3 Turmas</h2>
+        <div class="ranking-grid" id="ranking-container"></div>
+    </div>
+    <div class="ranking-box" style="margin-top: 50px;">
+        <h2 style="color:var(--amarelo); margin-bottom:20px;">🏆 Top Contribuintes</h2>
+        <div class="ranking-grid" id="ranking-individual-container"></div>
+    </div>
+</section>
+
+<footer>
+SennaRecicla © 2026 | Inspirado na determinação de Ayrton Senna
+</footer>
+
+<script>
+function openMenu(){
+document.getElementById("menu").classList.add("active");
+}
+function closeMenu(){
+document.getElementById("menu").classList.remove("active");
+}
+
+function navegarMenu(id) {
+    closeMenu();
+    voltarParaHome();
+    setTimeout(() => {
+        const el = document.getElementById(id);
+        if(el) el.scrollIntoView({behavior: "smooth"});
+    }, 100);
+}
+
+// SIMULAÇÃO DE SISTEMA
+let usuarioAtual = null;
+
+// Carrega dados salvos ou inicia lista vazia
+let registros = JSON.parse(localStorage.getItem('sennaRegistros')) || [];
+let usuarios = JSON.parse(localStorage.getItem('sennaUsuarios')) || [];
+
+// Tabela de Preços
+const precos = {
+    "Latinhas": 5.50,
+    "Papelão": 0.50,
+    "Tampinhas": 2.00,
+    "Óleo": 1.50
+};
+
+// Inicializa o Placar Geral ao carregar a página
+atualizarTotalGeral();
+atualizarRanking();
+atualizarRankingIndividual();
+verificarLogin();
+
+function atualizarTotalGeral() {
+    let total = registros.reduce((acc, item) => acc + parseFloat(item.qtd), 0);
+    document.getElementById("valor-total-geral").innerText = total.toFixed(1).replace('.', ',') + " kg";
+}
+
+function voltarParaHome() {
+    // Esconde todos os paineis/dashboards
+    document.getElementById("dashboard-admin").classList.add("hidden");
+    document.getElementById("dashboard-aluno").classList.add("hidden");
+    document.getElementById("rankings").classList.add("hidden");
+
+    // Mostra o conteúdo principal
+    document.getElementById("main-content").classList.remove("hidden");
+    document.querySelector(".hero").classList.remove("hidden");
+}
+
+function alternarLogin() {
+    document.getElementById("aluno-login").classList.toggle("hidden");
+    document.getElementById("admin-login").classList.toggle("hidden");
+}
+
+function mostrarLogin(tipo) {
+    closeMenu();
+    if(tipo === 'admin') {
+        document.getElementById("aluno-login").classList.add("hidden");
+        document.getElementById("admin-login").classList.remove("hidden");
+    } else {
+        document.getElementById("aluno-login").classList.remove("hidden");
+        document.getElementById("admin-login").classList.add("hidden");
+    }
+}
+
+function mostrarRankings() {
+    closeMenu();
+    document.getElementById("main-content").classList.add("hidden");
+    document.querySelector(".hero").classList.add("hidden");
+    document.getElementById("dashboard-admin").classList.add("hidden");
+    document.getElementById("dashboard-aluno").classList.add("hidden");
+    document.getElementById("rankings").classList.remove("hidden");
+    window.scrollTo(0,0);
+}
+
+function verificarLogin() {
+    const sessao = localStorage.getItem('sennaUsuarioLogado');
+    if(sessao) {
+        const user = JSON.parse(sessao);
+        usuarioAtual = user.nome;
+        
+        // Atualiza UI da Home
+        document.getElementById('box-login').classList.add('hidden');
+        document.getElementById('box-cadastro').classList.add('hidden');
+        document.getElementById('box-logged-in').classList.remove('hidden');
+        document.getElementById('user-name-display').innerText = user.nome;
+
+        // Prepara Dashboard
+        document.getElementById("aluno-welcome").innerText = "Bem-vindo, " + user.nome;
+        renderizarAluno();
+        document.getElementById('menu-rankings').classList.remove('hidden');
+    }
+}
+
+function abrirDashboard() {
+    if(!usuarioAtual) return;
+    
+    document.getElementById("main-content").classList.add("hidden");
+    document.querySelector(".hero").classList.add("hidden");
+    
+    // Garante que ambos os painéis comecem ocultos para evitar sobreposição
+    document.getElementById("dashboard-admin").classList.add("hidden");
+    document.getElementById("dashboard-aluno").classList.add("hidden");
+    document.getElementById("rankings").classList.add("hidden");
+    
+    if(usuarioAtual === "Admin") {
+        document.getElementById("dashboard-admin").classList.remove("hidden");
+        renderizarAdmin();
+    } else {
+        document.getElementById("dashboard-aluno").classList.remove("hidden");
+        renderizarAluno();
+    }
+    window.scrollTo(0,0);
+}
+
+function entrarAdmin() {
+    const senha = document.getElementById("senhaAdmin").value;
+    if(senha === "1234") {
+        const user = {nome: 'Admin'};
+        usuarioAtual = user.nome;
+        localStorage.setItem('sennaUsuarioLogado', JSON.stringify(user));
+        
+        verificarLogin();
+        abrirDashboard();
+    } else {
+        alert("Senha incorreta!");
+    }
+}
+
+function toggleAuth(mode) {
+    if(mode === 'cadastro') {
+        document.getElementById('box-login').classList.add('hidden');
+        document.getElementById('box-cadastro').classList.remove('hidden');
+    } else {
+        document.getElementById('box-login').classList.remove('hidden');
+        document.getElementById('box-cadastro').classList.add('hidden');
+    }
+}
+
+function fazerCadastro() {
+    const numero = document.getElementById("cadNumero").value;
+    const nome = document.getElementById("cadNome").value;
+    const ano = document.getElementById("cadAno").value;
+    const turma = document.getElementById("cadTurma").value;
+    const senha = document.getElementById("cadSenha").value;
+
+    if(!numero || !nome || !senha) {
+        alert("Preencha todos os campos!");
+        return;
+    }
+
+    if(usuarios.find(u => u.numero === numero)) {
+        alert("Usuário já cadastrado com este número!");
+        return;
+    }
+
+    usuarios.push({ numero, nome, ano, turma, senha });
+    localStorage.setItem('sennaUsuarios', JSON.stringify(usuarios));
+    
+    alert("Cadastro realizado com sucesso! Faça login.");
+    toggleAuth('login');
+    alert("Cadastro realizado com sucesso! Entrando...");
+    
+    // Auto-login após cadastro
+    const user = { numero, nome, ano, turma, senha };
+    usuarioAtual = user.nome;
+    localStorage.setItem('sennaUsuarioLogado', JSON.stringify(user));
+    
+    verificarLogin();
+    abrirDashboard();
+}
+
+function fazerLogin() {
+    const numero = document.getElementById("loginNumero").value;
+    const senha = document.getElementById("loginSenha").value;
+
+    const user = usuarios.find(u => u.numero === numero && u.senha === senha);
+
+    if(user) {
+        usuarioAtual = user.nome;
+        localStorage.setItem('sennaUsuarioLogado', JSON.stringify(user));
+        
+        verificarLogin();
+        abrirDashboard();
+    } else {
+        alert("Número ou senha incorretos!");
+    }
+}
+
+function sairSistema() {
+    usuarioAtual = null;
+    localStorage.removeItem('sennaUsuarioLogado');
+    voltarParaHome(); // Oculta paineis e mostra a home
+    
+    // Reseta os campos
+    document.getElementById("loginNumero").value = "";
+    document.getElementById("loginSenha").value = "";
+    document.getElementById("senhaAdmin").value = "";
+    
+    // Garante que volta para o login de aluno
+    document.getElementById("aluno-login").classList.remove("hidden");
+    document.getElementById("admin-login").classList.add("hidden");
+    toggleAuth('login');
+    
+    // Reseta UI de Logged In
+    document.getElementById('box-logged-in').classList.add('hidden');
+    document.getElementById('menu-rankings').classList.add('hidden');
+}
+
+// Lógica do Aluno
+function adicionarMaterialAluno() {
+    const material = document.getElementById("materialAluno").value;
+    const qtd = document.getElementById("qtdAluno").value;
+    
+    if(qtd <= 0) { alert("Quantidade inválida"); return; }
+
+    // Calcula o valor (mantido internamente, mas não exibido)
+    const valorTotal = (parseFloat(qtd) * precos[material]).toFixed(2);
+
+    // Cria novo registro
+    const novoRegistro = {
+        id: Date.now(), // ID único baseado no tempo
+        aluno: usuarioAtual,
+        material: material,
+        valor: valorTotal,
+        qtd: parseFloat(qtd),
+        data: new Date().toLocaleDateString()
+    };
+
+    registros.push(novoRegistro);
+    salvarDados();
+    
+    alert(`Sucesso! Você registrou ${qtd} de ${material}.`);
+    document.getElementById("qtdAluno").value = "";
+    renderizarAluno();
+    atualizarTotalGeral(); // Atualiza o placar da home também
+    atualizarRanking(); // Atualiza o ranking
+    atualizarRankingIndividual();
+}
+
+function renderizarAluno() {
+    const tbody = document.querySelector("#tabela-aluno tbody");
+    tbody.innerHTML = "";
+
+    // Filtra apenas os registros do aluno logado
+    const meusRegistros = registros.filter(r => r.aluno === usuarioAtual);
+    
+    // Calcula totais do aluno
+    let totalQtd = 0;
+
+    meusRegistros.forEach(r => {
+        totalQtd += parseFloat(r.qtd);
+        
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${r.material}</td><td>${r.qtd}</td><td>Registrado</td>`;
+        tbody.appendChild(tr);
+    });
+
+    // Atualiza o card de resumo
+    document.getElementById("aluno-total-qtd").innerText = totalQtd.toFixed(1);
+}
+
+// Lógica do Admin
+function renderizarAdmin() {
+    const tbody = document.querySelector("#tabela-admin tbody");
+    tbody.innerHTML = "";
+
+    registros.forEach(r => {
+        // Busca dados do usuário para mostrar a turma
+        const user = usuarios.find(u => u.nome === r.aluno) || { turma: "?", ano: "?" };
+        
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${r.data}</td>
+            <td>${r.aluno} <small>(${user.ano} ${user.turma})</small></td>
+            <td>${r.material}</td>
+            <td>${r.qtd}</td>
+            <td>
+                <button class="btn-edit" onclick="editarRegistro(${r.id})">Editar</button>
+                <button class="btn-delete" onclick="excluirRegistro(${r.id})">Excluir</button>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+function editarRegistro(id) {
+    const registro = registros.find(r => r.id === id);
+    if(registro) {
+        let novaQtd = prompt("Nova quantidade para " + registro.material + ":", registro.qtd);
+        if(novaQtd !== null && novaQtd.trim() !== "") {
+            registro.qtd = parseFloat(novaQtd);
+            // Recalcula o valor ao editar
+            registro.valor = (registro.qtd * precos[registro.material]).toFixed(2);
+            salvarDados();
+            renderizarAdmin();
+            atualizarTotalGeral();
+            atualizarRanking();
+            atualizarRankingIndividual();
+        }
+    }
+}
+
+function excluirRegistro(id) {
+    if(confirm("Tem certeza que deseja apagar este registro?")) {
+        registros = registros.filter(r => r.id !== id);
+        salvarDados();
+        renderizarAdmin();
+        atualizarTotalGeral();
+        atualizarRanking();
+        atualizarRankingIndividual();
+    }
+}
+
+function salvarDados() {
+    localStorage.setItem('sennaRegistros', JSON.stringify(registros));
+}
+
+function atualizarRanking() {
+    let turmas = {};
+
+    // Agrupa valores por turma
+    registros.forEach(r => {
+        let user = usuarios.find(u => u.nome === r.aluno);
+        if (user) {
+            let nomeTurma = user.ano + ' ' + user.turma;
+            if (!turmas[nomeTurma]) turmas[nomeTurma] = 0;
+            turmas[nomeTurma] += parseFloat(r.qtd);
+        }
+    });
+
+    // Converte para array e ordena
+    let rankingArray = Object.keys(turmas).map(key => {
+        return { turma: key, total: turmas[key] };
+    }).sort((a, b) => b.total - a.total).slice(0, 3); // Pega top 3
+
+    const container = document.getElementById("ranking-container");
+    container.innerHTML = "";
+
+    if (rankingArray.length === 0) {
+        container.innerHTML = "<p>Nenhuma doação registrada ainda.</p>";
+        return;
+    }
+
+    rankingArray.forEach((item, index) => {
+        let classeExtra = index === 0 ? "top1" : "";
+        let html = `
+            <div class="rank-card ${classeExtra}">
+                <span class="rank-pos">${index + 1}º</span>
+                <span class="rank-turma">${item.turma}</span>
+                <span class="rank-valor">${item.total.toFixed(1).replace('.', ',')} kg</span>
+            </div>
+        `;
+        container.innerHTML += html;
+    });
+}
+
+function atualizarRankingIndividual() {
+    let pessoas = {};
+
+    // Agrupa valores por pessoa
+    registros.forEach(r => {
+        let nomePessoa = r.aluno;
+        if (!pessoas[nomePessoa]) pessoas[nomePessoa] = 0;
+        pessoas[nomePessoa] += parseFloat(r.qtd);
+    });
+
+    // Converte para array, ordena e pega os top 5
+    let rankingArray = Object.keys(pessoas).map(key => {
+        return { nome: key, total: pessoas[key] };
+    }).sort((a, b) => b.total - a.total).slice(0, 5);
+
+    const container = document.getElementById("ranking-individual-container");
+    container.innerHTML = "";
+
+    if (rankingArray.length === 0) {
+        container.innerHTML = "<p>Nenhuma doação registrada ainda.</p>";
+        return;
+    }
+
+    rankingArray.forEach((item, index) => {
+        let classeExtra = index === 0 ? "top1" : "";
+        // Reutilizando a estrutura do card de ranking de turma
+        let html = `
+            <div class="rank-card ${classeExtra}">
+                <span class="rank-pos">${index + 1}º</span>
+                <span class="rank-turma">${item.nome}</span>
+                <span class="rank-valor">${item.total.toFixed(1).replace('.', ',')} kg</span>
+            </div>
+        `;
+        container.innerHTML += html;
+    });
+}
+</script>
+
+</body>
+</html>
