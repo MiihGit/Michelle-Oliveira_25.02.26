@@ -1,890 +1,1889 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SennaRecicla | A Vitória é Sustentável</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senna Recicla</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --amarelo:#FFD700;
+            --verde:#008751;
+            --azul:#002776;
+            --preto:#0a0a0a;
+            --cinza:#1a1a1a;
+        }
 
-<style>
-:root{
---amarelo:#FFD700;
---verde:#008751;
---azul:#002776;
---preto:#0a0a0a;
---cinza:#1a1a1a;
-}
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+        body{background:var(--preto);color:#fff;}
 
-body{background:var(--preto);color:#fff;}
+        /* NAV */
+        .nav-bar{
+            position:fixed;
+            top:0;
+            width:100%;
+            padding:15px 5%;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            background:rgba(0,0,0,.9);
+            border-bottom:2px solid var(--verde);
+            z-index:1000;
+        }
 
-/* NAV */
-.nav-bar{
-position:fixed;
-top:0;
-width:100%;
-padding:15px 5%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-background:rgba(0,0,0,.9);
-border-bottom:2px solid var(--verde);
-z-index:1000;
-}
+        .logo{font-weight:900;font-style:italic;font-size:1.3rem; cursor: pointer;}
+        .logo span{color:var(--amarelo);}
 
-.logo{font-weight:900;font-style:italic;font-size:1.3rem;}
-.logo span{color:var(--amarelo);}
+        .menu-btn{
+            font-size:1.8rem;
+            cursor:pointer;
+            color:var(--amarelo);
+            padding:10px;
+        }
 
-.menu-btn{
-font-size:1.8rem;
-cursor:pointer;
-color:var(--amarelo);
-padding:10px;
-}
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        #nav-user-greeting {
+            color: #ccc;
+        }
+        #nav-user-greeting span {
+            color: var(--amarelo);
+            font-weight: bold;
+        }
 
-/* SIDEBAR */
-.sidebar{
-position:fixed;
-top:0;
-right:-260px;
-width:250px;
-height:100%;
-background:#111;
-padding:80px 20px;
-transition:.4s;
-z-index:2000;
-border-left:3px solid var(--verde);
-overflow-y:auto;
-}
+        /* SIDEBAR */
+        .sidebar{
+            position:fixed;
+            top:0;
+            right:-260px;
+            width:250px;
+            height:100%;
+            background:#111;
+            padding:80px 20px;
+            transition:.4s;
+            z-index:2000;
+            border-left:3px solid var(--verde);
+            overflow-y:auto;
+        }
 
-.sidebar a{
-display:block;
-color:#fff;
-text-decoration:none;
-padding:20px 0;
-border-bottom:1px solid #222;
-font-weight:bold;
-line-height:1.5;
-}
+        .sidebar a{
+            display:block;
+            color:#fff;
+            text-decoration:none;
+            padding:20px 0;
+            border-bottom:1px solid #222;
+            font-weight:bold;
+            line-height:1.5;
+            cursor: pointer;
+        }
 
-.sidebar a:hover{color:var(--amarelo);}
+        .sidebar a:hover{color:var(--amarelo);}
 
-.sidebar.active{right:0;}
+        .sidebar.active{right:0;}
 
-.close-btn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 1.8rem;
-    cursor: pointer;
-    color: var(--amarelo);
-    padding: 10px;
-}
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--amarelo);
+            padding: 10px;
+        }
 
-/* HERO */
-.hero{
-height:85vh;
-background-color: var(--cinza);
-animation: heroCarousel 15s infinite;
-display:flex;
-align-items:center;
-justify-content:space-around;
-padding:0 10%;
-margin-top:60px;
-}
+        /* HERO */
+        .hero{
+            height:85vh;
+            background-color: var(--cinza);
+            animation: heroCarousel 15s infinite;
+            display:flex;
+            flex-direction: column;
+            align-items:center;
+            justify-content:center;
+            text-align: center;
+            padding:0 10%;
+            margin-top:80px; /* Ajustado para o menu fixo */
+        }
 
-@keyframes heroCarousel {
-    0%, 30% { background: linear-gradient(to top,var(--preto),transparent), url('https://wallpapercave.com/wp/QgdjgGZ.jpg') center/cover no-repeat; }
-    33%, 63% { background: linear-gradient(to top,var(--preto),transparent), url('https://wallpapercave.com/wp/QgdjgGZ.jpg') center/cover no-repeat; }
-    66%, 100% { background: linear-gradient(to top,var(--preto),transparent), url('https://wallpapercave.com/wp/QgdjgGZ.jpg') center/cover no-repeat; }
-}
+        @keyframes heroCarousel {
+            0%, 100% { background: linear-gradient(to top,var(--preto),transparent), url('https://wallpapercave.com/wp/QgdjgGZ.jpg') center/cover no-repeat; }
+        }
 
-.hero-content{max-width:500px;}
-.hero-content h1{
-font-size:3.5rem;
-font-style:italic;
-margin-bottom:20px;
-}
-.hero-content span{color:var(--amarelo);}
+        .hero-content{max-width:500px;}
+        .hero-content h1{
+            font-size:3.5rem;
+            font-style:italic;
+            margin-bottom:20px;
+        }
+        .hero-content span{color:var(--amarelo);}
 
-.senna-img{
-height:350px;
-border-radius:20px;
-box-shadow:0 0 30px var(--amarelo);
-}
+        .senna-img{
+            height:350px;
+            border-radius:20px;
+            box-shadow:0 0 30px var(--amarelo);
+            margin-top: 40px;
+        }
 
-/* SECTIONS */
-section{padding:80px 10%;}
-.section-title{
-margin-bottom:40px;
-border-left:8px solid var(--verde);
-padding-left:15px;
-}
+        /* ESTILOS PARA SEÇÃO 'SOBRE' */
+        .sobre-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        .sobre-content img {
+            max-width: 250px;
+            border-radius: 15px;
+        }
+        .sobre-texto p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
 
-/* PRODUTOS */
-.grid{
-display:grid;
-grid-template-columns:repeat(4, 1fr);
-gap:15px;
-}
+        /* SECTIONS */
+        section{padding:80px 10%;}
+        .section-title{
+            margin-bottom:40px;
+            border-left:8px solid var(--verde);
+            padding-left:15px;
+        }
 
-.card{
-background:var(--cinza);
-border-radius:15px;
-overflow:hidden;
-transition:.3s;
-}
+        /* PRODUTOS */
+        .grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+            gap:15px;
+        }
 
-.card:hover{transform:scale(1.05);}
+        .card{
+            background:var(--cinza);
+            border-radius:15px;
+            overflow:hidden;
+            transition:.3s;
+        }
 
-.card img{
-width:100%;
-height:140px;
-object-fit:cover;
-}
+        .card:hover{transform:scale(1.05);}
 
-.card-info{padding:15px;}
-.card-info h3{color:var(--amarelo);margin-bottom:10px;}
-.card-info p{margin-bottom:15px;font-size:0.9rem;color:#ddd;}
-.card-info .preco{color:var(--verde);font-weight:bold;font-size:1.1rem;margin-bottom:0;}
+        .card img{
+            width:100%;
+            height:140px;
+            object-fit:cover;
+        }
 
-/* FORM */
-.form-box{
-background:var(--cinza);
-padding:40px;
-border-radius:20px;
-max-width:600px;
-margin:auto;
-}
+        .card-info{padding:15px;}
+        .card-info h3{color:var(--amarelo);margin-bottom:10px;}
+        .card-info p{margin-bottom:15px;font-size:0.9rem;color:#ddd;}
+        .card-info .preco{color:var(--verde);font-weight:bold;font-size:1.1rem;margin-bottom:0;}
 
-.form-group{margin-bottom:20px;}
+        /* FORMULÁRIOS E AUTENTICAÇÃO */
+        .auth-container, .dashboard {
+            min-height: 100vh;
+        }
+        .form-box, .auth-box{
+            background:var(--cinza);
+            padding:40px;
+            border-radius:20px;
+            max-width:600px;
+            margin:auto;
+        }
+        .auth-box h2, .form-box h2 { margin-bottom: 20px; }
+        .auth-box p { margin-bottom: 20px; color: #ccc; }
+        .auth-footer { margin-top: 20px; text-align: center; }
+        .auth-footer a { color: var(--amarelo); text-decoration: none; }
 
-label{display:block;margin-bottom:8px;color:var(--amarelo);}
+        .form-group, .input-group {margin-bottom:20px;}
 
-input,select{
-width:100%;
-padding:12px;
-border-radius:8px;
-border:1px solid #333;
-background:#222;
-color:white;
-}
+        label{display:block;margin-bottom:8px;color:var(--amarelo);}
 
-button{
-width:100%;
-padding:15px;
-background:var(--amarelo);
-border:none;
-border-radius:8px;
-font-weight:900;
-cursor:pointer;
-}
+        input,select{
+            width:100%;
+            padding:12px;
+            border-radius:8px;
+            border:1px solid #333;
+            background:#222;
+            color:white;
+            font-size: 1rem;
+        }
 
-button:hover{background:var(--verde);color:white;}
+        button{
+            width:100%;
+            padding:15px;
+            background:var(--amarelo);
+            border:none;
+            border-radius:8px;
+            font-weight:900;
+            cursor:pointer;
+            font-size: 1rem;
+            color: var(--preto);
+        }
 
-.hidden {display:none !important;}
+        button:hover{background:var(--verde);color:white;}
+        .btn-secondary { background: #555; color: white; margin-top: 10px; }
+        .btn-secondary:hover { background: #444; }
 
-/* Corrige o corte do conteúdo atrás do menu fixo */
-#dashboard-aluno, #dashboard-admin, #rankings {
-    padding-top: 120px;
-}
+        .password-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .password-wrapper i {
+            position: absolute;
+            right: 15px;
+            cursor: pointer;
+            color: #888;
+        }
 
-.dashboard-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-}
+        .hidden {display:none !important;}
 
-.btn-sair { background: #333; width: auto; padding: 10px 20px; }
-.btn-sair:hover { background: #cc0000; }
+        /* Corrige o corte do conteúdo atrás do menu fixo */
+        #dashboard-aluno, #dashboard-admin, #dashboard-professor, #rankings, #area-acesso, #aluno-auth, #professor-auth, #admin-auth {
+            padding-top: 120px;
+        }
 
-table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #222; border-radius: 10px; overflow: hidden; }
-th, td { padding: 15px; text-align: left; border-bottom: 1px solid #333; }
-th { background: var(--verde); color: white; }
-tr:hover { background: #2a2a2a; }
+        /* DASHBOARDS */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .dashboard-card {
+            background: var(--cinza);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
 
-.action-btn { background: var(--azul); padding: 5px 10px; font-size: 0.8rem; width: auto; }
-.btn-edit { background: var(--amarelo); color: black; margin-right: 5px; cursor: pointer; border:none; padding:5px 10px; border-radius:4px;}
-.btn-delete { background: #cc0000; color: white; cursor: pointer; border:none; padding:5px 10px; border-radius:4px;}
-.saldo-destaque { font-size: 1.5rem; color: var(--amarelo); font-weight: bold; margin: 20px 0; }
+        .btn-sair { background: #333; width: auto; padding: 10px 20px; }
+        .btn-sair:hover { background: #cc0000; }
 
-/* NOVOS ESTILOS */
-.placar-banner { 
-    background: linear-gradient(to right, #111, #222); 
-    padding: 15px 40px; 
-    border-radius: 50px; 
-    border: 1px solid var(--verde); 
-    margin: 0 auto 60px auto; 
-    width: fit-content; 
-    text-align: center;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-}
-.placar-banner p { display:inline-block; margin-right:10px; color:#ccc; font-size: 1rem; }
-.placar-banner h2 { display:inline-block; color: var(--amarelo); font-size: 1.5rem; margin: 0; vertical-align: middle;}
-.resumo-box { background: var(--azul); padding: 20px; border-radius: 10px; margin: 20px 0; text-align: center; border: 1px solid #ffffff33; }
-.resumo-box span { font-weight: 900; color: var(--amarelo); font-size: 1.4rem; }
+        /* ABAS DO ADMIN */
+        .admin-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .tab-btn { background: #333; color: #ccc; border: 1px solid #444; flex: 1; text-align: center; padding: 15px; border-radius: 10px; cursor: pointer; font-weight: bold; }
+        .tab-btn.active { background: var(--amarelo); color: var(--preto); border-color: var(--amarelo); }
+        .tab-btn:hover:not(.active) { background: #444; }
 
-/* RANKING */
-.ranking-box { text-align: center; margin-bottom: 60px; }
-.ranking-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 20px; padding-top: 20px; }
-.rank-card { background: #222; padding: 20px; border-radius: 15px; width: 200px; border: 1px solid #333; position: relative; margin-bottom: 20px; }
-.rank-card.top1 { border: 2px solid var(--amarelo); transform: scale(1.1); z-index: 10; background: linear-gradient(to bottom, #222, #1a1a00); margin-top: 10px; }
-.rank-pos { font-size: 3rem; font-weight: 900; color: #444; position: absolute; top: -20px; left: 10px; opacity: 0.5; }
-.rank-card.top1 .rank-pos { color: var(--amarelo); opacity: 1; }
-.rank-turma { font-size: 1.2rem; font-weight: bold; margin-top: 10px; display: block; }
-.rank-valor { color: var(--verde); font-weight: bold; font-size: 1.1rem; }
+        .admin-section { display: none; }
+        .admin-section.active-section { display: block; animation: fadeIn 0.3s ease; }
 
-/* FOOTER */
-footer{
-background:#000;
-padding:40px;
-text-align:center;
-color:#777;
-border-top:2px solid var(--verde);
-}
+        .tabela-geral { width: 100%; border-collapse: collapse; margin-top: 20px; background: #222; border-radius: 10px; overflow: hidden; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #333; }
+        th { background: var(--verde); color: white; }
+        tr:hover { background: #2a2a2a; }
+        td small { color: #888; }
 
-/* RESPONSIVO */
-@media(max-width:768px){
-.hero{flex-direction:column;text-align:center;height:auto;padding:50px 20px;}
-.senna-img{height:250px;margin-top:20px;}
-.grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));}
-.hero-content h1{font-size:2.3rem;}
-}
-</style>
+        .btn-edit { background: var(--amarelo); color: black; margin-right: 5px; cursor: pointer; border:none; padding:8px 12px; border-radius:4px; font-size: 0.8rem;}
+        .btn-delete { background: #cc0000; color: white; margin-right: 5px; cursor: pointer; border:none; padding:8px 12px; border-radius:4px; font-size: 0.8rem;}
+        .btn-reset { background: var(--azul); color: white; margin-right: 5px; cursor: pointer; border:none; padding:8px 12px; border-radius:4px; font-size: 0.8rem;}
+        
+        /* Botões de Sub-abas Admin */
+        .btn-sub-tab { background: #333; color: #ccc; flex: 1; border: 1px solid #555; padding: 10px; cursor: pointer; border-radius: 8px; font-weight: bold; transition: 0.3s; }
+        .btn-sub-tab.active { background: var(--verde); color: white; border-color: var(--verde); }
+        
+        .resumo-box { background: var(--azul); padding: 20px; border-radius: 10px; margin: 20px 0; text-align: center; border: 1px solid #ffffff33; }
+        .resumo-box p { margin-bottom: 10px; }
+        .resumo-box span { font-weight: 900; color: var(--amarelo); font-size: 1.8rem; }
+
+        /* PLACAR E RANKING */
+        .placar-banner { 
+            background: linear-gradient(to right, #111, #222); 
+            padding: 15px 40px; 
+            border-radius: 50px; 
+            border: 1px solid var(--verde); 
+            margin: 0 auto 60px auto; 
+            width: fit-content; 
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+        .placar-banner p { display:inline-block; margin-right:10px; color:#ccc; font-size: 1rem; }
+        .placar-banner h2 { display:inline-block; color: var(--amarelo); font-size: 1.5rem; margin: 0; vertical-align: middle;}
+        
+        .ranking-box { text-align: center; margin-bottom: 60px; }
+        .ranking-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 20px; padding-top: 20px; }
+        .rank-card { background: #222; padding: 20px; border-radius: 15px; width: 220px; border: 1px solid #333; position: relative; margin-bottom: 20px; }
+        .rank-card.top1 { border: 2px solid var(--amarelo); transform: scale(1.1); z-index: 10; background: linear-gradient(to bottom, #222, #1a1a00); }
+        .rank-pos { font-size: 3rem; font-weight: 900; color: #444; position: absolute; top: -20px; left: 10px; opacity: 0.5; }
+        .rank-card.top1 .rank-pos { color: var(--amarelo); opacity: 1; }
+        .rank-turma { font-size: 1.2rem; font-weight: bold; margin-top: 10px; display: block; }
+        .rank-valor { color: var(--verde); font-weight: bold; font-size: 1.1rem; }
+
+        /* FOOTER */
+        footer{
+            background:#000;
+            padding:40px;
+            text-align:center;
+            color:#777;
+            border-top:2px solid var(--verde);
+        }
+
+        /* RESPONSIVO */
+        @media(max-width:768px){
+            .hero{flex-direction:column;text-align:center;height:auto;padding:50px 20px;}
+            .senna-img{height:250px;margin-top:20px;}
+            .grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));}
+            .hero-content h1{font-size:2.3rem;}
+            section{padding:80px 5%;}
+            .sobre-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<nav class="nav-bar">
-<div class="logo">SENNA<span>RECICLA</span></div>
-<div class="menu-btn" onclick="openMenu()">☰</div>
-</nav>
-
-<div class="sidebar" id="menu">
-<span class="close-btn" onclick="closeMenu()">✖</span>
-<a href="#" onclick="navegarMenu('sobre'); return false;">Sobre Nós</a>
-<a href="#" onclick="navegarMenu('produtos'); return false;">Produtos</a>
-<a href="#rankings" id="menu-rankings" class="hidden" onclick="mostrarRankings()">Rankings</a>
-<a href="#aluno-login" onclick="mostrarLogin('aluno')">Área do Aluno</a>
-<a href="#admin-login" onclick="mostrarLogin('admin')">Área do Administrador</a>
-</div>
-
-<section class="hero">
-<div class="hero-content">
-<h1>RUMO À <span>VITÓRIA</span></h1>
-<p>Inspirado em Ayrton Senna, transformamos reciclagem em conquista.</p>
-</div>
-</section>
-
-<div id="main-content">
-<section id="sobre">
-<h2 class="section-title">Sobre Nós</h2>
-<p>Fundada com o compromisso de formar cidadãos conscientes, nossa escola sempre buscou ir além da sala de aula. Com tradição em ensino de qualidade, acreditamos que a educação é o motor para transformar a sociedade e construir um futuro mais verde e promissor.</p>
-<br>
-<p>O projeto <strong>SennaRecicla</strong> nasceu da união entre a necessidade de arrecadar fundos para a formatura e a urgência de cuidar do nosso planeta. Inspirados pela garra e determinação de Ayrton Senna, nossos alunos competem de forma saudável para ver quem arrecada mais materiais recicláveis. Cada lata, papel ou plástico recolhido é uma vitória para o meio ambiente e um passo a mais rumo à nossa grande celebração.</p>
-</section>
-
-<section id="conscientizacao">
-<h2 class="section-title">Conscientização Ambiental</h2>
-<div style="display:flex; flex-wrap:wrap; gap:30px; align-items:center;">
-<img src="https://www.dgitais.com/wp-content/uploads/2023/09/consciencia-ambiental-nas-empresas.jpg" style="width:100%; max-width:500px; border-radius:15px; flex:1;">
-<div style="flex:1; min-width:300px;">
-<p>A reciclagem é um ato de amor ao próximo e ao planeta. Cada material que você separa deixa de poluir rios e solos, economiza água e energia na produção de novos itens e gera emprego e renda.</p>
-<br>
-<p><strong>Pequenas atitudes, grandes impactos:</strong></p>
-<ul style="margin-left:20px; margin-top:10px; color:#ccc; line-height:1.6;">
-<li>1 latinha de alumínio reciclada economiza energia para manter uma TV ligada por 3 horas.</li>
-<li>Reciclar papel evita o corte de árvores e economiza milhares de litros de água.</li>
-<li>O plástico (como o das tampinhas) pode levar mais de 400 anos para se decompor se descartado incorretamente.</li>
-</ul>
-</div>
-</div>
-</section>
-
-<div class="placar-banner">
-    <p>Total Reciclado:</p>
-    <h2 id="valor-total-geral">0 kg</h2>
-</div>
-
-<section id="produtos">
-<h2 class="section-title">Materiais Recicláveis</h2>
-<div class="grid">
-
-<div class="card">
-<img src="https://www.projetodraft.com/wp-content/uploads/2023/11/Sustentabilidade-na-lata.jpg">
-<div class="card-info">
-<h3>Latinhas</h3>
-<p>Latas de alumínio limpas e amassadas.</p>
-</div>
-</div>
-
-<div class="card">
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq1IsMZzNXcGxm_7txNSxZvY3TjpXSUaf3Uw&s">
-<div class="card-info">
-<h3>Papelão</h3>
-<p>Caixas desmontadas, secas e sem fitas.</p>
-</div>
-</div>
-
-<div class="card">
-<img src="https://www.reciclasampa.com.br/imgs/conteudos/10_projeto_coleta_tampinhas_e_ajuda_criancas_com_cancer_padrao.jpg">
-<div class="card-info">
-<h3>Tampinhas</h3>
-<p>Tampinhas plásticas de garrafas e embalagens.</p>
-</div>
-</div>
-
-<div class="card">
-<img src="https://media.istockphoto.com/id/1311288065/pt/foto/industrial-waste-oil-container.jpg?s=612x612&w=0&k=20&c=2OCVNi0swG9Yyy8Mt7fqYxM6eoFOqAFM0RBlrpHyj2I=">
-<div class="card-info">
-<h3>Óleo de Cozinha</h3>
-<p>Óleo usado armazenado em garrafas PET.</p>
-</div>
-</div>
-
-</div>
-</section>
-
-<section id="aluno-login">
-<h2 class="section-title">Área do Aluno</h2>
-
-<!-- LOGIN FORM -->
-<div class="form-box" id="box-login">
-<div class="form-group">
-<label>Telefone</label>
-<input type="number" id="loginNumero" placeholder="Digite seu telefone">
-</div>
-<div class="form-group">
-<label>Senha</label>
-<input type="password" id="loginSenha" placeholder="Digite sua senha">
-</div>
-<button onclick="fazerLogin()">Entrar</button>
-<p style="text-align:center; margin-top:15px; cursor:pointer; color:var(--amarelo); font-size:0.9rem;" onclick="toggleAuth('cadastro')">Não tem conta? Cadastre-se</p>
-<p style="text-align:center; margin-top:10px; cursor:pointer; color:var(--amarelo); font-size:0.9rem;" onclick="alternarLogin()">Sou Administrador</p>
-</div>
-
-<!-- LOGGED IN VIEW -->
-<div class="form-box hidden" id="box-logged-in" style="text-align:center;">
-    <h3>Olá, <span id="user-name-display"></span>!</h3>
-    <p style="margin:15px 0; color:#ccc;">Você já está conectado.</p>
-    <button onclick="abrirDashboard()">Acessar Meu Painel</button>
-    <button onclick="sairSistema()" style="background:#333; margin-top:10px;">Sair</button>
-</div>
-
-<!-- CADASTRO FORM -->
-<div class="form-box hidden" id="box-cadastro">
-<div class="form-group"><label>Telefone</label><input type="number" id="cadNumero" placeholder="Seu telefone"></div>
-<div class="form-group"><label>Nome Completo</label><input type="text" id="cadNome" placeholder="Seu nome"></div>
-<div class="form-group"><label>Ano</label>
-<select id="cadAno">
-<option>6º Ano</option>
-<option>7º Ano</option>
-<option>8º Ano</option>
-<option>9º Ano</option>
-<option>1º Médio</option>
-<option>2º Médio</option>
-<option>3º Médio</option>
-</select>
-</div>
-<div class="form-group"><label>Turma</label>
-<select id="cadTurma">
-<option>A</option>
-<option>B</option>
-<option>C</option>
-</select>
-</div>
-<div class="form-group"><label>Senha</label><input type="password" id="cadSenha" placeholder="Crie uma senha"></div>
-<button onclick="fazerCadastro()">Cadastrar</button>
-<p style="text-align:center; margin-top:15px; cursor:pointer; color:var(--amarelo); font-size:0.9rem;" onclick="toggleAuth('login')">Já tenho conta? Entrar</p>
-</div>
-</section>
-
-<section id="admin-login" class="hidden">
-<h2 class="section-title">Área do Administrador</h2>
-<div class="form-box">
-<div class="form-group">
-<label>Senha de Acesso</label>
-<input type="password" id="senhaAdmin" placeholder="Digite a senha">
-</div>
-<button onclick="entrarAdmin()">Acessar Painel</button>
-<p style="text-align:center; margin-top:15px; cursor:pointer; color:var(--amarelo); font-size:0.9rem;" onclick="alternarLogin()">Voltar para Área do Aluno</p>
-</div>
-</section>
-</div>
-
-<!-- PAINEL DO ALUNO (Escondido inicialmente) -->
-<section id="dashboard-aluno" class="hidden">
-    <div class="dashboard-header">
-        <h2 id="aluno-welcome">Bem-vindo, Aluno</h2>
-        <button class="btn-sair" onclick="voltarParaHome()" style="background:var(--azul); margin-right:10px;">Voltar ao Site</button>
-        <button class="btn-sair" onclick="sairSistema()">Sair</button>
-    </div>
-    
-    <div class="form-box">
-        <h3>Registrar Nova Entrega</h3>
-        <div class="form-group">
-            <label>Material</label>
-            <select id="materialAluno">
-                <option value="Latinhas">Latinhas</option>
-                <option value="Papelão">Papelão</option>
-                <option value="Tampinhas">Tampinhas</option>
-                <option value="Óleo">Óleo</option>
-            </select>
+    <!-- ===== BARRA DE NAVEGAÇÃO ===== -->
+    <nav class="nav-bar">
+        <div class="logo" onclick="voltarParaHome()">Senna<span>Recicla</span></div>
+        <div class="nav-right">
+            <div id="nav-user-greeting" class="hidden"></div>
+            <div class="menu-btn" onclick="openMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
-        <div class="form-group">
-            <label>Quantidade (kg ou litros)</label>
-            <input type="number" id="qtdAluno">
+    </nav>
+
+    <!-- ===== MENU LATERAL ===== -->
+    <div class="sidebar" id="menu">
+        <div class="close-btn" onclick="closeMenu()"><i class="fas fa-times"></i></div>
+        <a onclick="voltarParaHome(); closeMenu();">Início</a>
+        <a id="menu-dashboard" class="hidden" onclick="abrirDashboard()">Meu Painel</a>
+        <a id="menu-acesso" onclick="mostrarAreaAcesso()">Acessar / Cadastrar</a>
+        <a onclick="navegarMenu('sobre')">Sobre o Projeto</a>
+        <a onclick="navegarMenu('importancia-reciclagem')">A Importância de Reciclar</a>
+        <a onclick="navegarMenu('produtos')">O que Reciclamos</a>
+        <a id="menu-ranking-geral" class="hidden" onclick="navegarMenu('ranking-geral')">Ranking de Turmas</a>
+        <a id="menu-rankings" class="hidden" onclick="navegarMenu('ranking-individual')">Ranking Individual</a>
+        <a id="menu-sair" class="hidden" onclick="sairSistema()">Sair</a>
+    </div>
+
+    <!-- ===== CONTEÚDO PRINCIPAL (HOME) ===== -->
+    <div id="main-content">
+        <header class="hero">
+            <div class="hero-content">
+                <h1>RUMO À <span>VITÓRIA</span></h1>
+                <p>Inspirado em Ayrton Senna, transformamos reciclagem em conquista.</p>
+            </div>
+        </header>
+
+        <main>
+            <section id="sobre">
+                <h2 class="section-title">Sobre o Projeto</h2>
+                <p style="line-height: 1.6; margin-bottom: 30px;">O Senna Recicla é uma iniciativa para incentivar a comunidade escolar a praticar a reciclagem. Cada material coletado é pesado e convertido em pontos, gerando uma competição saudável entre turmas e alunos, tudo isso inspirado na determinação e nos valores de Ayrton Senna.</p>
+                <div class="placar-banner">
+                    <p>Total já arrecadado pelo projeto:</p>
+                    <h2 id="valor-total-geral">0,0 kg</h2>
+                </div>
+            </section>
+
+            <section id="importancia-reciclagem">
+                <h2 class="section-title">A Importância de Reciclar</h2>
+                <div class="sobre-content">
+                    <img src="https://img.freepik.com/fotos-premium/um-close-up-de-um-logotipo-de-reciclagem-verde-em-um-fundo-preto-generativo-ai_899870-32512.jpg?semt=ais_hybrid&w=740&q=80" alt="Símbolo da reciclagem com pessoas coletando lixo">
+                    <div class="sobre-texto">
+                        <p>A reciclagem é um dos pilares para um futuro mais sustentável. Ela transforma materiais que seriam descartados como lixo em matéria-prima para a criação de novos produtos.</p>
+                        <p>Esse processo economiza recursos naturais, reduz a poluição do ar e da água, e diminui a quantidade de resíduos enviados para aterros. Ao participar do nosso projeto, você faz parte de um ciclo virtuoso que beneficia todo o planeta.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="produtos">
+                <h2 class="section-title">O que Reciclamos?</h2>
+                <div class="grid">
+                    <div class="card">
+                        <img src="https://www.projetodraft.com/wp-content/uploads/2023/11/Sustentabilidade-na-lata.jpg" alt="Latinhas">
+                        <div class="card-info"><h3>Latinhas</h3><p>São 100% recicláveis e podem se transformar em novas latas infinitamente.</p></div>
+                    </div>
+                    <div class="card">
+                        <img src="https://www.aparascarvalho.com.br/imagens/informacoes/reciclagem-papel-e-papelao-01.jpg" alt="Papelão">
+                        <div class="card-info"><h3>Papelão</h3><p>Caixas e embalagens. Devem estar limpos e secos para virar papel novo.</p></div>
+                    </div>
+                    <div class="card">
+                        <img src="https://www.reciclasampa.com.br/imgs/conteudos/10_projeto_coleta_tampinhas_e_ajuda_criancas_com_cancer_padrao.jpg" alt="Tampinhas">
+                        <div class="card-info"><h3>Tampinhas</h3><p>De garrafas PET. Juntadas, viram matéria-prima para novos objetos de plástico.</p></div>
+                    </div>
+                    <div class="card">
+                        <img src="https://media.istockphoto.com/id/1311288065/pt/foto/industrial-waste-oil-container.jpg?s=612x612&w=0&k=20&c=2OCVNi0swG9Yyy8Mt7fqYxM6eoFOqAFM0RBlrpHyj2I=" alt="Óleo">
+                        <div class="card-info"><h3>Óleo de Cozinha</h3><p>Óleo usado. Evita a poluição da água e pode ser transformado em biodiesel e sabão.</p></div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+        
+        <footer>
+            <p>&copy; 2024 Senna Recicla. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+
+    <!-- ===== ÁREA DE ESCOLHA DE ACESSO ===== -->
+    <section id="area-acesso" class="auth-container hidden" style="padding-top: 120px;">
+        <div class="auth-box">
+            <h2>Bem-vindo(a)!</h2>
+            <p>Selecione seu perfil para continuar.</p>
+            <div class="form-group">
+                <button class="btn-role" onclick="mostrarAuth('aluno')"><i class="fas fa-user-graduate"></i> Sou Aluno</button>
+            </div>
+            <div class="form-group">
+                <button class="btn-role" onclick="mostrarAuth('professor')"><i class="fas fa-chalkboard-teacher"></i> Sou Professor</button>
+            </div>
+            <div class="form-group">
+                <button class="btn-role" onclick="mostrarAuth('admin')"><i class="fas fa-user-shield"></i> Sou Administrador</button>
+            </div>
         </div>
-        <button onclick="adicionarMaterialAluno()">Enviar</button>
-    </div>
+    </section>
 
-    <div class="resumo-box">
-        <h3>Sua Contribuição Total</h3>
-        <p>Você já reciclou <span id="aluno-total-qtd">0</span> kg/L</p>
-    </div>
+    <!-- ===== ÁREA DE LOGIN ALUNO ===== -->
+    <section id="aluno-login-auth" class="auth-container hidden">
+        <div class="form-box">
+            <h2>Login do Aluno</h2>
+            <div class="form-group">
+                <label>RA (Registro do Aluno)</label>
+                <div style="display: flex; gap: 5px;">
+                    <input type="text" id="loginRaNum" placeholder="Número" style="flex: 3;">
+                    <span style="align-self: center; font-weight: bold; color: var(--amarelo);">-</span>
+                    <input type="text" id="loginRaDigito" placeholder="Dígito" style="flex: 1; text-align: center;" maxlength="1">
+                    <input type="text" id="loginRaUF" placeholder="UF" value="SP" style="flex: 1; text-align: center;" maxlength="2">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Senha</label>
+                <div class="password-wrapper">
+                    <input type="password" id="loginSenhaAluno" placeholder="Sua senha">
+                    <i class="fas fa-eye" id="toggleLoginSenhaAluno" onclick="togglePasswordVisibility('loginSenhaAluno', 'toggleLoginSenhaAluno')"></i>
+                </div>
+            </div>
+            <div style="margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+                <input type="checkbox" id="lembrarLoginAluno" style="width: auto;" checked>
+                <label for="lembrarLoginAluno" style="margin:0; cursor:pointer; color:#ccc; font-size:0.9rem;">Manter conectado</label>
+            </div>
+            <button onclick="fazerLoginAluno()">Entrar</button>
+            <button class="btn-secondary" onclick="mostrarAuth('aluno', 'cadastro')">Não tenho conta, quero me cadastrar</button>
+            <div class="auth-footer"><a href="#" onclick="mostrarRecuperacao()">Esqueci minha senha</a> | <a href="#" onclick="mostrarAreaAcesso()">Voltar</a></div>
+        </div>
+    </section>
 
-    <h3 style="margin-top:40px;">Meus Registros</h3>
-    <table id="tabela-aluno">
-        <thead><tr><th>Material</th><th>Qtd</th><th>Status</th></tr></thead>
-        <tbody></tbody>
-    </table>
-</section>
+    <!-- ===== ÁREA DE CADASTRO ALUNO ===== -->
+    <section id="aluno-cadastro-auth" class="auth-container hidden">
+        <div class="form-box">
+            <h2>Cadastro de Aluno</h2>
+            <div class="form-group"><label>Nome Completo</label><input type="text" id="cadNome" placeholder="Seu nome"></div>
+            <div class="form-group">
+                <label>RA (Registro do Aluno)</label>
+                <div style="display: flex; gap: 5px;">
+                    <input type="text" id="cadRaNum" placeholder="Número" style="flex: 3;">
+                    <span style="align-self: center; font-weight: bold; color: var(--amarelo);">-</span>
+                    <input type="text" id="cadRaDigito" placeholder="Dígito" style="flex: 1; text-align: center;" maxlength="1">
+                    <input type="text" id="cadRaUF" placeholder="UF" value="SP" style="flex: 1; text-align: center;" maxlength="2">
+                </div>
+            </div>
+            <div class="form-group"><label>Telefone</label><input type="text" id="cadNumero" placeholder="(XX) XXXXX-XXXX"></div>
+            <div class="form-group"><label>Ano / Série</label>
+                <select id="cadAno"><option value="" disabled selected>Selecione seu Ano</option><option value="6º Ano">6º Ano</option><option value="7º Ano">7º Ano</option><option value="8º Ano">8º Ano</option><option value="9º Ano">9º Ano</option><option value="1ª Série E.M.">1ª Série E.M.</option><option value="2ª Série E.M.">2ª Série E.M.</option><option value="3ª Série E.M.">3ª Série E.M.</option></select>
+            </div>
+            <div class="form-group"><label>Turma</label>
+                <select id="cadTurma"><option value="" disabled selected>Selecione</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select>
+            </div>
+            <div class="form-group">
+                <label>Senha</label>
+                <div class="password-wrapper">
+                    <input type="password" id="cadSenhaAluno" placeholder="Crie uma senha" onkeyup="validarSenhasMatch('cadSenhaAluno', 'cadSenhaAlunoConfirm', 'msgSenhaAluno')">
+                    <i class="fas fa-eye" id="toggleCadSenhaAluno" onclick="togglePasswordVisibility('cadSenhaAluno', 'toggleCadSenhaAluno')"></i>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Confirmar Senha</label>
+                <div class="password-wrapper">
+                    <input type="password" id="cadSenhaAlunoConfirm" placeholder="Confirme a senha" onkeyup="validarSenhasMatch('cadSenhaAluno', 'cadSenhaAlunoConfirm', 'msgSenhaAluno')">
+                    <i class="fas fa-eye" id="toggleCadSenhaAlunoConfirm" onclick="togglePasswordVisibility('cadSenhaAlunoConfirm', 'toggleCadSenhaAlunoConfirm')"></i>
+                </div>
+            </div>
+            <p id="msgSenhaAluno" style="font-size: 0.8rem; color: #cc0000; display: none; margin-bottom: 10px;">As senhas não coincidem.</p>
+            <p id="erroCadAluno" style="font-size: 0.9rem; color: #cc0000; display: none; margin-bottom: 15px; font-weight: bold;"></p>
+            <button onclick="fazerCadastroAluno()">Cadastrar</button>
+            <button class="btn-secondary" onclick="mostrarAuth('aluno', 'login')">Já tenho conta, quero fazer login</button>
+        </div>
+    </section>
 
-<!-- PAINEL DO ADMIN (Escondido inicialmente) -->
-<section id="dashboard-admin" class="hidden">
-    <div class="dashboard-header">
-        <h2>Painel Administrativo</h2>
-        <button class="btn-sair" onclick="voltarParaHome()" style="background:var(--azul); margin-right:10px;">Voltar ao Site</button>
-        <button class="btn-sair" onclick="sairSistema()">Sair</button>
-    </div>
-    <table id="tabela-admin">
-        <thead><tr><th>Data</th><th>Aluno (Turma)</th><th>Material</th><th>Qtd</th><th>Ações</th></tr></thead>
-        <tbody></tbody>
-    </table>
-</section>
+    <!-- ===== ÁREA DE LOGIN PROFESSOR ===== -->
+    <section id="professor-login-auth" class="auth-container hidden">
+        <div class="form-box">
+            <h2>Login do Professor</h2>
+            <div class="form-group"><label>Email</label><input type="email" id="loginEmailProf" placeholder="Seu email"></div>
+            <div class="form-group">
+                <label>Senha</label>
+                <div class="password-wrapper">
+                    <input type="password" id="loginSenhaProf" placeholder="Sua senha">
+                    <i class="fas fa-eye" id="toggleLoginSenhaProf" onclick="togglePasswordVisibility('loginSenhaProf', 'toggleLoginSenhaProf')"></i>
+                </div>
+            </div>
+            <div style="margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+                <input type="checkbox" id="lembrarLoginProf" style="width: auto;" checked>
+                <label for="lembrarLoginProf" style="margin:0; cursor:pointer; color:#ccc; font-size:0.9rem;">Manter conectado</label>
+            </div>
+            <button onclick="fazerLoginProfessor()">Entrar</button>
+            <button class="btn-secondary" onclick="mostrarAuth('professor', 'cadastro')">Não tenho conta, quero me cadastrar</button>
+            <div class="auth-footer"><a href="#" onclick="mostrarRecuperacao()">Esqueci minha senha</a> | <a href="#" onclick="mostrarAreaAcesso()">Voltar</a></div>
+        </div>
+    </section>
 
-<!-- TELA DE RANKINGS (Acessível pelo menu) -->
-<section id="rankings" class="hidden">
-    <div class="dashboard-header">
-        <h2>🏆 Rankings do Projeto</h2>
-        <button class="btn-sair" onclick="voltarParaHome()">Voltar</button>
-    </div>
-    <div class="ranking-box">
-        <h2 style="color:var(--amarelo); margin-bottom:20px;">👑 Top 3 Turmas</h2>
-        <div class="ranking-grid" id="ranking-container"></div>
-    </div>
-    <div class="ranking-box" style="margin-top: 50px;">
-        <h2 style="color:var(--amarelo); margin-bottom:20px;">🏆 Top Contribuintes</h2>
-        <div class="ranking-grid" id="ranking-individual-container"></div>
-    </div>
-</section>
+    <!-- ===== ÁREA DE CADASTRO PROFESSOR ===== -->
+    <section id="professor-cadastro-auth" class="auth-container hidden">
+        <div class="form-box">
+            <h2>Cadastro de Professor</h2>
+            <div class="form-group"><label>Nome Completo</label><input type="text" id="cadNomeProf" placeholder="Seu nome"></div>
+            <div class="form-group"><label>Email</label><input type="email" id="cadEmailProf" placeholder="Seu email profissional"></div>
+            <div class="form-group"><label>Telefone</label><input type="text" id="cadTelefoneProf" placeholder="(XX) XXXXX-XXXX"></div>
+            <div class="form-group">
+                <label>Senha</label>
+                <div class="password-wrapper">
+                    <input type="password" id="cadSenhaProf" placeholder="Crie uma senha" onkeyup="validarSenhasMatch('cadSenhaProf', 'cadSenhaProfConfirm', 'msgSenhaProf')">
+                    <i class="fas fa-eye" id="toggleCadSenhaProf" onclick="togglePasswordVisibility('cadSenhaProf', 'toggleCadSenhaProf')"></i>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Confirmar Senha</label>
+                <div class="password-wrapper">
+                    <input type="password" id="cadSenhaProfConfirm" placeholder="Confirme a senha" onkeyup="validarSenhasMatch('cadSenhaProf', 'cadSenhaProfConfirm', 'msgSenhaProf')">
+                    <i class="fas fa-eye" id="toggleCadSenhaProfConfirm" onclick="togglePasswordVisibility('cadSenhaProfConfirm', 'toggleCadSenhaProfConfirm')"></i>
+                </div>
+            </div>
+            <p id="msgSenhaProf" style="font-size: 0.8rem; color: #cc0000; display: none; margin-bottom: 10px;">As senhas não coincidem.</p>
+            <p id="erroCadProf" style="font-size: 0.9rem; color: #cc0000; display: none; margin-bottom: 15px; font-weight: bold;"></p>
+            <button onclick="fazerCadastroProfessor()">Cadastrar</button>
+            <button class="btn-secondary" onclick="mostrarAuth('professor', 'login')">Já tenho conta, quero fazer login</button>
+        </div>
+    </section>
 
-<footer>
-SennaRecicla © 2026 | Inspirado na determinação de Ayrton Senna
-</footer>
+    <!-- ===== ÁREA DE LOGIN ADMIN ===== -->
+    <section id="admin-auth" class="auth-container hidden">
+        <div class="auth-box">
+            <h2>Acesso Restrito</h2>
+            <p>Área exclusiva para administradores.</p>
+            <div class="input-group">
+                <label for="loginSenhaAdmin">Senha de Administrador</label>
+                <div class="password-wrapper">
+                    <input type="password" id="loginSenhaAdmin" placeholder="Digite a senha" onkeydown="if(event.key==='Enter') fazerLoginAdmin()">
+                    <i class="fas fa-eye" id="toggleLoginSenhaAdmin" onclick="togglePasswordVisibility('loginSenhaAdmin', 'toggleLoginSenhaAdmin')"></i>
+                </div>
+            </div>
+            <button onclick="fazerLoginAdmin()">Entrar</button>
+            <div class="auth-footer"><a href="#" onclick="voltarParaHome()">Voltar para o início</a></div>
+        </div>
+    </section>
 
-<script>
-function openMenu(){
-document.getElementById("menu").classList.add("active");
-}
-function closeMenu(){
-document.getElementById("menu").classList.remove("active");
-}
+    <!-- ===== ÁREA DE RECUPERAÇÃO DE SENHA ===== -->
+    <section id="recovery-auth" class="auth-container hidden">
+        <div class="form-box">
+            <div id="recovery-step1">
+                <h2>Recuperar Senha</h2>
+                <p>Para iniciar, digite seu identificador. Alunos usam o RA, professores usam o email.</p>
+                <div class="form-group">
+                    <label>RA ou Email</label>
+                    <input type="text" id="recoveryIdentifier" placeholder="Seu RA ou Email">
+                </div>
+                <button onclick="iniciarRecuperacao()">Procurar</button>
+                <div class="auth-footer"><a href="#" onclick="mostrarAreaAcesso(true)">Voltar</a></div>
+            </div>
+            <div id="recovery-step2" class="hidden">
+                <h2>Verificação de Segurança</h2>
+                <p id="recovery-message"></p>
+                <div class="form-group">
+                    <label>Código de Verificação</label>
+                    <input type="text" id="recoveryCode" placeholder="Digite o código de 6 dígitos">
+                </div>
+                <button onclick="verificarCodigoRecuperacao()">Verificar Código</button>
+            </div>
+            <div id="recovery-step3" class="hidden">
+                <h2>Definir Nova Senha</h2>
+                <div class="form-group">
+                    <label>Nova Senha</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="recoveryNewPassword" placeholder="Crie uma nova senha">
+                        <i class="fas fa-eye" id="toggleRecNewPass" onclick="togglePasswordVisibility('recoveryNewPassword', 'toggleRecNewPass')"></i>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Confirmar Nova Senha</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="recoveryNewPasswordConfirm" placeholder="Confirme a nova senha">
+                        <i class="fas fa-eye" id="toggleRecNewPassConfirm" onclick="togglePasswordVisibility('recoveryNewPasswordConfirm', 'toggleRecNewPassConfirm')"></i>
+                    </div>
+                </div>
+                <button onclick="definirNovaSenha()">Salvar Nova Senha</button>
+            </div>
+        </div>
+    </section>
 
-function navegarMenu(id) {
-    closeMenu();
-    voltarParaHome();
-    setTimeout(() => {
-        const el = document.getElementById(id);
-        if(el) el.scrollIntoView({behavior: "smooth"});
-    }, 100);
-}
+    <!-- ===== ESCOLHA DE MÉTODO DE CONTATO (VERIFICAÇÃO/RECUPERAÇÃO) ===== -->
+    <section id="contact-choice-auth" class="auth-container hidden">
+        <div class="form-box" id="contact-choice-box">
+            <!-- Conteúdo gerado via JS -->
+        </div>
+    </section>
 
-// SIMULAÇÃO DE SISTEMA
-let usuarioAtual = null;
+    <!-- ===== CONFIRMAÇÃO DE CADASTRO (VERIFICAÇÃO) ===== -->
+    <section id="signup-verification" class="auth-container hidden">
+        <div class="form-box">
+            <h2>Verificação de Conta</h2>
+            <p id="signup-verify-msg">Enviamos um código para seu contato.</p>
+            <div class="form-group">
+                <label>Código de Verificação</label>
+                <input type="text" id="signupCodeInput" placeholder="Digite o código">
+            </div>
+            <button onclick="confirmarCadastro()">Validar e Criar Conta</button>
+            <button class="btn-secondary" onclick="cancelarCadastro()">Cancelar</button>
+        </div>
+    </section>
 
-// Carrega dados salvos ou inicia lista vazia
-let registros = JSON.parse(localStorage.getItem('sennaRegistros')) || [];
-let usuarios = JSON.parse(localStorage.getItem('sennaUsuarios')) || [];
-
-// Tabela de Preços
-const precos = {
-    "Latinhas": 5.50,
-    "Papelão": 0.50,
-    "Tampinhas": 2.00,
-    "Óleo": 1.50
-};
-
-// Inicializa o Placar Geral ao carregar a página
-atualizarTotalGeral();
-atualizarRanking();
-atualizarRankingIndividual();
-verificarLogin();
-
-function atualizarTotalGeral() {
-    let total = registros.reduce((acc, item) => acc + parseFloat(item.qtd), 0);
-    document.getElementById("valor-total-geral").innerText = total.toFixed(1).replace('.', ',') + " kg";
-}
-
-function voltarParaHome() {
-    // Esconde todos os paineis/dashboards
-    document.getElementById("dashboard-admin").classList.add("hidden");
-    document.getElementById("dashboard-aluno").classList.add("hidden");
-    document.getElementById("rankings").classList.add("hidden");
-
-    // Mostra o conteúdo principal
-    document.getElementById("main-content").classList.remove("hidden");
-    document.querySelector(".hero").classList.remove("hidden");
-}
-
-function alternarLogin() {
-    document.getElementById("aluno-login").classList.toggle("hidden");
-    document.getElementById("admin-login").classList.toggle("hidden");
-}
-
-function mostrarLogin(tipo) {
-    closeMenu();
-    if(tipo === 'admin') {
-        document.getElementById("aluno-login").classList.add("hidden");
-        document.getElementById("admin-login").classList.remove("hidden");
-    } else {
-        document.getElementById("aluno-login").classList.remove("hidden");
-        document.getElementById("admin-login").classList.add("hidden");
-    }
-}
-
-function mostrarRankings() {
-    closeMenu();
-    document.getElementById("main-content").classList.add("hidden");
-    document.querySelector(".hero").classList.add("hidden");
-    document.getElementById("dashboard-admin").classList.add("hidden");
-    document.getElementById("dashboard-aluno").classList.add("hidden");
-    document.getElementById("rankings").classList.remove("hidden");
-    window.scrollTo(0,0);
-}
-
-function verificarLogin() {
-    const sessao = localStorage.getItem('sennaUsuarioLogado');
-    if(sessao) {
-        const user = JSON.parse(sessao);
-        usuarioAtual = user.nome;
+    <!-- ===== PAINEL DO ALUNO ===== -->
+    <section id="dashboard-aluno" class="dashboard hidden">
+        <div class="dashboard-header">
+            <h1 id="aluno-welcome"></h1>
+            <button class="btn-sair" onclick="sairSistema()">Sair</button>
+        </div>
         
-        // Atualiza UI da Home
-        document.getElementById('box-login').classList.add('hidden');
-        document.getElementById('box-cadastro').classList.add('hidden');
-        document.getElementById('box-logged-in').classList.remove('hidden');
-        document.getElementById('user-name-display').innerText = user.nome;
+        <div class="dashboard-card">
+            <h2>Registrar Material</h2>
+            <div class="form-group"><label>Material</label><select id="materialAluno"><option>Latinhas</option><option>Papelão</option><option>Tampinhas</option><option>Óleo</option></select></div>
+            <div class="form-group"><label>Quantidade (kg ou Litros)</label><input type="number" id="qtdAluno" placeholder="Ex: 2.5"></div>
+            <button onclick="adicionarMaterialAluno()">Adicionar</button>
+        </div>
+        <div class="resumo-box">
+            <p>Total que você já arrecadou:</p>
+            <span id="aluno-total-qtd">0.0</span> kg
+        </div>
 
-        // Prepara Dashboard
-        document.getElementById("aluno-welcome").innerText = "Bem-vindo, " + user.nome;
-        renderizarAluno();
-        document.getElementById('menu-rankings').classList.remove('hidden');
-    }
-}
+        <div class="dashboard-card">
+            <h2 style="border-bottom: 2px solid var(--verde); padding-bottom: 10px; margin-bottom: 20px;">Meus Registros</h2>
+            <button class="btn-secondary" onclick="toggleHistoricoAluno()" style="width: auto; margin-bottom: 15px;"><i class="fas fa-history"></i> Ver/Ocultar Histórico</button>
+            <div id="historico-aluno-container" class="hidden">
+                <div class="filtro-container" style="display: flex; gap: 10px; align-items: center; margin-bottom: 15px; flex-wrap: wrap;">
+                    <label for="filtro-aluno-inicio" style="margin-bottom: 0;">De:</label>
+                    <input type="date" id="filtro-aluno-inicio" style="width: auto; padding: 8px;">
+                    <label for="filtro-aluno-fim" style="margin-bottom: 0;">Até:</label>
+                    <input type="date" id="filtro-aluno-fim" style="width: auto; padding: 8px;">
+                    <button class="btn-edit" onclick="renderizarAluno()" style="width: auto; padding: 8px 12px;">Filtrar</button>
+                    <button class="btn-secondary" onclick="limparFiltroAluno()" style="width: auto; margin-top: 0; padding: 8px 12px;">Limpar</button>
+                </div>
+                <table class="tabela-geral" id="tabela-aluno">
+                    <thead><tr><th>Data</th><th>Material</th><th>Quantidade</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
 
-function abrirDashboard() {
-    if(!usuarioAtual) return;
-    
-    document.getElementById("main-content").classList.add("hidden");
-    document.querySelector(".hero").classList.add("hidden");
-    
-    // Garante que ambos os painéis comecem ocultos para evitar sobreposição
-    document.getElementById("dashboard-admin").classList.add("hidden");
-    document.getElementById("dashboard-aluno").classList.add("hidden");
-    document.getElementById("rankings").classList.add("hidden");
-    
-    if(usuarioAtual === "Admin") {
-        document.getElementById("dashboard-admin").classList.remove("hidden");
-        renderizarAdmin();
-    } else {
-        document.getElementById("dashboard-aluno").classList.remove("hidden");
-        renderizarAluno();
-    }
-    window.scrollTo(0,0);
-}
+    <!-- ===== PAINEL DO PROFESSOR ===== -->
+    <section id="dashboard-professor" class="dashboard hidden">
+        <div class="dashboard-header">
+            <h1>Painel do Professor</h1>
+            <button class="btn-sair" onclick="sairSistema()">Sair</button>
+        </div>
+        <div class="dashboard-card">
+            <h2>Registrar Material (em seu nome)</h2>
+            <div class="form-group"><label>Material</label><select id="materialProfessor"><option>Latinhas</option><option>Papelão</option><option>Tampinhas</option><option>Óleo</option></select></div>
+            <div class="form-group"><label>Quantidade (kg ou Litros)</label><input type="number" id="qtdProfessor" placeholder="Ex: 10.0"></div>
+            <button onclick="adicionarMaterialProfessor()">Adicionar</button>
+        </div>
+        <div class="dashboard-card">
+            <h2 style="border-bottom: 2px solid var(--verde); padding-bottom: 10px; margin-bottom: 20px;">Históricos e Relatórios</h2>
+            <button class="btn-secondary" onclick="toggleHistoricoProfessor()" style="width: auto; margin-bottom: 15px;"><i class="fas fa-list"></i> Ver/Ocultar Registros</button>
+            
+            <div id="historico-professor-container" class="hidden">
+                <h3>Seu Relatório Pessoal</h3>
+                <p style="margin-bottom: 15px;">Total arrecadado por você: <strong id="professor-total-qtd">0,0 kg</strong></p>
+                <table class="tabela-geral" id="tabela-professor-relatorio" style="margin-bottom: 30px;">
+                    <thead><tr><th>Data</th><th>Material</th><th>Quantidade</th></tr></thead>
+                    <tbody></tbody>
+                </table>
 
-function entrarAdmin() {
-    const senha = document.getElementById("senhaAdmin").value;
-    if(senha === "1234") {
-        const user = {nome: 'Admin'};
-        usuarioAtual = user.nome;
-        localStorage.setItem('sennaUsuarioLogado', JSON.stringify(user));
+                <h3 style="border-top: 1px solid #444; padding-top: 20px;">Visão Geral (Todos os Alunos)</h3>
+                <div class="filtro-container" style="display: flex; gap: 10px; align-items: center; margin-bottom: 15px; flex-wrap: wrap;">
+                    <label for="filtro-prof-inicio" style="margin-bottom: 0;">De:</label>
+                    <input type="date" id="filtro-prof-inicio" style="width: auto; padding: 8px;">
+                    <label for="filtro-prof-fim" style="margin-bottom: 0;">Até:</label>
+                    <input type="date" id="filtro-prof-fim" style="width: auto; padding: 8px;">
+                    <button class="btn-edit" onclick="renderizarProfessorView()" style="width: auto; padding: 8px 12px;">Filtrar</button>
+                    <button class="btn-secondary" onclick="limparFiltroProfessor()" style="width: auto; margin-top: 0; padding: 8px 12px;">Limpar</button>
+                </div>
+                <table class="tabela-geral" id="tabela-admin-professor-view">
+                    <thead><tr><th>Data</th><th>Participante (Turma)</th><th>Material</th><th>Qtd (kg)</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PAINEL DO ADMINISTRADOR ===== -->
+    <section id="dashboard-admin" class="dashboard hidden">
+        <div class="dashboard-header">
+            <h1>Painel do Administrador</h1>
+            <button class="btn-sair" onclick="sairSistema()">Sair</button>
+        </div>
+
+        <!-- Abas de Navegação Admin -->
+        <div class="admin-tabs">
+            <div class="tab-btn active" onclick="alternarAbaAdmin('registros')" id="tab-registros">Registros de Reciclagem</div>
+            <div class="tab-btn" onclick="alternarAbaAdmin('usuarios')" id="tab-usuarios">Gerenciar Contas</div>
+        </div>
+
+        <!-- Conteúdo Aba Registros -->
+        <div id="admin-area-registros" class="admin-section active-section dashboard-card">
+            <!-- Conteúdo gerado via JS -->
+        </div>
+
+        <!-- Conteúdo Aba Usuários -->
+        <div id="admin-area-usuarios" class="admin-section dashboard-card">
+            <div id="admin-user-management">
+                <!-- Tabela inserida via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PÁGINA DE RANKINGS ===== -->
+    <section id="rankings-page" class="dashboard hidden">
+        <section id="ranking-geral">
+            <div class="ranking-box">
+                <h2 class="section-title">Ranking das Turmas</h2>
+                <p>As 3 turmas que mais arrecadaram até agora.</p>
+                <div class="ranking-grid" id="ranking-container">
+                    <!-- Ranking de turmas gerado pelo JS -->
+                </div>
+            </div>
+        </section>
         
-        verificarLogin();
-        abrirDashboard();
-    } else {
-        alert("Senha incorreta!");
-    }
-}
+        <section id="ranking-individual">
+            <div class="ranking-box">
+                <h2 class="section-title">Ranking Individual</h2>
+                <p>Os 5 participantes que mais contribuíram.</p>
+                <div class="ranking-grid" id="ranking-individual-container">
+                    <!-- Ranking individual gerado pelo JS -->
+                </div>
+            </div>
+        </section>
+    </section>
 
-function toggleAuth(mode) {
-    if(mode === 'cadastro') {
-        document.getElementById('box-login').classList.add('hidden');
-        document.getElementById('box-cadastro').classList.remove('hidden');
-    } else {
-        document.getElementById('box-login').classList.remove('hidden');
-        document.getElementById('box-cadastro').classList.add('hidden');
-    }
-}
-
-function fazerCadastro() {
-    const numero = document.getElementById("cadNumero").value;
-    const nome = document.getElementById("cadNome").value;
-    const ano = document.getElementById("cadAno").value;
-    const turma = document.getElementById("cadTurma").value;
-    const senha = document.getElementById("cadSenha").value;
-
-    if(!numero || !nome || !senha) {
-        alert("Preencha todos os campos!");
-        return;
-    }
-
-    if(usuarios.find(u => u.numero === numero)) {
-        alert("Usuário já cadastrado com este número!");
-        return;
-    }
-
-    usuarios.push({ numero, nome, ano, turma, senha });
-    localStorage.setItem('sennaUsuarios', JSON.stringify(usuarios));
-    
-    alert("Cadastro realizado com sucesso! Faça login.");
-    toggleAuth('login');
-    alert("Cadastro realizado com sucesso! Entrando...");
-    
-    // Auto-login após cadastro
-    const user = { numero, nome, ano, turma, senha };
-    usuarioAtual = user.nome;
-    localStorage.setItem('sennaUsuarioLogado', JSON.stringify(user));
-    
-    verificarLogin();
-    abrirDashboard();
-}
-
-function fazerLogin() {
-    const numero = document.getElementById("loginNumero").value;
-    const senha = document.getElementById("loginSenha").value;
-
-    const user = usuarios.find(u => u.numero === numero && u.senha === senha);
-
-    if(user) {
-        usuarioAtual = user.nome;
-        localStorage.setItem('sennaUsuarioLogado', JSON.stringify(user));
+    <script>
+        // ==================================================================
+        // INÍCIO DO CÓDIGO JAVASCRIPT
+        // ==================================================================
         
-        verificarLogin();
-        abrirDashboard();
-    } else {
-        alert("Número ou senha incorretos!");
-    }
-}
-
-function sairSistema() {
-    usuarioAtual = null;
-    localStorage.removeItem('sennaUsuarioLogado');
-    voltarParaHome(); // Oculta paineis e mostra a home
-    
-    // Reseta os campos
-    document.getElementById("loginNumero").value = "";
-    document.getElementById("loginSenha").value = "";
-    document.getElementById("senhaAdmin").value = "";
-    
-    // Garante que volta para o login de aluno
-    document.getElementById("aluno-login").classList.remove("hidden");
-    document.getElementById("admin-login").classList.add("hidden");
-    toggleAuth('login');
-    
-    // Reseta UI de Logged In
-    document.getElementById('box-logged-in').classList.add('hidden');
-    document.getElementById('menu-rankings').classList.add('hidden');
-}
-
-// Lógica do Aluno
-function adicionarMaterialAluno() {
-    const material = document.getElementById("materialAluno").value;
-    const qtd = document.getElementById("qtdAluno").value;
-    
-    if(qtd <= 0) { alert("Quantidade inválida"); return; }
-
-    // Calcula o valor (mantido internamente, mas não exibido)
-    const valorTotal = (parseFloat(qtd) * precos[material]).toFixed(2);
-
-    // Cria novo registro
-    const novoRegistro = {
-        id: Date.now(), // ID único baseado no tempo
-        aluno: usuarioAtual,
-        material: material,
-        valor: valorTotal,
-        qtd: parseFloat(qtd),
-        data: new Date().toLocaleDateString()
-    };
-
-    registros.push(novoRegistro);
-    salvarDados();
-    
-    alert(`Sucesso! Você registrou ${qtd} de ${material}.`);
-    document.getElementById("qtdAluno").value = "";
-    renderizarAluno();
-    atualizarTotalGeral(); // Atualiza o placar da home também
-    atualizarRanking(); // Atualiza o ranking
-    atualizarRankingIndividual();
-}
-
-function renderizarAluno() {
-    const tbody = document.querySelector("#tabela-aluno tbody");
-    tbody.innerHTML = "";
-
-    // Filtra apenas os registros do aluno logado
-    const meusRegistros = registros.filter(r => r.aluno === usuarioAtual);
-    
-    // Calcula totais do aluno
-    let totalQtd = 0;
-
-    meusRegistros.forEach(r => {
-        totalQtd += parseFloat(r.qtd);
-        
-        const tr = document.createElement("tr");
-        tr.innerHTML = `<td>${r.material}</td><td>${r.qtd}</td><td>Registrado</td>`;
-        tbody.appendChild(tr);
-    });
-
-    // Atualiza o card de resumo
-    document.getElementById("aluno-total-qtd").innerText = totalQtd.toFixed(1);
-}
-
-// Lógica do Admin
-function renderizarAdmin() {
-    const tbody = document.querySelector("#tabela-admin tbody");
-    tbody.innerHTML = "";
-
-    registros.forEach(r => {
-        // Busca dados do usuário para mostrar a turma
-        const user = usuarios.find(u => u.nome === r.aluno) || { turma: "?", ano: "?" };
-        
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-            <td>${r.data}</td>
-            <td>${r.aluno} <small>(${user.ano} ${user.turma})</small></td>
-            <td>${r.material}</td>
-            <td>${r.qtd}</td>
-            <td>
-                <button class="btn-edit" onclick="editarRegistro(${r.id})">Editar</button>
-                <button class="btn-delete" onclick="excluirRegistro(${r.id})">Excluir</button>
-            </td>
-        `;
-        tbody.appendChild(tr);
-    });
-}
-
-function editarRegistro(id) {
-    const registro = registros.find(r => r.id === id);
-    if(registro) {
-        let novaQtd = prompt("Nova quantidade para " + registro.material + ":", registro.qtd);
-        if(novaQtd !== null && novaQtd.trim() !== "") {
-            registro.qtd = parseFloat(novaQtd);
-            // Recalcula o valor ao editar
-            registro.valor = (registro.qtd * precos[registro.material]).toFixed(2);
-            salvarDados();
-            renderizarAdmin();
-            atualizarTotalGeral();
-            atualizarRanking();
-            atualizarRankingIndividual();
+        function openMenu(){
+            document.getElementById("menu").classList.add("active");
         }
-    }
-}
+        function closeMenu(){
+            document.getElementById("menu").classList.remove("active");
+        }
 
-function excluirRegistro(id) {
-    if(confirm("Tem certeza que deseja apagar este registro?")) {
-        registros = registros.filter(r => r.id !== id);
-        salvarDados();
-        renderizarAdmin();
+        function navegarMenu(id) {
+            if (id === 'ranking-geral' || id === 'ranking-individual') {
+                mostrarPaginaRankings(id);
+            } else {
+                closeMenu();
+                voltarParaHome();
+                setTimeout(() => {
+                    const el = document.getElementById(id);
+                    if(el) {
+                        el.scrollIntoView({behavior: "smooth"});
+                    }
+                }, 150);
+            }
+        }
+
+        function mostrarPaginaRankings(scrollToId) {
+            if (!usuarioAtual) return;
+            closeMenu();
+
+            // Esconde todas as outras telas principais
+            document.getElementById("main-content").classList.add("hidden");
+            document.getElementById("dashboard-aluno").classList.add("hidden");
+            document.getElementById("dashboard-professor").classList.add("hidden");
+            document.getElementById("dashboard-admin").classList.add("hidden");
+            document.getElementById("area-acesso").classList.add("hidden");
+
+            // Mostra a página de rankings
+            document.getElementById("rankings-page").classList.remove("hidden");
+
+            // Rola para a seção específica
+            document.getElementById(scrollToId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // SIMULAÇÃO DE SISTEMA
+        let usuarioAtual = null;
+        let cadastroPendente = null; // Armazena dados temporários durante verificação
+        let recoveryProcess = { user: null, code: null, identifier: null };
+        let verificationFlow = { type: null, data: null }; // 'signup' ou 'recovery'
+
+        // Carrega dados salvos ou inicia lista vazia
+        let registros = JSON.parse(localStorage.getItem('sennaRegistros')) || [];
+        let usuarios = JSON.parse(localStorage.getItem('sennaUsuarios')) || [];
+
+        let adminSubTabRegistros = 'alunos'; // Controle de qual lista exibir em Registros
+        let adminSubTabContas = 'alunos';    // Controle de qual lista exibir em Contas
+
+        // Tabela de Preços
+        const precos = {
+            "Latinhas": 5.50,
+            "Papelão": 0.50,
+            "Tampinhas": 2.00,
+            "Óleo": 1.50
+        };
+
+        // Inicializa o Placar Geral ao carregar a página
         atualizarTotalGeral();
         atualizarRanking();
         atualizarRankingIndividual();
-    }
-}
+        verificarLogin();
 
-function salvarDados() {
-    localStorage.setItem('sennaRegistros', JSON.stringify(registros));
-}
-
-function atualizarRanking() {
-    let turmas = {};
-
-    // Agrupa valores por turma
-    registros.forEach(r => {
-        let user = usuarios.find(u => u.nome === r.aluno);
-        if (user) {
-            let nomeTurma = user.ano + ' ' + user.turma;
-            if (!turmas[nomeTurma]) turmas[nomeTurma] = 0;
-            turmas[nomeTurma] += parseFloat(r.qtd);
+        function atualizarTotalGeral() {
+            let total = registros.reduce((acc, item) => acc + parseFloat(item.qtd), 0);
+            document.getElementById("valor-total-geral").innerText = total.toFixed(1).replace('.', ',') + " kg";
         }
-    });
 
-    // Converte para array e ordena
-    let rankingArray = Object.keys(turmas).map(key => {
-        return { turma: key, total: turmas[key] };
-    }).sort((a, b) => b.total - a.total).slice(0, 3); // Pega top 3
+        function voltarParaHome() {
+            // Esconde todos os paineis/dashboards
+            document.getElementById("dashboard-professor").classList.add("hidden");
+            document.getElementById("dashboard-admin").classList.add("hidden");
+            document.getElementById("dashboard-aluno").classList.add("hidden");
+            document.getElementById("rankings-page").classList.add("hidden");
+            
+            // Esconde as áreas de autenticação
+            document.getElementById("area-acesso").classList.add("hidden");
+            document.getElementById("aluno-login-auth").classList.add("hidden");
+            document.getElementById("aluno-cadastro-auth").classList.add("hidden");
+            document.getElementById("professor-login-auth").classList.add("hidden");
+            document.getElementById("professor-cadastro-auth").classList.add("hidden");
+            document.getElementById("admin-auth").classList.add("hidden");
 
-    const container = document.getElementById("ranking-container");
-    container.innerHTML = "";
+            // Mostra o conteúdo principal
+            document.getElementById("main-content").classList.remove("hidden");
+            document.querySelector(".hero").classList.remove("hidden");
+        }
 
-    if (rankingArray.length === 0) {
-        container.innerHTML = "<p>Nenhuma doação registrada ainda.</p>";
-        return;
-    }
+        function mostrarAreaAcesso(isVoltar = false) {
+            closeMenu();
+            if (usuarioAtual) {
+                alert("Você já está logado. Para acessar com outra conta, clique em 'Sair' no menu primeiro.");
+                return;
+            }
 
-    rankingArray.forEach((item, index) => {
-        let classeExtra = index === 0 ? "top1" : "";
-        let html = `
-            <div class="rank-card ${classeExtra}">
-                <span class="rank-pos">${index + 1}º</span>
-                <span class="rank-turma">${item.turma}</span>
-                <span class="rank-valor">${item.total.toFixed(1).replace('.', ',')} kg</span>
-            </div>
-        `;
-        container.innerHTML += html;
-    });
-}
+            document.getElementById("main-content").classList.add("hidden");
+            document.querySelector(".hero").classList.add("hidden");
+            
+            document.getElementById("aluno-login-auth").classList.add("hidden");
+            document.getElementById("aluno-cadastro-auth").classList.add("hidden");
+            document.getElementById("professor-login-auth").classList.add("hidden");
+            document.getElementById("professor-cadastro-auth").classList.add("hidden");
+            document.getElementById("admin-auth").classList.add("hidden");
+            document.getElementById("signup-verification").classList.add("hidden");
+            document.getElementById("recovery-auth").classList.add("hidden");
 
-function atualizarRankingIndividual() {
-    let pessoas = {};
+            // Limpa campos de verificação para evitar mistura de códigos anteriores
+            limparCamposVerificacao();
 
-    // Agrupa valores por pessoa
-    registros.forEach(r => {
-        let nomePessoa = r.aluno;
-        if (!pessoas[nomePessoa]) pessoas[nomePessoa] = 0;
-        pessoas[nomePessoa] += parseFloat(r.qtd);
-    });
+            document.getElementById("area-acesso").classList.remove("hidden");
+            window.scrollTo(0, 0);
+        }
 
-    // Converte para array, ordena e pega os top 5
-    let rankingArray = Object.keys(pessoas).map(key => {
-        return { nome: key, total: pessoas[key] };
-    }).sort((a, b) => b.total - a.total).slice(0, 5);
+        function mostrarAuth(role, mode = 'login') {
+            // Esconde todas as telas de auth
+            document.getElementById("area-acesso").classList.add("hidden");
+            document.getElementById("aluno-login-auth").classList.add("hidden");
+            document.getElementById("aluno-cadastro-auth").classList.add("hidden");
+            document.getElementById("professor-login-auth").classList.add("hidden");
+            document.getElementById("professor-cadastro-auth").classList.add("hidden");
+            document.getElementById("admin-auth").classList.add("hidden");
 
-    const container = document.getElementById("ranking-individual-container");
-    container.innerHTML = "";
+            // Mostra a tela correta
+            const sectionId = `${role}-${mode}-auth`;
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.classList.remove("hidden");
+            } else if (role === 'admin') { // Admin só tem uma tela
+                document.getElementById("admin-auth").classList.remove("hidden");
+            }
+            
+            // Garante que a verificação esteja limpa ao mudar de tela
+            limparCamposVerificacao();
+            window.scrollTo(0,0);
+        }
 
-    if (rankingArray.length === 0) {
-        container.innerHTML = "<p>Nenhuma doação registrada ainda.</p>";
-        return;
-    }
+        function verificarLogin() {
+            const sessao = localStorage.getItem('sennaUsuarioLogado') || sessionStorage.getItem('sennaUsuarioLogado');
+            if (sessao) {
+                usuarioAtual = JSON.parse(sessao);
+                document.getElementById('menu-ranking-geral').classList.remove('hidden');
+                document.getElementById('menu-rankings').classList.remove('hidden');
+                document.getElementById('menu-dashboard').classList.remove('hidden');
+                document.getElementById('menu-acesso').classList.add('hidden');
+                document.getElementById('menu-sair').classList.remove('hidden');
+                const greetingEl = document.getElementById('nav-user-greeting');
+                greetingEl.innerHTML = `Olá, <span>${usuarioAtual.nome.split(' ')[0]}</span>!`;
+                greetingEl.classList.remove('hidden');
+            } else {
+                usuarioAtual = null;
+                document.getElementById('menu-rankings').classList.add('hidden');
+                document.getElementById('menu-ranking-geral').classList.add('hidden');
+                document.getElementById('menu-dashboard').classList.add('hidden');
+                document.getElementById('menu-acesso').classList.remove('hidden');
+                document.getElementById('menu-sair').classList.add('hidden');
+                document.getElementById('nav-user-greeting').classList.add('hidden');
+            }
+        }
 
-    rankingArray.forEach((item, index) => {
-        let classeExtra = index === 0 ? "top1" : "";
-        // Reutilizando a estrutura do card de ranking de turma
-        let html = `
-            <div class="rank-card ${classeExtra}">
-                <span class="rank-pos">${index + 1}º</span>
-                <span class="rank-turma">${item.nome}</span>
-                <span class="rank-valor">${item.total.toFixed(1).replace('.', ',')} kg</span>
-            </div>
-        `;
-        container.innerHTML += html;
-    });
-}
-</script>
+        function abrirDashboard() {
+            if(!usuarioAtual) return;
+            closeMenu();
+            
+            document.getElementById("main-content").classList.add("hidden");
+            document.querySelector(".hero").classList.add("hidden");
+            document.getElementById("area-acesso").classList.add("hidden");
+            document.getElementById("aluno-login-auth").classList.add("hidden");
+            document.getElementById("aluno-cadastro-auth").classList.add("hidden");
+            document.getElementById("professor-login-auth").classList.add("hidden");
+            document.getElementById("professor-cadastro-auth").classList.add("hidden");
+            document.getElementById("admin-auth").classList.add("hidden");
+            document.getElementById("dashboard-professor").classList.add("hidden");
+            document.getElementById("dashboard-admin").classList.add("hidden");
+            document.getElementById("dashboard-aluno").classList.add("hidden");
+            document.getElementById("rankings-page").classList.add("hidden");
+            
+            if(usuarioAtual.role === "professor") {
+                document.getElementById("dashboard-professor").classList.remove("hidden");
+                renderizarProfessorView();
+                renderizarProfessorRelatorio();
+            } else if (usuarioAtual.role === "admin") {
+                document.getElementById("dashboard-admin").classList.remove("hidden");
+                renderizarAdmin();
+                renderizarGerenciamentoUsuarios();
+                alternarAbaAdmin('registros'); // Reset para a primeira aba
+            } else {
+                document.getElementById("aluno-welcome").innerText = "Bem-vindo, " + usuarioAtual.nome;
+                document.getElementById("dashboard-aluno").classList.remove("hidden");
+                renderizarAluno();
+            }
+            window.scrollTo(0,0);
+        }
+
+        function togglePasswordVisibility(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (!input || !icon) return;
+
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+
+        function validarSenhasMatch(id1, id2, msgId) {
+            const s1 = document.getElementById(id1).value;
+            const s2 = document.getElementById(id2).value;
+            const msg = document.getElementById(msgId);
+            
+            if (s2 && s1 !== s2) {
+                msg.style.display = 'block';
+                document.getElementById(id2).style.border = '1px solid #cc0000';
+            } else {
+                msg.style.display = 'none';
+                document.getElementById(id2).style.border = '1px solid #333';
+            }
+        }
+
+        function fazerCadastroAluno() {
+            const raNum = document.getElementById("cadRaNum").value.trim();
+            const raDig = document.getElementById("cadRaDigito").value.trim();
+            const raUF = document.getElementById("cadRaUF").value.trim().toUpperCase();
+            
+            const raCompleto = `${raNum}-${raDig} ${raUF}`;
+
+            const numero = document.getElementById("cadNumero").value;
+            const nome = document.getElementById("cadNome").value;
+            const ano = document.getElementById("cadAno").value;
+            const turma = document.getElementById("cadTurma").value;
+            const senha = document.getElementById("cadSenhaAluno").value;
+            const senhaConfirm = document.getElementById("cadSenhaAlunoConfirm").value;
+
+            const msgErro = document.getElementById("erroCadAluno");
+            msgErro.style.display = 'none'; // Reseta mensagem
+
+            if(!raNum || !raDig || !raUF || !nome || !numero || !ano || !turma || !senha) { alert("Por favor, preencha todos os campos."); return; }
+            if (senha !== senhaConfirm) { alert("As senhas não coincidem. Tente novamente."); return; }
+            
+            if(usuarios.find(u => u.ra === raCompleto)) { 
+                msgErro.innerText = "Este RA já possui uma conta. Tente fazer login ou recuperar sua senha.";
+                msgErro.style.display = 'block';
+                return; 
+            }
+            if(usuarios.find(u => u.numero === numero && u.role === 'aluno')) { 
+                msgErro.innerText = "Este telefone já está associado a uma conta. Tente fazer login.";
+                msgErro.style.display = 'block';
+                return; 
+            }
+
+            // Iniciar verificação
+            verificationFlow = { type: 'signup', data: { ra: raCompleto, nome, numero, ano, turma, senha, role: 'aluno' } };
+            // Aluno só tem telefone, então vai direto
+            enviarCodigoDeVerificacao('sms');
+        }
+
+        function fazerCadastroProfessor() {
+            const nome = document.getElementById("cadNomeProf").value;
+            const email = document.getElementById("cadEmailProf").value;
+            const telefone = document.getElementById("cadTelefoneProf").value;
+            const senha = document.getElementById("cadSenhaProf").value;
+            const senhaConfirm = document.getElementById("cadSenhaProfConfirm").value;
+
+            const msgErro = document.getElementById("erroCadProf");
+            msgErro.style.display = 'none'; // Reseta mensagem
+
+            if (!nome || !email || !telefone || !senha) { alert("Por favor, preencha todos os campos."); return; }
+            if (senha !== senhaConfirm) { alert("As senhas não coincidem. Tente novamente."); return; }
+            if (!email.includes('@') || !email.includes('.')) { alert("Por favor, insira um email válido."); return; }
+            if (usuarios.find(u => u.email === email && u.role === 'professor')) { 
+                msgErro.innerText = "Este email já possui uma conta. Tente fazer login ou recuperar sua senha.";
+                msgErro.style.display = 'block';
+                return; 
+            }
+            if (usuarios.find(u => u.telefone === telefone && u.role === 'professor')) { 
+                msgErro.innerText = "Este telefone já está associado a uma conta. Tente fazer login.";
+                msgErro.style.display = 'block';
+                return; 
+            }
+
+            // Iniciar verificação
+            verificationFlow = { type: 'signup', data: { nome, email, telefone, senha, role: 'professor' } };
+            // Professor tem email e telefone, então perguntamos
+            mostrarTelaDeEscolhaDeContato();
+        }
+
+        function enviarCodigoDeVerificacao(method) {
+            const data = verificationFlow.data;
+            const code = Math.floor(100000 + Math.random() * 900000).toString();
+            data.codigoVerificacao = code; // Adiciona o código aos dados pendentes
+            
+            let contactInfo = '';
+            let message = '';
+
+            // Esconde a tela de escolha (se estiver aberta)
+            document.getElementById("contact-choice-auth").classList.add("hidden");
+
+            if (method === 'email') {
+                contactInfo = data.email;
+                message = `Aguarde... Enviando código para: ${contactInfo}.`;
+
+                // CHAMA O BACKEND PARA ENVIAR O EMAIL
+                fetch('http://localhost:3000/enviar-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: contactInfo,
+                        codigo: code,
+                        tipo: 'Verificação de Conta'
+                    })
+                })
+                .then(response => response.json())
+                .then(result => {
+                    if(result.sucesso) {
+                        mostrarTelaInputCodigo(`Enviamos um código para o e-mail: ${contactInfo}. Verifique sua caixa de entrada (e spam).`, null);
+                    } else {
+                        alert("Erro ao enviar e-mail. Verifique se o servidor está rodando.");
+                        console.error(result.erro);
+                        // Fallback para simulação em caso de erro
+                        mostrarTelaInputCodigo(`(ERRO NO ENVIO REAL) Código simulado: ${code}`, code);
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert(`Não foi possível conectar ao servidor de e-mail. Verifique se o backend está rodando e veja o console do navegador (F12) para mais detalhes.\n\nErro: ${err.message}`);
+                    mostrarTelaInputCodigo(`(ERRO DE CONEXÃO) Código simulado: ${code}`, code, true);
+                });
+
+            } else { // SMS (Continua simulado por enquanto)
+                contactInfo = data.numero || data.telefone;
+                message = `Enviamos um código via SMS para: ${contactInfo}.`;
+                // Mostra a tela de inserir código com simulação
+                mostrarTelaInputCodigo(message, code, true);
+            }
+        }
+
+        function limparCamposVerificacao() {
+            document.getElementById("signupCodeInput").value = "";
+            document.getElementById("signup-verify-msg").innerText = "Enviamos um código para seu contato.";
+            document.getElementById("recoveryCode").value = "";
+            document.getElementById("recovery-message").innerText = "";
+        }
+
+        function mostrarTelaInputCodigo(message, code, isSimulacao = false) {
+            // Esconde todas as outras telas de autenticação
+            document.getElementById("aluno-login-auth").classList.add("hidden");
+            document.getElementById("aluno-cadastro-auth").classList.add("hidden");
+            document.getElementById("professor-login-auth").classList.add("hidden");
+            document.getElementById("professor-cadastro-auth").classList.add("hidden");
+            document.getElementById("recovery-auth").classList.add("hidden");
+
+            document.getElementById("signup-verification").classList.remove("hidden");
+            
+            document.getElementById("signup-verify-msg").innerText = message;
+            document.getElementById("signupCodeInput").value = "";
+            
+            // SIMULAÇÃO
+            if(isSimulacao || code) {
+                alert(`(SIMULAÇÃO/SMS) Seu código é: ${code}`);
+            }
+        }
+
+        function confirmarCadastro() {
+            const inputCodigo = document.getElementById("signupCodeInput").value;
+            const pendingData = verificationFlow.data;
+
+            if (inputCodigo === pendingData.codigoVerificacao) {
+                // Remove o código temporário antes de salvar
+                delete pendingData.codigoVerificacao;
+                
+                usuarios.push(pendingData);
+                salvarUsuarios();
+            
+                alert("Conta verificada e criada com sucesso! Faça login.");
+                mostrarAuth(pendingData.role, 'login');
+                verificationFlow = { type: null, data: null }; // Limpa o fluxo
+            } else {
+                alert("Código incorreto.");
+            }
+        }
+
+        function cancelarCadastro() {
+            verificationFlow = { type: null, data: null };
+            limparCamposVerificacao();
+            mostrarAreaAcesso();
+        }
+
+        function fazerLoginAluno() {
+            const raNum = document.getElementById("loginRaNum").value.trim();
+            const raDig = document.getElementById("loginRaDigito").value.trim();
+            const raUF = document.getElementById("loginRaUF").value.trim().toUpperCase();
+            const raCompleto = `${raNum}-${raDig} ${raUF}`;
+
+            const senha = document.getElementById("loginSenhaAluno").value;
+            const user = usuarios.find(u => u.role === 'aluno' && u.ra === raCompleto && u.senha === senha);
+            if(user) {
+                usuarioAtual = user;
+                
+                const manterConectado = document.getElementById("lembrarLoginAluno").checked;
+                if(manterConectado) {
+                    localStorage.setItem('sennaUsuarioLogado', JSON.stringify(user));
+                } else {
+                    sessionStorage.setItem('sennaUsuarioLogado', JSON.stringify(user));
+                }
+
+                alert('Login realizado com sucesso!');
+                voltarParaHome();
+                verificarLogin();
+            } else {
+                alert("RA ou senha incorretos!");
+            }
+        }
+
+        function fazerLoginProfessor() {
+            const email = document.getElementById("loginEmailProf").value;
+            const senha = document.getElementById("loginSenhaProf").value;
+            const user = usuarios.find(u => u.role === 'professor' && u.email === email && u.senha === senha);
+            if (user) {
+                usuarioAtual = user;
+                
+                const manterConectado = document.getElementById("lembrarLoginProf").checked;
+                if(manterConectado) {
+                    localStorage.setItem('sennaUsuarioLogado', JSON.stringify(user));
+                } else {
+                    sessionStorage.setItem('sennaUsuarioLogado', JSON.stringify(user));
+                }
+
+                alert('Login realizado com sucesso!');
+                voltarParaHome();
+                verificarLogin();
+            } else {
+                alert("Email ou senha incorretos!");
+            }
+        }
+
+        function fazerLoginAdmin() {
+            const senha = document.getElementById("loginSenhaAdmin").value;
+            if (senha === '12345') {
+                usuarioAtual = { nome: 'Admin', role: 'admin' };
+                sessionStorage.setItem('sennaUsuarioLogado', JSON.stringify(usuarioAtual)); // Admin por padrão sessão curta
+                alert('Login de Administrador realizado com sucesso!');
+                voltarParaHome();
+                verificarLogin();
+            } else {
+                alert("Senha incorreta!");
+                document.getElementById("loginSenhaAdmin").value = "";
+            }
+        }
+
+        function sairSistema() {
+            closeMenu();
+            usuarioAtual = null;
+            localStorage.removeItem('sennaUsuarioLogado');
+            sessionStorage.removeItem('sennaUsuarioLogado');
+            limparCamposVerificacao(); // Limpa qualquer resquício de verificação
+            verificarLogin();
+            voltarParaHome();
+            document.getElementById("loginRaNum").value = "";
+            document.getElementById("loginRaDigito").value = "";
+            document.getElementById("loginSenhaAluno").value = "";
+            document.getElementById("loginEmailProf").value = "";
+            document.getElementById("loginSenhaProf").value = "";
+            if(document.getElementById("loginSenhaAdmin")) document.getElementById("loginSenhaAdmin").value = "";
+        }
+
+        function alternarAbaAdmin(aba) {
+            // Reseta classes
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.admin-section').forEach(sec => sec.classList.remove('active-section'));
+
+            // Ativa a aba selecionada
+            document.getElementById(`tab-${aba}`).classList.add('active');
+            document.getElementById(`admin-area-${aba}`).classList.add('active-section');
+        }
+
+        function setAdminSubTab(context, type) {
+            if (context === 'registros') {
+                adminSubTabRegistros = type;
+                renderizarAdmin();
+            } else {
+                adminSubTabContas = type;
+                renderizarGerenciamentoUsuarios();
+            }
+        }
+
+        // ==================================================================
+        // FUNÇÕES DE RECUPERAÇÃO DE SENHA (SIMULAÇÃO)
+        // ==================================================================
+        function mostrarRecuperacao() {
+            // Esconde todas as outras seções de autenticação
+            document.getElementById("area-acesso").classList.add("hidden");
+            document.getElementById("aluno-login-auth").classList.add("hidden");
+            document.getElementById("professor-login-auth").classList.add("hidden");
+            document.getElementById("admin-auth").classList.add("hidden");
+            document.getElementById("main-content").classList.add("hidden");
+            document.getElementById("contact-choice-auth").classList.add("hidden");
+
+            // Mostra a seção de recuperação e reseta para o passo 1
+            const recoverySection = document.getElementById("recovery-auth");
+            recoverySection.classList.remove("hidden");
+            document.getElementById("recovery-step1").classList.remove("hidden");
+            document.getElementById("recovery-step2").classList.add("hidden");
+            document.getElementById("recovery-step3").classList.add("hidden");
+            
+            // Limpa campos
+            document.getElementById("recoveryIdentifier").value = "";
+            document.getElementById("recoveryCode").value = "";
+            document.getElementById("recoveryNewPassword").value = "";
+            document.getElementById("recoveryNewPasswordConfirm").value = "";
+
+            window.scrollTo(0, 0);
+        }
+
+        function iniciarRecuperacao() {
+            const identifier = document.getElementById("recoveryIdentifier").value.trim();
+            if (!identifier) { return alert("Por favor, digite seu RA ou email."); }
+
+            const user = usuarios.find(u => (u.ra === identifier && u.role === 'aluno') || (u.email === identifier && u.role === 'professor'));
+            if (!user) { return alert("Usuário não encontrado. Verifique se digitou o RA (aluno) ou email (professor) corretamente."); }
+
+            verificationFlow = { type: 'recovery', data: user };
+
+            const hasEmail = !!user.email;
+            const hasPhone = !!(user.numero || user.telefone);
+
+            if (hasEmail && hasPhone) {
+                mostrarTelaDeEscolhaDeContato();
+            } else if (hasEmail) {
+                enviarCodigoDeRecuperacao('email');
+            } else if (hasPhone) {
+                enviarCodigoDeRecuperacao('sms');
+            } else {
+                alert("Este usuário não possui um método de contato (email/telefone) para recuperação.");
+                return;
+            }
+        }
+
+        function mostrarTelaDeEscolhaDeContato() {
+            const user = verificationFlow.data;
+            const box = document.getElementById("contact-choice-box");
+            const flowType = verificationFlow.type === 'signup' ? 'criação de conta' : 'recuperação de senha';
+            const actionFn = verificationFlow.type === 'signup' ? 'enviarCodigoDeVerificacao' : 'enviarCodigoDeRecuperacao';
+
+            box.innerHTML = `
+                <h2>Verificação de Segurança</h2>
+                <p>Para continuar com a ${flowType}, por onde você prefere receber o código de verificação?</p>
+                <button onclick="${actionFn}('email')">Enviar para o Email (${user.email})</button>
+                <button class="btn-secondary" onclick="${actionFn}('sms')">Enviar para o Telefone (${user.telefone || user.numero})</button>
+            `;
+
+            document.getElementById("recovery-auth").classList.add("hidden");
+            document.getElementById("aluno-cadastro-auth").classList.add("hidden");
+            document.getElementById("professor-cadastro-auth").classList.add("hidden");
+            document.getElementById("contact-choice-auth").classList.remove("hidden");
+        }
+
+        function enviarCodigoDeRecuperacao(method) {
+            const user = verificationFlow.data;
+            const code = Math.floor(100000 + Math.random() * 900000).toString();
+            recoveryProcess = { user: user, code: code, identifier: user.ra || user.email };
+
+            let contactMethod = (method === 'email') ? 'email' : 'telefone';
+            let contact = (method === 'email') ? user.email : (user.numero || user.telefone);
+            let maskedContact = (method === 'email') ? contact.slice(0, 2) + '...@' + contact.split('@')[1] : contact.slice(0, 4) + '... ' + contact.slice(-4);
+
+            // Esconde a tela de escolha e a primeira etapa da recuperação
+            document.getElementById("contact-choice-auth").classList.add("hidden");
+            document.getElementById("recovery-step1").classList.add("hidden");
+            document.getElementById("recovery-step2").classList.remove("hidden");
+
+            if (method === 'email') {
+                 document.getElementById("recovery-message").innerText = `Aguarde... Enviando código para o email...`;
+                 
+                 // CHAMA O BACKEND
+                 fetch('http://localhost:3000/enviar-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: user.email,
+                        codigo: code,
+                        tipo: 'Recuperação de Senha'
+                    })
+                })
+                .then(response => response.json())
+                .then(result => {
+                    if(result.sucesso) {
+                        document.getElementById("recovery-message").innerText = `Enviamos um código para o email cadastrado: ${maskedContact}.`;
+                    } else {
+                        alert("Erro ao enviar e-mail real. Usando simulação.");
+                        document.getElementById("recovery-message").innerText = `Erro no envio. Código simulado: ${code}`;
+                        alert(`(SIMULAÇÃO) O seu código é: ${code}`);
+                    }
+                })
+                .catch(err => {
+                    alert(`Erro de conexão com o servidor. Verifique se o backend está rodando e veja o console do navegador (F12).\n\nErro: ${err.message}`);
+                    document.getElementById("recovery-message").innerText = `Erro de conexão. Código simulado:`;
+                    alert(`(SIMULAÇÃO) O seu código é: ${code}`);
+                });
+
+            } else {
+                // SMS Simulado
+                document.getElementById("recovery-message").innerText = `Enviamos um SMS para o número cadastrado: ${maskedContact}.`;
+                alert(`(SIMULAÇÃO SMS) O seu código é: ${code}`);
+            }
+        }
+
+        function verificarCodigoRecuperacao() {
+            if (document.getElementById("recoveryCode").value === recoveryProcess.code) {
+                document.getElementById("recovery-step2").classList.add("hidden");
+                document.getElementById("recovery-step3").classList.remove("hidden");
+            } else {
+                alert("Código incorreto. Tente novamente.");
+            }
+        }
+
+        function definirNovaSenha() {
+            const newPassword = document.getElementById("recoveryNewPassword").value;
+            const newPasswordConfirm = document.getElementById("recoveryNewPasswordConfirm").value;
+            if (!newPassword || newPassword.length < 4) { return alert("A nova senha deve ter pelo menos 4 caracteres."); }
+            if (newPassword !== newPasswordConfirm) { return alert("As senhas não coincidem."); }
+
+            const userIndex = usuarios.findIndex(u => (u.ra === recoveryProcess.identifier) || (u.email === recoveryProcess.identifier));
+            if (userIndex !== -1) {
+                usuarios[userIndex].senha = newPassword;
+                salvarUsuarios();
+                alert("Senha alterada com sucesso! Faça o login com sua nova senha.");
+                recoveryProcess = { user: null, code: null, identifier: null };
+                mostrarAuth(usuarios[userIndex].role, 'login');
+            } else {
+                alert("Ocorreu um erro. Tente o processo novamente.");
+                voltarParaHome();
+            }
+        }
+
+        function toggleHistoricoAluno() {
+            const container = document.getElementById("historico-aluno-container");
+            container.classList.toggle("hidden");
+        }
+
+        function toggleHistoricoProfessor() {
+            const container = document.getElementById("historico-professor-container");
+            container.classList.toggle("hidden");
+        }
+
+        function formatarDataParaBR(isoDate) { 
+            if (!isoDate) return "";
+            // Verifica se está no formato ISO (YYYY-MM-DD) antes de tentar converter
+            if (isoDate.includes('-')) {
+                const [year, month, day] = isoDate.substring(0, 10).split('-');
+                return `${day}/${month}/${year}`;
+            }
+            return isoDate; // Retorna como está se for um formato antigo ou diferente
+        }
+
+        function adicionarMaterialAluno() {
+            const material = document.getElementById("materialAluno").value;
+            const qtd = document.getElementById("qtdAluno").value;
+            if(qtd <= 0) { alert("Quantidade inválida"); return; }
+            const valorTotal = (parseFloat(qtd) * precos[material]).toFixed(2); // O valor não parece estar sendo usado, mas ok.
+            const novoRegistro = { id: Date.now(), aluno: usuarioAtual.nome, material: material, valor: valorTotal, qtd: parseFloat(qtd), data: new Date().toISOString().split('T')[0] };
+            registros.push(novoRegistro);
+            salvarDados();
+            alert(`Sucesso! Você registrou ${qtd} kg de ${material}.`);
+            document.getElementById("qtdAluno").value = "";
+            renderizarAluno();
+            atualizarTotalGeral();
+            atualizarRanking();
+            atualizarRankingIndividual();
+            
+            // Abre o histórico automaticamente para mostrar o novo registro
+            const histContainer = document.getElementById("historico-aluno-container");
+            if(histContainer.classList.contains("hidden")) {
+                histContainer.classList.remove("hidden");
+            }
+        }
+
+        function renderizarAluno() {
+            const tbody = document.querySelector("#tabela-aluno tbody");
+            tbody.innerHTML = "";
+
+            // Pega valores do filtro
+            const dataInicio = document.getElementById("filtro-aluno-inicio").value;
+            const dataFim = document.getElementById("filtro-aluno-fim").value;
+
+            const meusRegistros = registros.filter(r => r.aluno === usuarioAtual.nome);
+            let totalQtd = 0;
+
+            const registrosFiltrados = meusRegistros.filter(r => {
+                if (!dataInicio && !dataFim) return true; // Sem filtro
+                const isAfterStart = dataInicio ? r.data >= dataInicio : true;
+                const isBeforeEnd = dataFim ? r.data <= dataFim : true;
+                return isAfterStart && isBeforeEnd;
+            });
+
+            registrosFiltrados.forEach(r => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `<td>${formatarDataParaBR(r.data)}</td><td>${r.material}</td><td>${r.qtd.toFixed(1).replace('.',',')} kg</td>`;
+                tbody.appendChild(tr);
+            });
+
+            // O total geral do aluno não deve ser afetado pelo filtro da tabela
+            totalQtd = meusRegistros.reduce((acc, r) => acc + parseFloat(r.qtd), 0);
+            document.getElementById("aluno-total-qtd").innerText = totalQtd.toFixed(1).replace('.',',');
+        }
+
+        function limparFiltroAluno() {
+            document.getElementById("filtro-aluno-inicio").value = "";
+            document.getElementById("filtro-aluno-fim").value = "";
+            renderizarAluno();
+        }
+
+        function adicionarMaterialProfessor() {
+            const material = document.getElementById("materialProfessor").value;
+            const qtd = document.getElementById("qtdProfessor").value;
+            if(qtd <= 0) { alert("Quantidade inválida"); return; }
+            const valorTotal = (parseFloat(qtd) * precos[material]).toFixed(2); // O valor não parece estar sendo usado, mas ok.
+            const novoRegistro = { id: Date.now(), aluno: usuarioAtual.nome, material: material, valor: valorTotal, qtd: parseFloat(qtd), data: new Date().toISOString().split('T')[0] };
+            registros.push(novoRegistro);
+            salvarDados();
+            alert(`Sucesso! Você registrou ${qtd} kg de ${material}.`);
+            document.getElementById("qtdProfessor").value = "";
+            renderizarProfessorRelatorio();
+            renderizarProfessorView();
+            atualizarTotalGeral();
+            atualizarRanking();
+            atualizarRankingIndividual();
+
+            // Abre o histórico automaticamente
+            const histContainer = document.getElementById("historico-professor-container");
+            if(histContainer.classList.contains("hidden")) {
+                histContainer.classList.remove("hidden");
+            }
+        }
+
+        function renderizarProfessorRelatorio() {
+            const tbody = document.querySelector("#tabela-professor-relatorio tbody");
+            if (!tbody) return;
+            tbody.innerHTML = "";
+            const meusRegistros = registros.filter(r => r.aluno === usuarioAtual.nome);
+            let totalQtd = 0;
+            meusRegistros.forEach(r => {
+                totalQtd += parseFloat(r.qtd);
+                const tr = document.createElement("tr");
+                tr.innerHTML = `<td>${formatarDataParaBR(r.data)}</td><td>${r.material}</td><td>${r.qtd.toFixed(1).replace('.',',')} kg</td>`;
+                tbody.appendChild(tr);
+            });
+            const totalEl = document.getElementById("professor-total-qtd");
+            if (totalEl) totalEl.innerText = totalQtd.toFixed(1).replace('.',',') + " kg";
+        }
+        
+        function renderizarProfessorView() {
+            const tbody = document.querySelector("#tabela-admin-professor-view tbody");
+            if (!tbody) return;
+            tbody.innerHTML = "";
+
+            // Pega valores do filtro
+            const dataInicio = document.getElementById("filtro-prof-inicio").value;
+            const dataFim = document.getElementById("filtro-prof-fim").value;
+
+            const registrosFiltrados = registros.filter(r => {
+                if (!dataInicio && !dataFim) return true; // Sem filtro
+                const isAfterStart = dataInicio ? r.data >= dataInicio : true;
+                const isBeforeEnd = dataFim ? r.data <= dataFim : true;
+                return isAfterStart && isBeforeEnd;
+            });
+
+            registrosFiltrados.forEach(r => {
+                const user = usuarios.find(u => u.nome === r.aluno) || { turma: "?", ano: "?" };
+                const tr = document.createElement("tr");
+                tr.innerHTML = `<td>${formatarDataParaBR(r.data)}</td><td>${r.aluno} <small>(${user.ano} ${user.turma})</small></td><td>${r.material}</td><td>${r.qtd.toFixed(1)}</td>`;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function limparFiltroProfessor() {
+            document.getElementById("filtro-prof-inicio").value = "";
+            document.getElementById("filtro-prof-fim").value = "";
+            renderizarProfessorView();
+        }
+
+        function renderizarAdmin() {
+            const container = document.querySelector("#admin-area-registros");
+            if (!container) return;
+
+            const registrosAlunos = registros.filter(r => {
+                const user = usuarios.find(u => u.nome === r.aluno);
+                return user && user.role === 'aluno';
+            });
+
+            const registrosProfessores = registros.filter(r => {
+                const user = usuarios.find(u => u.nome === r.aluno);
+                return user && user.role === 'professor';
+            });
+
+            // Define estados dos botões e visibilidade
+            const activeAlunos = adminSubTabRegistros === 'alunos' ? 'active' : '';
+            const activeProf = adminSubTabRegistros === 'professores' ? 'active' : '';
+            const showAlunos = adminSubTabRegistros === 'alunos' ? '' : 'hidden';
+            const showProf = adminSubTabRegistros === 'professores' ? '' : 'hidden';
+
+            // Captura valores dos filtros atuais
+            const fNome = document.getElementById('filtroRegNome')?.value || '';
+            const fAno = document.getElementById('filtroRegAno')?.value || '';
+            const fTurma = document.getElementById('filtroRegTurma')?.value || '';
+
+            let html = `
+                <div style="display:flex; gap:10px; margin-bottom:20px;">
+                    <button class="btn-sub-tab ${activeAlunos}" onclick="setAdminSubTab('registros', 'alunos')">Ver Alunos</button>
+                    <button class="btn-sub-tab ${activeProf}" onclick="setAdminSubTab('registros', 'professores')">Ver Professores</button>
+                </div>
+            `;
+            
+            // Constrói os campos de filtro (Nome, Ano, Turma)
+            const displaySelects = adminSubTabRegistros === 'alunos' ? 'block' : 'none';
+            
+            const placeholderText = adminSubTabRegistros === 'alunos' ? 'Pesquisar por Nome do Aluno' : 'Pesquisar por Nome do Professor';
+            html += `
+                <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
+                    <input type="text" id="filtroRegNome" onkeyup="renderizarAdmin()" placeholder="${placeholderText}" value="${fNome}" style="flex:2; min-width:200px;">
+                    <div style="display:${displaySelects}; flex:2; display:flex; gap:10px;">
+                        <select id="filtroRegAno" onchange="renderizarAdmin()" style="flex:1;">
+                            <option value="">Todos os Anos</option>
+                            ${['6º Ano','7º Ano','8º Ano','9º Ano','1ª Série E.M.','2ª Série E.M.','3ª Série E.M.'].map(opt => `<option value="${opt}" ${fAno === opt ? 'selected' : ''}>${opt}</option>`).join('')}
+                        </select>
+                        <select id="filtroRegTurma" onchange="renderizarAdmin()" style="flex:1;">
+                            <option value="">Turma</option>
+                            ${['A','B','C'].map(opt => `<option value="${opt}" ${fTurma === opt ? 'selected' : ''}>${opt}</option>`).join('')}
+                        </select>
+                    </div>
+                </div>
+            `;
+
+            const registrosAlunosFiltrados = registrosAlunos.filter(r => {
+                const user = usuarios.find(u => u.nome === r.aluno);
+                if (!user) return false;
+                const matchNome = fNome ? r.aluno.toLowerCase().includes(fNome.toLowerCase()) : true;
+                const matchAno = fAno ? user.ano === fAno : true;
+                const matchTurma = fTurma ? user.turma === fTurma : true;
+                return matchNome && matchAno && matchTurma;
+            });
+
+            html += `<div class="${showAlunos}"><h2>Registros de Alunos</h2><table class="tabela-geral"><thead><tr><th>Data</th><th>Aluno (Turma)</th><th>Material</th><th>Qtd</th><th>Ações</th></tr></thead><tbody>`;
+            registrosAlunosFiltrados.forEach(r => {
+                const user = usuarios.find(u => u.nome === r.aluno);
+                html += `<tr>
+                    <td>${formatarDataParaBR(r.data)}</td>
+                    <td>${r.aluno} <small>(${user ? user.ano : '?'} ${user ? user.turma : '?'})</small></td>
+                    <td>${r.material}</td>
+                    <td>${r.qtd.toFixed(1)}</td>
+                    <td><button class="btn-edit" onclick="editarRegistro(${r.id})">Editar</button><button class="btn-delete" onclick="excluirRegistro(${r.id})">Excluir</button></td>
+                </tr>`;
+            });
+            if (registrosAlunosFiltrados.length === 0) html += `<tr><td colspan="5" style="text-align:center;">${(fNome || fAno || fTurma) ? 'Nenhum resultado encontrado.' : 'Nenhum registro de aluno.'}</td></tr>`;
+            html += '</tbody></table></div>';
+
+            const registrosProfessoresFiltrados = registrosProfessores.filter(r => {
+                return fNome ? r.aluno.toLowerCase().includes(fNome.toLowerCase()) : true;
+            });
+
+
+            html += `<div class="${showProf}"><h2>Registros de Professores</h2><table class="tabela-geral"><thead><tr><th>Data</th><th>Professor</th><th>Material</th><th>Qtd</th><th>Ações</th></tr></thead><tbody>`;
+            registrosProfessoresFiltrados.forEach(r => {
+                html += `<tr>
+                    <td>${formatarDataParaBR(r.data)}</td>
+                    <td>${r.aluno}</td>
+                    <td>${r.material}</td>
+                    <td>${r.qtd.toFixed(1)}</td>
+                    <td><button class="btn-edit" onclick="editarRegistro(${r.id})">Editar</button><button class="btn-delete" onclick="excluirRegistro(${r.id})">Excluir</button></td>
+                </tr>`;
+            });
+            if (registrosProfessoresFiltrados.length === 0) html += `<tr><td colspan="5" style="text-align:center;">${fNome ? 'Nenhum resultado encontrado.' : 'Nenhum registro de professor.'}</td></tr>`;
+            html += '</tbody></table></div>';
+
+            container.innerHTML = html;
+        }
+
+        function editarRegistro(id) {
+            const registro = registros.find(r => r.id === id);
+            if(registro) {
+                let novaQtd = prompt("Nova quantidade para " + registro.material + ":", registro.qtd);
+                if(novaQtd !== null && novaQtd.trim() !== "") {
+                    registro.qtd = parseFloat(novaQtd);
+                    registro.valor = (registro.qtd * precos[registro.material]).toFixed(2);
+                    salvarDados();
+                    if(usuarioAtual.role === 'admin') renderizarAdmin();
+                    if(usuarioAtual.role === 'professor') renderizarProfessorView();
+                    atualizarTotalGeral();
+                    atualizarRanking();
+                    atualizarRankingIndividual();
+                }
+            }
+        }
+
+        function excluirRegistro(id) {
+            if(confirm("Tem certeza que deseja apagar este registro?")) {
+                registros = registros.filter(r => r.id !== id);
+                salvarDados();
+                if(usuarioAtual.role === 'admin') renderizarAdmin();
+                if(usuarioAtual.role === 'professor') renderizarProfessorView();
+                atualizarTotalGeral();
+                atualizarRanking();
+                atualizarRankingIndividual();
+            }
+        }
+
+        function salvarDados() {
+            localStorage.setItem('sennaRegistros', JSON.stringify(registros));
+        }
+
+        function salvarUsuarios() {
+            localStorage.setItem('sennaUsuarios', JSON.stringify(usuarios));
+        }
+
+        function atualizarRanking() {
+            let turmas = {};
+            registros.forEach(r => {
+                let user = usuarios.find(u => u.nome === r.aluno && u.role === 'aluno');
+                if (user) {
+                    let nomeTurma = user.ano + ' ' + user.turma;
+                    if (!turmas[nomeTurma]) turmas[nomeTurma] = 0;
+                    turmas[nomeTurma] += parseFloat(r.qtd);
+                }
+            });
+            let rankingArray = Object.keys(turmas).map(key => ({ turma: key, total: turmas[key] })).sort((a, b) => b.total - a.total).slice(0, 3);
+            const container = document.getElementById("ranking-container");
+            container.innerHTML = "";
+            if (rankingArray.length === 0) { container.innerHTML = "<p>Nenhuma doação de aluno registrada ainda.</p>"; return; }
+            rankingArray.forEach((item, index) => {
+                let classeExtra = index === 0 ? "top1" : "";
+                container.innerHTML += `<div class="rank-card ${classeExtra}"><span class="rank-pos">${index + 1}º</span><span class="rank-turma">${item.turma}</span><span class="rank-valor">${item.total.toFixed(1).replace('.', ',')} kg</span></div>`;
+            });
+        }
+        
+        function renderizarGerenciamentoUsuarios() {
+            const container = document.getElementById("admin-user-management");
+            if (!container) { console.error("Elemento #admin-user-management não encontrado!"); return; }
+            
+            const alunos = usuarios.filter(u => u.role === 'aluno');
+            const professores = usuarios.filter(u => u.role === 'professor');
+
+            // Define estados dos botões e visibilidade
+            const activeAlunos = adminSubTabContas === 'alunos' ? 'active' : '';
+            const activeProf = adminSubTabContas === 'professores' ? 'active' : '';
+            const showAlunos = adminSubTabContas === 'alunos' ? '' : 'hidden';
+            const showProf = adminSubTabContas === 'professores' ? '' : 'hidden';
+
+            // Captura valores dos filtros atuais
+            const fNome = document.getElementById('filtroContaNome')?.value || '';
+            const fAno = document.getElementById('filtroContaAno')?.value || '';
+            const fTurma = document.getElementById('filtroContaTurma')?.value || '';
+
+            let html = `
+                <div style="display:flex; gap:10px; margin-bottom:20px;">
+                    <button class="btn-sub-tab ${activeAlunos}" onclick="setAdminSubTab('contas', 'alunos')">Contas de Alunos</button>
+                    <button class="btn-sub-tab ${activeProf}" onclick="setAdminSubTab('contas', 'professores')">Contas de Professores</button>
+                </div>
+            `;
+
+            const displaySelects = adminSubTabContas === 'alunos' ? 'block' : 'none';
+            const placeholderText = adminSubTabContas === 'alunos' ? 'Pesquisar por Nome ou RA' : 'Pesquisar por Nome ou Email';
+
+            html += `
+                <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
+                    <input type="text" id="filtroContaNome" onkeyup="renderizarGerenciamentoUsuarios()" placeholder="${placeholderText}" value="${fNome}" style="flex:2; min-width:200px;">
+                    <div style="display:${displaySelects}; flex:2; display:flex; gap:10px;">
+                        <select id="filtroContaAno" onchange="renderizarGerenciamentoUsuarios()" style="flex:1;">
+                            <option value="">Todos os Anos</option>
+                            ${['6º Ano','7º Ano','8º Ano','9º Ano','1ª Série E.M.','2ª Série E.M.','3ª Série E.M.'].map(opt => `<option value="${opt}" ${fAno === opt ? 'selected' : ''}>${opt}</option>`).join('')}
+                        </select>
+                        <select id="filtroContaTurma" onchange="renderizarGerenciamentoUsuarios()" style="flex:1;">
+                            <option value="">Turma</option>
+                            ${['A','B','C'].map(opt => `<option value="${opt}" ${fTurma === opt ? 'selected' : ''}>${opt}</option>`).join('')}
+                        </select>
+                    </div>
+                </div>
+            `;
+
+            const alunosFiltrados = alunos.filter(user => {
+                const matchNome = fNome ? (user.nome.toLowerCase().includes(fNome.toLowerCase()) || user.ra.includes(fNome)) : true;
+                const matchAno = fAno ? user.ano === fAno : true;
+                const matchTurma = fTurma ? user.turma === fTurma : true;
+                return matchNome && matchAno && matchTurma;
+            });
+
+
+            html += `<div class="${showAlunos}"><h2>Lista de Alunos</h2><table class="tabela-geral"><thead><tr><th>Nome</th><th>RA</th><th>Turma</th><th>Telefone</th><th>Ações</th></tr></thead><tbody>`;
+            alunosFiltrados.forEach(user => {
+                html += `<tr>
+                    <td>${user.nome}</td>
+                    <td>${user.ra}</td>
+                    <td>${user.ano} ${user.turma}</td>
+                    <td>${user.numero || ''}</td>
+                    <td>
+                        <button class="btn-edit" onclick="editarUsuario('${user.ra}')">Editar</button>
+                        <button class="btn-reset" onclick="redefinirSenha('${user.ra}')">Redefinir</button>
+                        <button class="btn-delete" onclick="excluirUsuario('${user.ra}')">Excluir</button>
+                    </td>
+                </tr>`;
+            });
+            if (alunosFiltrados.length === 0) html += `<tr><td colspan="5" style="text-align:center;">${(fNome || fAno || fTurma) ? 'Nenhum aluno encontrado.' : 'Nenhum aluno cadastrado.'}</td></tr>`;
+            html += '</tbody></table></div>';
+
+            const professoresFiltrados = professores.filter(user => {
+                return fNome ? (user.nome.toLowerCase().includes(fNome.toLowerCase()) || user.email.toLowerCase().includes(fNome.toLowerCase())) : true;
+            });
+
+            html += `<div class="${showProf}"><h2>Lista de Professores</h2><table class="tabela-geral"><thead><tr><th>Nome</th><th>Email</th><th>Telefone</th><th>Ações</th></tr></thead><tbody>`;
+            professoresFiltrados.forEach(user => {
+                html += `<tr>
+                    <td>${user.nome}</td>
+                    <td>${user.email}</td>
+                    <td>${user.telefone || ''}</td>
+                    <td>
+                        <button class="btn-edit" onclick="editarUsuario('${user.email}')">Editar</button>
+                        <button class="btn-reset" onclick="redefinirSenha('${user.email}')">Redefinir</button>
+                        <button class="btn-delete" onclick="excluirUsuario('${user.email}')">Excluir</button>
+                    </td>
+                </tr>`;
+            });
+            if (professoresFiltrados.length === 0) html += `<tr><td colspan="4" style="text-align:center;">${fNome ? 'Nenhum professor encontrado.' : 'Nenhum professor cadastrado.'}</td></tr>`;
+            html += '</tbody></table></div>';
+
+            container.innerHTML = html;
+        }
+
+        function verificarSenhaAdmin() {
+            const senhaAdmin = prompt("Para executar esta ação, digite a senha de segurança:");
+            if (senhaAdmin === "12345") return true;
+            alert("Senha incorreta. Ação cancelada.");
+            return false;
+        }
+
+        function editarUsuario(id) {
+            if (!verificarSenhaAdmin()) return;
+            const userIndex = usuarios.findIndex(u => u.ra === id || u.email === id);
+            if (userIndex === -1) { return alert("Usuário não encontrado."); }
+            const user = usuarios[userIndex];
+            if (user.role === 'aluno') {
+                const nome = prompt("Novo nome:", user.nome); if (nome !== null && nome.trim() !== "") user.nome = nome;
+                const ra = prompt("Novo RA:", user.ra); if (ra !== null && ra.trim() !== "" && ra !== user.ra) { if (usuarios.some(u => u.ra === ra)) { alert("RA já cadastrado. Alteração ignorada."); } else { user.ra = ra; } }
+                const numero = prompt("Novo Telefone:", user.numero); if (numero !== null) user.numero = numero;
+                const ano = prompt("Novo Ano:", user.ano); if (ano !== null) user.ano = ano;
+                const turma = prompt("Nova Turma:", user.turma); if (turma !== null) user.turma = turma;
+            } else if (user.role === 'professor') {
+                const nome = prompt("Novo nome:", user.nome); if (nome !== null && nome.trim() !== "") user.nome = nome;
+                const email = prompt("Novo Email:", user.email); if (email !== null && email.trim() !== "" && email !== user.email) { if (usuarios.some(u => u.email === email)) { alert("Email já cadastrado. Alteração ignorada."); } else { user.email = email; } }
+                const telefone = prompt("Novo Telefone:", user.telefone); if (telefone !== null) user.telefone = telefone;
+            }
+            salvarUsuarios();
+            renderizarGerenciamentoUsuarios();
+            alert("Usuário atualizado!");
+        }
+
+        function redefinirSenha(id) {
+            if (!verificarSenhaAdmin()) return;
+            const user = usuarios.find(u => u.ra === id || u.email === id);
+            if (!user) { return alert("Usuário não encontrado."); }
+            const novaSenha = prompt(`Digite a nova senha para ${user.nome}:`);
+            if (novaSenha !== null && novaSenha.trim() !== "") {
+                user.senha = novaSenha;
+                salvarUsuarios();
+                alert("Senha do usuário atualizada com sucesso!");
+            } else if (novaSenha !== null) {
+                alert("Senha não pode ser vazia. Operação cancelada.");
+            }
+        }
+
+        function excluirUsuario(id) {
+            if (!verificarSenhaAdmin()) return;
+            
+            const userIndex = usuarios.findIndex(u => u.ra === id || u.email === id);
+            if (userIndex === -1) { return alert("Erro: Usuário não encontrado na lista."); }
+
+            const user = usuarios[userIndex];
+            const idDisplay = user.ra || user.email || "Sem ID";
+            if (confirm(`Tem certeza que deseja excluir permanentemente o usuário ${user.nome} (${idDisplay})? Esta ação não pode ser desfeita.`)) {
+                usuarios.splice(userIndex, 1);
+                salvarUsuarios();
+                alert("Usuário excluído com sucesso.");
+                renderizarGerenciamentoUsuarios();
+            }
+        }
+
+        function atualizarRankingIndividual() {
+            let pessoas = {};
+            registros.forEach(r => {
+                let nomePessoa = r.aluno;
+                if (!pessoas[nomePessoa]) pessoas[nomePessoa] = 0;
+                pessoas[nomePessoa] += parseFloat(r.qtd);
+            });
+            let rankingArray = Object.keys(pessoas).map(key => ({ nome: key, total: pessoas[key] })).sort((a, b) => b.total - a.total).slice(0, 5);
+            const container = document.getElementById("ranking-individual-container");
+            container.innerHTML = "";
+            if (rankingArray.length === 0) { container.innerHTML = "<p>Nenhuma doação registrada ainda.</p>"; return; }
+            rankingArray.forEach((item, index) => {
+                let classeExtra = index === 0 ? "top1" : "";
+                container.innerHTML += `<div class="rank-card ${classeExtra}"><span class="rank-pos">${index + 1}º</span><span class="rank-turma">${item.nome}</span><span class="rank-valor">${item.total.toFixed(1).replace('.', ',')} kg</span></div>`;
+            });
+        }
+    </script>
 
 </body>
 </html>
