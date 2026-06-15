@@ -8,8 +8,11 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/enviar-email",
       "dest": "/server.js"
+    },
+    {
+      "handle": "filesystem"
     }
   ]
 }
