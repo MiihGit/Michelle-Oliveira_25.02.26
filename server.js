@@ -2,11 +2,8 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
-
 const app = express();
-app.use(cors()); // Permite que o seu HTML fale com este servidor
+app.use(cors());
 app.use(bodyParser.json());
 
 // ============================================================================
@@ -15,8 +12,10 @@ app.use(bodyParser.json());
 // 2. Gere uma "Senha de App" na sua conta Google e cole abaixo.
 // Link para gerar: https://myaccount.google.com/apppasswords
 // ============================================================================
-const SEU_EMAIL_GMAIL = 'sennarecicla@gmail.com'; // << MUDE AQUI
-const SUA_SENHA_DE_APP = '2657568951050775'; // << MUDE AQUI
+
+// Recomendação: Use variáveis de ambiente para não expor senhas no GitHub/Vercel
+const SEU_EMAIL_GMAIL = process.env.EMAIL_USER || 'sennarecicla@gmail.com';
+const SUA_SENHA_DE_APP = process.env.EMAIL_PASS || '2657568951050775';
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -36,43 +35,6 @@ transporter.verify(function (error, success) {
     }
 });
 
-// ============================================================================
-// BANCO DE DADOS (SQLite)
-// Cria o arquivo senna.db e as tabelas automaticamente
-// ============================================================================
-const dbPath = path.join(__dirname, 'senna.db');
-const db = new sqlite3.Database(dbPath, (err) => {
-    if (err) {
-        console.error('Erro ao conectar ao banco de dados:', err.message);
-    } else {
-        console.log('✅ Conectado ao banco de dados SQLite (senna.db).');
-    }
-});
-
-db.serialize(() => {
-    // Tabela de Usuários (Alunos e Professores)
-    db.run(`CREATE TABLE IF NOT EXISTS usuarios (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nome TEXT,
-        email TEXT,
-        ra TEXT,
-        telefone TEXT,
-        senha TEXT,
-        role TEXT,
-        ano TEXT,
-        turma TEXT
-    )`);
-
-    // Tabela de Registros de Reciclagem
-    db.run(`CREATE TABLE IF NOT EXISTS registros (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        aluno_nome TEXT,
-        material TEXT,
-        qtd REAL,
-        data TEXT
-    )`);
-    console.log("✅ Tabelas 'usuarios' e 'registros' verificadas.");
-});
 
 app.post('/enviar-email', (req, res) => {
     console.log("\n--- Nova Requisição ---");
@@ -117,11 +79,16 @@ app.post('/enviar-email', (req, res) => {
     });
 });
 
-app.listen(3000, () => {
-    console.log("========================================================");
-    console.log("✅ SERVIDOR ONLINE: http://localhost:3000");
-    console.log("✅ BANCO DE DADOS: senna.db (Conectado)");
-    console.log("Pode testar o envio de email no site agora.");
-    console.log("NÃO FECHE ESTA JANELA.");
-    console.log("========================================================");
-});
+// Roda localmente; na Vercel o app é exportado abaixo
+if (require.main === module) {
+    app.listen(3000, () => {
+        console.log("========================================================");
+        console.log("✅ SERVIDOR ONLINE: http://localhost:3000");
+        console.log("✅ BANCO DE DADOS: senna.db (Conectado)");
+        console.log("Pode testar o envio de email no site agora.");
+        console.log("NÃO FECHE ESTA JANELA.");
+        console.log("========================================================");
+    });
+}
+
+module.exports = app;
