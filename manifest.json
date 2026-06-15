@@ -1,0 +1,17 @@
+{
+  "name": "Senna Recicla",
+  "short_name": "SennaRecicla",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#008751",
+  "description": "Transformando reciclagem em vitória.",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/1126/1126462.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

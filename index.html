@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senna Recicla</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#008751">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
@@ -22,6 +24,12 @@
 
         body{background:var(--preto);color:#fff;}
 
+        /* Melhoria de acessibilidade: Indicador de foco */
+        :focus {
+            outline: 3px solid var(--amarelo); 
+            outline-offset: 2px;
+        }
+
         /* NAV */
         .nav-bar{
             position:fixed;
@@ -36,14 +44,17 @@
             z-index:1000;
         }
 
-        .logo{font-weight:900;font-style:italic;font-size:1.3rem; cursor: pointer;}
+        .logo{font-weight:900;font-style:italic;font-size:1.3rem; cursor: pointer; background: none; border: none; color: white;}
         .logo span{color:var(--amarelo);}
 
         .menu-btn{
             font-size:1.8rem;
             cursor:pointer;
             color:var(--amarelo);
-            padding:10px;
+            padding: 5px 10px;
+            background: transparent;
+            border: 2px solid transparent;
+            border-radius: 8px;
         }
 
         .nav-right {
@@ -96,6 +107,8 @@
             font-size: 1.8rem;
             cursor: pointer;
             color: var(--amarelo);
+            background: transparent;
+            border: none;
             padding: 10px;
         }
 
@@ -181,6 +194,22 @@
         .card-info h3{color:var(--amarelo);margin-bottom:10px;}
         .card-info p{margin-bottom:15px;font-size:0.9rem;color:#ddd;}
         .card-info .preco{color:var(--verde);font-weight:bold;font-size:1.1rem;margin-bottom:0;}
+
+        /* PASSO A PASSO */
+        .step-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 30px; }
+        .step-box { background: var(--cinza); border: 1px solid #333; padding: 25px; border-radius: 15px; width: 220px; text-align: center; position: relative; }
+        .step-number { background: var(--verde); color: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: bold; position: absolute; top: -20px; left: 50%; transform: translateX(-50%); border: 3px solid var(--preto); }
+        .step-box h3 { color: var(--amarelo); margin: 15px 0 10px; font-size: 1.1rem; }
+        .step-box p { font-size: 0.85rem; color: #ccc; }
+
+        /* FEED DE ATIVIDADES */
+        .feed-container { background: #111; border: 1px solid #333; border-radius: 15px; padding: 20px; max-height: 300px; overflow-y: auto; margin-top: 20px; }
+        .feed-item { display: flex; align-items: center; gap: 15px; padding: 12px; border-bottom: 1px solid #222; animation: fadeIn 0.5s ease; }
+        .feed-item:last-child { border-bottom: none; }
+        .feed-icon { background: var(--azul); color: var(--amarelo); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+        .feed-text { font-size: 0.9rem; color: #ddd; }
+        .feed-text strong { color: #fff; }
+        .feed-time { font-size: 0.7rem; color: var(--verde); display: block; margin-top: 3px; }
 
         /* FORMULÁRIOS E AUTENTICAÇÃO */
         .auth-container, .dashboard {
@@ -273,10 +302,10 @@
         .admin-section { display: none; }
         .admin-section.active-section { display: block; animation: fadeIn 0.3s ease; }
 
-        .tabela-geral { width: 100%; border-collapse: collapse; margin-top: 20px; background: #222; border-radius: 10px; overflow: hidden; }
+        .tabela-geral { width: 100%; border-collapse: collapse; margin-top: 20px; background: #222; border-radius: 10px; display: block; overflow-x: auto; }
         th, td { padding: 15px; text-align: left; border-bottom: 1px solid #333; }
         th { background: var(--verde); color: white; }
-        tr:hover { background: #2a2a2a; }
+        tbody tr:hover { background: #2a2a2a; }
         td small { color: #888; }
 
         .btn-edit { background: var(--amarelo); color: black; margin-right: 5px; cursor: pointer; border:none; padding:8px 12px; border-radius:4px; font-size: 0.8rem;}
@@ -290,6 +319,36 @@
         .resumo-box { background: var(--azul); padding: 20px; border-radius: 10px; margin: 20px 0; text-align: center; border: 1px solid #ffffff33; }
         .resumo-box p { margin-bottom: 10px; }
         .resumo-box span { font-weight: 900; color: var(--amarelo); font-size: 1.8rem; }
+        .valor-monetario { color: var(--amarelo); font-weight: bold; }
+
+        /* BARRA DE PROGRESSO */
+        .meta-container {
+            background: #333;
+            border-radius: 20px;
+            height: 25px;
+            width: 100%;
+            margin: 15px 0;
+            overflow: hidden;
+            border: 1px solid var(--verde);
+        }
+        .meta-progress {
+            background: linear-gradient(90deg, var(--verde), var(--amarelo));
+            height: 100%;
+            width: 0%; /* Ajustado via JS */
+            transition: width 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: var(--preto);
+        }
+        .meta-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
 
         /* PLACAR E RANKING */
         .placar-banner { 
@@ -299,20 +358,40 @@
             border: 1px solid var(--verde); 
             margin: 0 auto 60px auto; 
             width: fit-content; 
+            max-width: 100%;
             text-align: center;
             box-shadow: 0 5px 20px rgba(0,0,0,0.5);
         }
-        .placar-banner p { display:inline-block; margin-right:10px; color:#ccc; font-size: 1rem; }
-        .placar-banner h2 { display:inline-block; color: var(--amarelo); font-size: 1.5rem; margin: 0; vertical-align: middle;}
+        .placar-banner p { margin: 5px 10px; color:#ccc; font-size: 1rem; }
+        .placar-banner h2 { color: var(--amarelo); font-size: 1.5rem; margin: 5px 0; }
         
         .ranking-box { text-align: center; margin-bottom: 60px; }
         .ranking-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 20px; padding-top: 20px; }
-        .rank-card { background: #222; padding: 20px; border-radius: 15px; width: 220px; border: 1px solid #333; position: relative; margin-bottom: 20px; }
+        .rank-card { background: #222; padding: 20px; border-radius: 15px; width: 220px; border: 1px solid #333; position: relative; margin-bottom: 20px; transition: 0.3s; }
+        .rank-card:hover { border-color: var(--amarelo); transform: translateY(-5px); }
         .rank-card.top1 { border: 2px solid var(--amarelo); transform: scale(1.1); z-index: 10; background: linear-gradient(to bottom, #222, #1a1a00); }
-        .rank-pos { font-size: 3rem; font-weight: 900; color: #444; position: absolute; top: -20px; left: 10px; opacity: 0.5; }
-        .rank-card.top1 .rank-pos { color: var(--amarelo); opacity: 1; }
-        .rank-turma { font-size: 1.2rem; font-weight: bold; margin-top: 10px; display: block; }
-        .rank-valor { color: var(--verde); font-weight: bold; font-size: 1.1rem; }
+        .rank-card.top1:hover { transform: scale(1.15); }
+        
+        .medalha { font-size: 2.5rem; display: block; margin-bottom: 10px; }
+        .rank-pos { font-size: 1.2rem; font-weight: 900; color: #888; margin-bottom: 5px; display: block; }
+        .rank-card.top1 .rank-pos { color: var(--amarelo); }
+        
+        .rank-categoria { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: #aaa; margin-bottom: 10px; display: block; }
+        .rank-turma { font-size: 1.1rem; font-weight: bold; margin-bottom: 5px; display: block; color: #fff; }
+        .rank-valor { color: var(--amarelo); font-weight: 900; font-size: 1.3rem; }
+
+        .seu-ranking-card {
+            background: var(--azul);
+            border: 2px solid var(--verde);
+            width: 100%;
+            max-width: 500px;
+            margin: 40px auto 0;
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
         /* FOOTER */
         footer{
@@ -325,15 +404,34 @@
 
         /* RESPONSIVO */
         @media(max-width:768px){
-            .hero{flex-direction:column;text-align:center;height:auto;padding:50px 20px;}
-            .senna-img{height:250px;margin-top:20px;}
-            .grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));}
-            .hero-content h1{font-size:2.3rem;}
-            section{padding:80px 5%;}
+            .hero { flex-direction: column; text-align: center; height: auto; padding: 100px 20px 50px; }
+            .senna-img { height: auto; max-width: 100%; margin-top: 20px; }
+            .grid { grid-template-columns: 1fr; }
+            .hero-content h1 { font-size: 2.3rem; }
+            section { padding: 60px 5%; }
             .sobre-content {
                 flex-direction: column;
                 text-align: center;
             }
+            .placar-banner {
+                padding: 20px;
+                border-radius: 20px;
+                display: flex;
+                flex-direction: column;
+            }
+            .placar-banner p { margin-left: 0 !important; }
+            .seu-ranking-card {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center !important;
+            }
+            .seu-ranking-card div { text-align: center !important; }
+            
+            .nav-bar { padding: 10px 5%; }
+            .logo { font-size: 1.1rem; }
+            
+            /* Ajuste para inputs não darem zoom automático no iPhone */
+            input, select, textarea { font-size: 16px !important; }
         }
     </style>
 </head>
@@ -341,27 +439,27 @@
 
     <!-- ===== BARRA DE NAVEGAÇÃO ===== -->
     <nav class="nav-bar">
-        <div class="logo" onclick="voltarParaHome()">Senna<span>Recicla</span></div>
+        <button class="logo" onclick="voltarParaHome()" aria-label="Ir para o início">Senna<span>Recicla</span></button>
         <div class="nav-right">
             <div id="nav-user-greeting" class="hidden"></div>
-            <div class="menu-btn" onclick="openMenu()">
+            <button class="menu-btn" onclick="openMenu()" aria-label="Abrir menu de navegação" aria-expanded="false">
                 <i class="fas fa-bars"></i>
-            </div>
+            </button>
         </div>
     </nav>
 
     <!-- ===== MENU LATERAL ===== -->
     <div class="sidebar" id="menu">
-        <div class="close-btn" onclick="closeMenu()"><i class="fas fa-times"></i></div>
-        <a onclick="voltarParaHome(); closeMenu();">Início</a>
-        <a id="menu-dashboard" class="hidden" onclick="abrirDashboard()">Meu Painel</a>
-        <a id="menu-acesso" onclick="mostrarAreaAcesso()">Acessar / Cadastrar</a>
-        <a onclick="navegarMenu('sobre')">Sobre o Projeto</a>
-        <a onclick="navegarMenu('importancia-reciclagem')">A Importância de Reciclar</a>
-        <a onclick="navegarMenu('produtos')">O que Reciclamos</a>
-        <a id="menu-ranking-geral" class="hidden" onclick="navegarMenu('ranking-geral')">Ranking de Turmas</a>
-        <a id="menu-rankings" class="hidden" onclick="navegarMenu('ranking-individual')">Ranking Individual</a>
-        <a id="menu-sair" class="hidden" onclick="sairSistema()">Sair</a>
+        <button class="close-btn" onclick="closeMenu()" aria-label="Fechar menu"><i class="fas fa-times"></i></button>
+        <a href="#" onclick="voltarParaHome(); closeMenu(); return false;">Início</a>
+        <a href="#" id="menu-dashboard" class="hidden" onclick="abrirDashboard(); return false;">Meu Painel</a>
+        <a href="#" id="menu-acesso" onclick="mostrarAreaAcesso(); return false;">Acessar / Cadastrar</a>
+        <a href="#" onclick="navegarMenu('sobre'); return false;">Sobre o Projeto</a>
+        <a href="#" onclick="navegarMenu('importancia-reciclagem'); return false;">A Importância de Reciclar</a>
+        <a href="#" onclick="navegarMenu('produtos'); return false;">O que Reciclamos</a>
+        <a href="#" id="menu-ranking-geral" class="hidden" onclick="navegarMenu('ranking-geral'); return false;">Ranking de Turmas</a>
+        <a href="#" id="menu-rankings" class="hidden" onclick="navegarMenu('ranking-individual'); return false;">Ranking Individual</a>
+        <a href="#" id="menu-sair" class="hidden" onclick="sairSistema(); return false;">Sair</a>
     </div>
 
     <!-- ===== CONTEÚDO PRINCIPAL (HOME) ===== -->
@@ -375,43 +473,146 @@
 
         <main>
             <section id="sobre">
-                <h2 class="section-title">Sobre o Projeto</h2>
-                <p style="line-height: 1.6; margin-bottom: 30px;">O Senna Recicla é uma iniciativa para incentivar a comunidade escolar a praticar a reciclagem. Cada material coletado é pesado e convertido em pontos, gerando uma competição saudável entre turmas e alunos, tudo isso inspirado na determinação e nos valores de Ayrton Senna.</p>
+                <h2 class="section-title">O Propósito do Senna Recicla</h2>
+                <div class="sobre-texto" style="margin-bottom: 30px;">
+                    <p>Inspirado na determinação de Ayrton Senna, este projeto transforma a conscientização em ação concreta. Acreditamos que o esforço coletivo pode gerar mudanças reais no planeta e, ao mesmo tempo, valorizar a jornada dos nossos alunos.</p>
+                    <p>Cada material reciclado aqui contribui para o Fundo de Formatura, transformando o que seria descartado em recursos para celebrar essa grande conquista. É a vitória do meio ambiente e da sua turma!</p>
+                </div>
+                
+                <h3 style="text-align: center; color: var(--amarelo); margin-top: 40px; margin-bottom: 10px;">Como participar na prática?</h3>
+                <div class="step-container" style="margin-bottom: 40px;">
+                    <div class="step-box">
+                        <div class="step-number">1</div>
+                        <h3>Separe em Casa</h3>
+                        <p>Lave e guarde latinhas, papelão, tampinhas e óleo usado.</p>
+                    </div>
+                    <div class="step-box">
+                        <div class="step-number">2</div>
+                        <h3>Traga para a Escola</h3>
+                        <p>Entregue os materiais nos dias de coleta programados.</p>
+                    </div>
+                    <div class="step-box">
+                        <div class="step-number">3</div>
+                        <h3>Pese e Registre</h3>
+                        <p>O professor pesa sua doação e você registra aqui no site.</p>
+                    </div>
+                    <div class="step-box">
+                        <div class="step-number">4</div>
+                        <h3>Suba no Pódio</h3>
+                        <p>Acompanhe seu ranking e o crescimento do Fundo de Formatura!</p>
+                    </div>
+                </div>
+
                 <div class="placar-banner">
-                    <p>Total já arrecadado pelo projeto:</p>
-                    <h2 id="valor-total-geral">0,0 kg</h2>
+                    <p>Total Arrecadado para a Formatura:</p>
+                    <h2 id="valor-total-dinheiro">R$ 0,00</h2>
+                    <p style="margin-left: 15px;">Total Coletado (Massa/Vol):</p>
+                    <h2 id="valor-total-geral">0,0 kg/L</h2>
+                </div>
+
+                <div class="dashboard-card" style="margin-top: 40px;">
+                    <h2 style="text-align: center; color: var(--amarelo); margin-bottom: 20px;">Meta para a Formatura</h2>
+                    <div class="meta-info">
+                        <span>Progresso da Arrecadação</span>
+                        <span id="meta-porcentagem">0%</span>
+                    </div>
+                    <div class="meta-container">
+                        <div class="meta-progress" id="meta-barra">0%</div>
+                    </div>
+                    <div class="meta-info">
+                        <span>Arrecadado: <strong id="meta-atual">R$ 0,00</strong></span>
+                        <span>Meta: <strong id="meta-objetivo">R$ 5.000,00</strong></span>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                    <div class="dashboard-card" style="flex: 1; min-width: 300px; margin-bottom: 0;">
+                        <h2 style="text-align: center; color: var(--amarelo); margin-bottom: 20px;">Cotação do Mercado (Hoje)</h2>
+                        <p style="text-align: center; font-size: 0.8rem; color: #888; margin-bottom: 20px;">Valores médios por kg/litro atualizados via API</p>
+                        <div class="grid" id="cotacao-grid">
+                            <!-- Cards de Cotação via JS -->
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card" style="flex: 1; min-width: 300px; margin-bottom: 0;">
+                        <h2 style="text-align: center; color: var(--verde); margin-bottom: 10px;">Últimas Acelerações</h2>
+                        <p style="text-align: center; font-size: 0.8rem; color: #888;">Doações recentes em tempo real</p>
+                        <div class="feed-container" id="live-feed" aria-live="polite">
+                            <!-- Feed populado via JS -->
+                        </div>
+                    </div>
                 </div>
             </section>
 
             <section id="importancia-reciclagem">
-                <h2 class="section-title">A Importância de Reciclar</h2>
+                <h2 class="section-title">Por que sua participação é Vital?</h2>
                 <div class="sobre-content">
-                    <img src="https://img.freepik.com/fotos-premium/um-close-up-de-um-logotipo-de-reciclagem-verde-em-um-fundo-preto-generativo-ai_899870-32512.jpg?semt=ais_hybrid&w=740&q=80" alt="Símbolo da reciclagem com pessoas coletando lixo">
+                    <div style="text-align: center;">
+                        <img src="https://www.dionambiental.com.br/wp-content/uploads/2024/05/DIA-MUNDIAL-DA-RECICLAGEM-BLOG-1.png.webp" alt="Símbolo da reciclagem" style="max-width: 300px;">
+                        <p style="font-size: 0.8rem; color: var(--amarelo); margin-top: 10px; font-style: italic;">O Símbolo da Vitória: Reduzir, Reutilizar e Reciclar.</p>
+                    </div>
                     <div class="sobre-texto">
-                        <p>A reciclagem é um dos pilares para um futuro mais sustentável. Ela transforma materiais que seriam descartados como lixo em matéria-prima para a criação de novos produtos.</p>
-                        <p>Esse processo economiza recursos naturais, reduz a poluição do ar e da água, e diminui a quantidade de resíduos enviados para aterros. Ao participar do nosso projeto, você faz parte de um ciclo virtuoso que beneficia todo o planeta.</p>
+                        <p>O famoso símbolo das três setas não é apenas um desenho; ele representa o **Ciclo de Sustentabilidade**. Cada seta tem um significado vital para a nossa missão:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px; list-style-type: '🏁 ';">
+                            <li style="margin-bottom: 15px;"><strong>Aceleração Contra o Aquecimento Global:</strong> A extração de matérias-primas virgens é uma das maiores fontes de CO2 do planeta. Reciclar reduz as emissões em até 95%, combatendo diretamente o efeito estufa e mantendo o clima da Terra em uma "faixa de segurança" para a vida.</li>
+                            <li style="margin-bottom: 15px;"><strong>Eficiência Energética de Elite:</strong> Produzir uma única latinha de alumínio do zero gasta a mesma energia que reciclar 20 latas. Essa economia gigante evita a sobrecarga do sistema elétrico e a necessidade de construir novas hidrelétricas que inundam nossas florestas.</li>
+                            <li style="margin-bottom: 15px;"><strong>Blindagem de Nossas Reservas Hídricas:</strong> O lixo descartado incorretamente se fragmenta em microplásticos que invadem o solo e contaminam a água que bebemos e os peixes que comemos. Reciclar é o único filtro eficiente para manter nossos oceanos e lençóis freáticos limpos para o futuro.</li>
+                        </ul>
+                        <p style="margin-top: 20px; border-left: 3px solid var(--amarelo); padding-left: 15px; font-style: italic; color: #ccc;">
+                            "Eu não tenho ídolos. Tenho admiração por trabalho, dedicação e competência." <br>— <strong>Ayrton Senna</strong>. <br>Reciclar exige dedicação, mas o resultado é a nossa formatura!
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card" style="margin-top: 30px; border: 1px solid #444;">
+                    <h3 style="color: var(--verde); margin-bottom: 15px;">Impacto Direto na Nossa Realidade:</h3>
+                    <div class="grid">
+                        <div style="padding: 10px;">
+                            <h4 style="color: var(--amarelo);">Biodiversidade Local</h4>
+                            <p style="font-size: 0.85rem;">Ao evitar que plásticos e óleos cheguem aos bueiros da nossa cidade, protegemos os rios e a fauna da nossa região.</p>
+                        </div>
+                        <div style="padding: 10px;">
+                            <h4 style="color: var(--amarelo);">Economia da Formatura</h4>
+                            <p style="font-size: 0.85rem;">O que antes era custo de limpeza para a escola, agora é investimento para a nossa festa. O lixo vira patrimônio da turma!</p>
+                        </div>
+                        <div style="padding: 10px;">
+                            <h4 style="color: var(--amarelo);">Legado Senna</h4>
+                            <p style="font-size: 0.85rem;">Ayrton sempre lutou pelo Brasil. Cuidar do nosso ambiente escolar é continuar o legado de orgulho pelo nosso país.</p>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <section id="produtos">
-                <h2 class="section-title">O que Reciclamos?</h2>
+                <h2 class="section-title">O Impacto de cada Material</h2>
                 <div class="grid">
                     <div class="card">
                         <img src="https://www.projetodraft.com/wp-content/uploads/2023/11/Sustentabilidade-na-lata.jpg" alt="Latinhas">
-                        <div class="card-info"><h3>Latinhas</h3><p>São 100% recicláveis e podem se transformar em novas latas infinitamente.</p></div>
+                        <div class="card-info">
+                            <h3>Latinhas (Alumínio)</h3>
+                            <p>É o material mais valioso. Reciclar latas economiza **95% da energia** necessária para fabricar alumínio virgem. É 100% reciclável, sem perder a qualidade.</p>
+                        </div>
                     </div>
                     <div class="card">
                         <img src="https://www.aparascarvalho.com.br/imagens/informacoes/reciclagem-papel-e-papelao-01.jpg" alt="Papelão">
-                        <div class="card-info"><h3>Papelão</h3><p>Caixas e embalagens. Devem estar limpos e secos para virar papel novo.</p></div>
+                        <div class="card-info">
+                            <h3>Papelão</h3>
+                            <p>A cada tonelada de papel reciclado, **20 árvores** são poupadas e o consumo de água na produção cai pela metade. Mantê-lo seco é fundamental para o valor de revenda.</p>
+                        </div>
                     </div>
                     <div class="card">
                         <img src="https://www.reciclasampa.com.br/imgs/conteudos/10_projeto_coleta_tampinhas_e_ajuda_criancas_com_cancer_padrao.jpg" alt="Tampinhas">
-                        <div class="card-info"><h3>Tampinhas</h3><p>De garrafas PET. Juntadas, viram matéria-prima para novos objetos de plástico.</p></div>
+                        <div class="card-info">
+                            <h3>Tampinhas</h3>
+                            <p>Plásticos rígidos (PP e PEAD) são altamente rentáveis. Juntas, elas se transformam em cadeiras, caixas e até próteses, evitando que fragmentos matem a fauna marinha.</p>
+                        </div>
                     </div>
                     <div class="card">
                         <img src="https://media.istockphoto.com/id/1311288065/pt/foto/industrial-waste-oil-container.jpg?s=612x612&w=0&k=20&c=2OCVNi0swG9Yyy8Mt7fqYxM6eoFOqAFM0RBlrpHyj2I=" alt="Óleo">
-                        <div class="card-info"><h3>Óleo de Cozinha</h3><p>Óleo usado. Evita a poluição da água e pode ser transformado em biodiesel e sabão.</p></div>
+                        <div class="card-info">
+                            <h3>Óleo de Cozinha</h3>
+                            <p>Um litro de óleo polui **1 milhão de litros de água**. Transformamos esse vilão ambiental em biodiesel e sabão, gerando lucro limpo para nossa meta.</p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -445,24 +646,26 @@
         <div class="form-box">
             <h2>Login do Aluno</h2>
             <div class="form-group">
-                <label>RA (Registro do Aluno)</label>
+                <label for="loginRaNum">RA (Registro do Aluno)</label>
                 <div style="display: flex; gap: 5px;">
                     <input type="text" id="loginRaNum" placeholder="Número" style="flex: 3;">
                     <span style="align-self: center; font-weight: bold; color: var(--amarelo);">-</span>
-                    <input type="text" id="loginRaDigito" placeholder="Dígito" style="flex: 1; text-align: center;" maxlength="1">
-                    <input type="text" id="loginRaUF" placeholder="UF" value="SP" style="flex: 1; text-align: center;" maxlength="2">
+                    <input type="text" id="loginRaDigito" aria-label="Dígito do RA" placeholder="Dígito" style="flex: 1; text-align: center;" maxlength="1">
+                    <input type="text" id="loginRaUF" aria-label="UF do RA" placeholder="UF" value="SP" style="flex: 1; text-align: center;" maxlength="2">
                 </div>
             </div>
             <div class="form-group">
-                <label>Senha</label>
+                <label for="loginSenhaAluno">Senha</label>
                 <div class="password-wrapper">
                     <input type="password" id="loginSenhaAluno" placeholder="Sua senha">
-                    <i class="fas fa-eye" id="toggleLoginSenhaAluno" onclick="togglePasswordVisibility('loginSenhaAluno', 'toggleLoginSenhaAluno')"></i>
+                    <button type="button" style="width: auto; background: none; color: #888; position: absolute; right: 10px;" onclick="togglePasswordVisibility('loginSenhaAluno', 'toggleLoginSenhaAluno')">
+                        <i class="fas fa-eye" id="toggleLoginSenhaAluno"></i>
+                    </button>
                 </div>
             </div>
             <div style="margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
                 <input type="checkbox" id="lembrarLoginAluno" style="width: auto;" checked>
-                <label for="lembrarLoginAluno" style="margin:0; cursor:pointer; color:#ccc; font-size:0.9rem;">Manter conectado</label>
+                <label for="lembrarLoginAluno" style="margin:0; cursor:pointer; color:#ccc; font-size:0.9rem;">Lembrar minha senha</label>
             </div>
             <button onclick="fazerLoginAluno()">Entrar</button>
             <button class="btn-secondary" onclick="mostrarAuth('aluno', 'cadastro')">Não tenho conta, quero me cadastrar</button>
@@ -495,7 +698,9 @@
                 <label>Senha</label>
                 <div class="password-wrapper">
                     <input type="password" id="cadSenhaAluno" placeholder="Crie uma senha" onkeyup="validarSenhasMatch('cadSenhaAluno', 'cadSenhaAlunoConfirm', 'msgSenhaAluno')">
-                    <i class="fas fa-eye" id="toggleCadSenhaAluno" onclick="togglePasswordVisibility('cadSenhaAluno', 'toggleCadSenhaAluno')"></i>
+                    <button type="button" style="width: auto; background: none; color: #888; position: absolute; right: 10px;" onclick="togglePasswordVisibility('cadSenhaAluno', 'toggleCadSenhaAluno')" aria-label="Mostrar senha">
+                        <i class="fas fa-eye" id="toggleCadSenhaAluno"></i>
+                    </button>
                 </div>
             </div>
             <div class="form-group">
@@ -521,12 +726,14 @@
                 <label>Senha</label>
                 <div class="password-wrapper">
                     <input type="password" id="loginSenhaProf" placeholder="Sua senha">
-                    <i class="fas fa-eye" id="toggleLoginSenhaProf" onclick="togglePasswordVisibility('loginSenhaProf', 'toggleLoginSenhaProf')"></i>
+                    <button type="button" style="width: auto; background: none; color: #888; position: absolute; right: 10px;" onclick="togglePasswordVisibility('loginSenhaProf', 'toggleLoginSenhaProf')" aria-label="Mostrar senha">
+                        <i class="fas fa-eye" id="toggleLoginSenhaProf"></i>
+                    </button>
                 </div>
             </div>
             <div style="margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
                 <input type="checkbox" id="lembrarLoginProf" style="width: auto;" checked>
-                <label for="lembrarLoginProf" style="margin:0; cursor:pointer; color:#ccc; font-size:0.9rem;">Manter conectado</label>
+                <label for="lembrarLoginProf" style="margin:0; cursor:pointer; color:#ccc; font-size:0.9rem;">Lembrar minha senha</label>
             </div>
             <button onclick="fazerLoginProfessor()">Entrar</button>
             <button class="btn-secondary" onclick="mostrarAuth('professor', 'cadastro')">Não tenho conta, quero me cadastrar</button>
@@ -656,9 +863,24 @@
             <div class="form-group"><label>Quantidade (kg ou Litros)</label><input type="number" id="qtdAluno" placeholder="Ex: 2.5"></div>
             <button onclick="adicionarMaterialAluno()">Adicionar</button>
         </div>
-        <div class="resumo-box">
-            <p>Total que você já arrecadou:</p>
-            <span id="aluno-total-qtd">0.0</span> kg
+        <div class="resumo-box" style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 20px;">
+            <div>
+                <p>Total Arrecadado:</p>
+                <span id="aluno-total-qtd">0.0</span> <span id="aluno-unidade">kg</span>
+            </div>
+            <div id="aluno-categoria-selo" style="text-align: center;">
+                <p>Sua Categoria:</p>
+                <div id="selo-img" style="font-size: 3rem; margin-top: 10px;">🥈</div>
+                <strong id="selo-nome" style="color: var(--amarelo); display: block; margin-top: 5px;">Piloto Prata</strong>
+            </div>
+        </div>
+
+        <div class="dashboard-card" style="border: 1px solid var(--verde);">
+            <h3 style="color: var(--amarelo); margin-bottom: 15px;">Próxima Meta de Carreira</h3>
+            <p id="proxima-meta-txt" style="font-size: 0.9rem; color: #ccc;">Faltam 5kg para você se tornar <strong>Piloto Ouro</strong>!</p>
+            <div class="meta-container" style="height: 10px; margin-top: 10px;">
+                <div class="meta-progress" id="progresso-selo" style="width: 40%;"></div>
+            </div>
         </div>
 
         <div class="dashboard-card">
@@ -699,7 +921,7 @@
             
             <div id="historico-professor-container" class="hidden">
                 <h3>Seu Relatório Pessoal</h3>
-                <p style="margin-bottom: 15px;">Total arrecadado por você: <strong id="professor-total-qtd">0,0 kg</strong></p>
+                <p style="margin-bottom: 15px;">Total arrecadado por você: <strong id="professor-total-qtd">0,0 kg/L</strong></p>
                 <table class="tabela-geral" id="tabela-professor-relatorio" style="margin-bottom: 30px;">
                     <thead><tr><th>Data</th><th>Material</th><th>Quantidade</th></tr></thead>
                     <tbody></tbody>
@@ -715,7 +937,7 @@
                     <button class="btn-secondary" onclick="limparFiltroProfessor()" style="width: auto; margin-top: 0; padding: 8px 12px;">Limpar</button>
                 </div>
                 <table class="tabela-geral" id="tabela-admin-professor-view">
-                    <thead><tr><th>Data</th><th>Participante (Turma)</th><th>Material</th><th>Qtd (kg)</th></tr></thead>
+                    <thead><tr><th>Data</th><th>Participante (Turma)</th><th>Material</th><th>Qtd (kg/L)</th></tr></thead>
                     <tbody></tbody>
                 </table>
             </div>
@@ -776,6 +998,19 @@
         // INÍCIO DO CÓDIGO JAVASCRIPT
         // ==================================================================
         
+        // Registro do Service Worker para PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('SW registrado!'))
+                    .catch(err => console.log('Erro no SW:', err));
+            });
+        }
+
+        function getUnidade(material) {
+            return material === "Óleo" ? "L" : "kg";
+        }
+
         function openMenu(){
             document.getElementById("menu").classList.add("active");
         }
@@ -837,15 +1072,115 @@
             "Óleo": 1.50
         };
 
+        const META_FORMATURA = 5000.00;
+
         // Inicializa o Placar Geral ao carregar a página
+        buscarCotacoesMercado();
         atualizarTotalGeral();
         atualizarRanking();
         atualizarRankingIndividual();
+        atualizarFeed();
         verificarLogin();
+        carregarDadosSalvos();
+
+        function atualizarFeed() {
+            const feedContainer = document.getElementById("live-feed");
+            if (!feedContainer) return;
+            
+            feedContainer.innerHTML = "";
+            
+            if (registros.length === 0) {
+                feedContainer.innerHTML = "<p style='text-align: center; color: #888; padding: 20px;'>Nenhuma doação registrada ainda. Seja o primeiro!</p>";
+                return;
+            }
+
+            // Pega os 5 últimos registros (os mais recentes adicionados ao array)
+            const ultimosRegistros = [...registros].reverse().slice(0, 5);
+
+            ultimosRegistros.forEach(r => {
+                // Tenta achar a turma do aluno, se não for aluno ou não achar, fica sem turma
+                let user = usuarios.find(u => u.nome === r.aluno);
+                let infoExtra = user && user.role === 'aluno' ? ` (${user.ano} ${user.turma})` : '';
+                
+                let icone = "♻️";
+                if(r.material === "Latinhas") icone = "🥫";
+                if(r.material === "Papelão") icone = "📦";
+                if(r.material === "Tampinhas") icone = "🔵";
+                if(r.material === "Óleo") icone = "🛢️";
+                const unidade = getUnidade(r.material);
+
+                const dataFormatada = formatarDataParaBR(r.data);
+
+                const item = document.createElement("div");
+                item.className = "feed-item";
+                item.innerHTML = `
+                    <div class="feed-icon">${icone}</div>
+                    <div class="feed-text">
+                        <strong>${r.aluno}${infoExtra}</strong> acabou de reciclar <strong style="color: var(--amarelo);">${r.qtd} ${unidade}</strong> de ${r.material}!
+                        <span class="feed-time">${dataFormatada}</span>
+                    </div>
+                `;
+                feedContainer.appendChild(item);
+            });
+        }
+
+        async function buscarCotacoesMercado() {
+            const grid = document.getElementById("cotacao-grid");
+            if(!grid) return;
+
+            // Simulação de busca em API (como Metals-API ou similar)
+            // No mundo real, você usaria fetch('URL_DA_API')
+            // Aqui vamos simular uma pequena variação diária para parecer real
+            const variacao = () => (Math.random() * 0.2) - 0.1; // Varia entre -0.1 e +0.1
+
+            precos["Latinhas"] = (8.50 + variacao()).toFixed(2);
+            precos["Papelão"] = (0.60 + variacao()).toFixed(2);
+            precos["Tampinhas"] = (2.10 + variacao()).toFixed(2);
+            precos["Óleo"] = (1.80 + variacao()).toFixed(2);
+
+            grid.innerHTML = "";
+            Object.keys(precos).forEach(material => {
+                const card = document.createElement("div");
+                card.className = "card-info";
+                card.style.background = "var(--cinza)";
+                card.style.borderRadius = "10px";
+                card.style.padding = "15px";
+                card.style.textAlign = "center";
+                card.style.border = "1px solid #333";
+                
+                card.innerHTML = `
+                    <h3 style="font-size: 1rem; color: #fff;">${material}</h3>
+                    <p class="preco" style="font-size: 1.4rem; color: var(--amarelo); margin: 10px 0;">R$ ${parseFloat(precos[material]).toFixed(2).replace('.', ',')}</p>
+                    <span style="font-size: 0.7rem; color: var(--verde);"><i class="fas fa-arrow-up"></i> mercado instável</span>
+                `;
+                grid.appendChild(card);
+            });
+
+            atualizarTotalGeral();
+        }
 
         function atualizarTotalGeral() {
-            let total = registros.reduce((acc, item) => acc + parseFloat(item.qtd), 0);
-            document.getElementById("valor-total-geral").innerText = total.toFixed(1).replace('.', ',') + " kg";
+            let totalKg = registros.reduce((acc, item) => acc + parseFloat(item.qtd), 0);
+            let totalDinheiro = registros.reduce((acc, item) => {
+                let preco = precos[item.material] || 0;
+                return acc + (parseFloat(item.qtd) * preco);
+            }, 0);
+
+            document.getElementById("valor-total-geral").innerText = totalKg.toFixed(1).replace('.', ',') + " kg/L";
+            document.getElementById("valor-total-dinheiro").innerText = "R$ " + totalDinheiro.toFixed(2).replace('.', ',');
+
+            // Atualiza Barra de Progresso
+            const progresso = (totalDinheiro / META_FORMATURA) * 100;
+            const porcentagem = Math.min(progresso, 100).toFixed(1);
+            
+            const barra = document.getElementById("meta-barra");
+            const porcentagemTexto = document.getElementById("meta-porcentagem");
+            const atualTexto = document.getElementById("meta-atual");
+
+            if(barra) barra.style.width = porcentagem + "%";
+            if(barra) barra.innerText = porcentagem + "%";
+            if(porcentagemTexto) porcentagemTexto.innerText = porcentagem + "%";
+            if(atualTexto) atualTexto.innerText = "R$ " + totalDinheiro.toFixed(2).replace('.', ',');
         }
 
         function voltarParaHome() {
@@ -928,6 +1263,17 @@
                 const greetingEl = document.getElementById('nav-user-greeting');
                 greetingEl.innerHTML = `Olá, <span>${usuarioAtual.nome.split(' ')[0]}</span>!`;
                 greetingEl.classList.remove('hidden');
+
+                // Garante que containers de login fiquem ocultos se o login já foi feito
+                document.getElementById("area-acesso").classList.add("hidden");
+                document.getElementById("aluno-login-auth").classList.add("hidden");
+                document.getElementById("aluno-cadastro-auth").classList.add("hidden");
+                document.getElementById("professor-login-auth").classList.add("hidden");
+                document.getElementById("professor-cadastro-auth").classList.add("hidden");
+                document.getElementById("admin-auth").classList.add("hidden");
+                document.getElementById("recovery-auth").classList.add("hidden");
+                document.getElementById("contact-choice-auth").classList.add("hidden");
+                document.getElementById("signup-verification").classList.add("hidden");
             } else {
                 usuarioAtual = null;
                 document.getElementById('menu-rankings').classList.add('hidden');
@@ -1085,32 +1431,23 @@
                 contactInfo = data.email;
                 message = `Aguarde... Enviando código para: ${contactInfo}.`;
 
-                // CHAMA O BACKEND PARA ENVIAR O EMAIL
-                fetch('http://localhost:3000/enviar-email', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        email: contactInfo,
-                        codigo: code,
-                        tipo: 'Verificação de Conta'
-                    })
-                })
-                .then(response => response.json())
-                .then(result => {
-                    if(result.sucesso) {
-                        mostrarTelaInputCodigo(`Enviamos um código para o e-mail: ${contactInfo}. Verifique sua caixa de entrada (e spam).`, null);
-                    } else {
-                        alert("Erro ao enviar e-mail. Verifique se o servidor está rodando.");
-                        console.error(result.erro);
-                        // Fallback para simulação em caso de erro
-                        mostrarTelaInputCodigo(`(ERRO NO ENVIO REAL) Código simulado: ${code}`, code);
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert(`Não foi possível conectar ao servidor de e-mail. Verifique se o backend está rodando e veja o console do navegador (F12) para mais detalhes.\n\nErro: ${err.message}`);
-                    mostrarTelaInputCodigo(`(ERRO DE CONEXÃO) Código simulado: ${code}`, code, true);
+                // SIMULAÇÃO PARA APRESENTAÇÃO:
+                // Em um ambiente real, você faria uma chamada para um backend que enviaria o e-mail.
+                // Para a apresentação, vamos apenas mostrar o código.
+                console.log(`[SIMULAÇÃO] Enviando código ${code} para o e-mail: ${contactInfo}`);
+                mostrarTelaInputCodigo(`(SIMULAÇÃO) Enviamos um código para o e-mail: ${contactInfo}. Código: ${code}`, code, true);
+                // Se você tiver um backend real rodando, descomente o código abaixo e comente as linhas acima:
+                /*
+                fetch('https://seu-backend-real.com/enviar-email', { // Substitua pela URL do seu backend
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: contactInfo, codigo: code, tipo: 'Verificação de Conta' })
+                }).then(response => response.json()).then(result => {
+                    if(result.sucesso) { mostrarTelaInputCodigo(`Enviamos um código para o e-mail: ${contactInfo}. Verifique sua caixa de entrada (e spam).`, null); }
+                    else { alert("Erro ao enviar e-mail. Verifique seu backend."); console.error(result.erro); mostrarTelaInputCodigo(`(ERRO NO ENVIO REAL) Código simulado: ${code}`, code); }
+                }).catch(err => {
+                    console.error(err); alert(`Não foi possível conectar ao servidor de e-mail. Erro: ${err.message}`); mostrarTelaInputCodigo(`(ERRO DE CONEXÃO) Código simulado: ${code}`, code, true);
                 });
+                */
 
             } else { // SMS (Continua simulado por enquanto)
                 contactInfo = data.numero || data.telefone;
@@ -1182,16 +1519,19 @@
             if(user) {
                 usuarioAtual = user;
                 
-                const manterConectado = document.getElementById("lembrarLoginAluno").checked;
-                if(manterConectado) {
-                    localStorage.setItem('sennaUsuarioLogado', JSON.stringify(user));
-                } else {
-                    sessionStorage.setItem('sennaUsuarioLogado', JSON.stringify(user));
-                }
+                // Salva ou remove os dados para "Lembrar Senha"
+                gerenciarLembrarSenha('aluno', {
+                    raNum: raNum,
+                    raDig: raDig,
+                    raUF: raUF,
+                    senha: senha
+                });
+
+                sessionStorage.setItem('sennaUsuarioLogado', JSON.stringify(user));
 
                 alert('Login realizado com sucesso!');
-                voltarParaHome();
                 verificarLogin();
+                voltarParaHome();
             } else {
                 alert("RA ou senha incorretos!");
             }
@@ -1204,16 +1544,17 @@
             if (user) {
                 usuarioAtual = user;
                 
-                const manterConectado = document.getElementById("lembrarLoginProf").checked;
-                if(manterConectado) {
-                    localStorage.setItem('sennaUsuarioLogado', JSON.stringify(user));
-                } else {
-                    sessionStorage.setItem('sennaUsuarioLogado', JSON.stringify(user));
-                }
+                // Salva ou remove os dados para "Lembrar Senha"
+                gerenciarLembrarSenha('professor', {
+                    email: email,
+                    senha: senha
+                });
+
+                sessionStorage.setItem('sennaUsuarioLogado', JSON.stringify(user));
 
                 alert('Login realizado com sucesso!');
-                voltarParaHome();
                 verificarLogin();
+                voltarParaHome();
             } else {
                 alert("Email ou senha incorretos!");
             }
@@ -1225,8 +1566,8 @@
                 usuarioAtual = { nome: 'Admin', role: 'admin' };
                 sessionStorage.setItem('sennaUsuarioLogado', JSON.stringify(usuarioAtual)); // Admin por padrão sessão curta
                 alert('Login de Administrador realizado com sucesso!');
-                voltarParaHome();
                 verificarLogin();
+                voltarParaHome();
             } else {
                 alert("Senha incorreta!");
                 document.getElementById("loginSenhaAdmin").value = "";
@@ -1355,33 +1696,25 @@
             document.getElementById("recovery-step2").classList.remove("hidden");
 
             if (method === 'email') {
-                 document.getElementById("recovery-message").innerText = `Aguarde... Enviando código para o email...`;
-                 
-                 // CHAMA O BACKEND
-                 fetch('http://localhost:3000/enviar-email', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        email: user.email,
-                        codigo: code,
-                        tipo: 'Recuperação de Senha'
-                    })
-                })
-                .then(response => response.json())
-                .then(result => {
-                    if(result.sucesso) {
-                        document.getElementById("recovery-message").innerText = `Enviamos um código para o email cadastrado: ${maskedContact}.`;
-                    } else {
-                        alert("Erro ao enviar e-mail real. Usando simulação.");
-                        document.getElementById("recovery-message").innerText = `Erro no envio. Código simulado: ${code}`;
-                        alert(`(SIMULAÇÃO) O seu código é: ${code}`);
-                    }
-                })
-                .catch(err => {
-                    alert(`Erro de conexão com o servidor. Verifique se o backend está rodando e veja o console do navegador (F12).\n\nErro: ${err.message}`);
-                    document.getElementById("recovery-message").innerText = `Erro de conexão. Código simulado:`;
-                    alert(`(SIMULAÇÃO) O seu código é: ${code}`);
+                document.getElementById("recovery-message").innerText = `Aguarde... Enviando código para o email...`;
+                // SIMULAÇÃO PARA APRESENTAÇÃO:
+                // Em um ambiente real, você faria uma chamada para um backend que enviaria o e-mail.
+                // Para a apresentação, vamos apenas mostrar o código.
+                console.log(`[SIMULAÇÃO] Enviando código ${code} para o e-mail de recuperação: ${user.email}`);
+                document.getElementById("recovery-message").innerText = `(SIMULAÇÃO) Enviamos um código para o email cadastrado: ${maskedContact}. Código: ${code}`;
+                alert(`(SIMULAÇÃO) O seu código é: ${code}`);
+                // Se você tiver um backend real rodando, descomente o código abaixo e comente as linhas acima:
+                /*
+                fetch('https://seu-backend-real.com/enviar-email', { // Substitua pela URL do seu backend
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: user.email, codigo: code, tipo: 'Recuperação de Senha' })
+                }).then(response => response.json()).then(result => {
+                    if(result.sucesso) { document.getElementById("recovery-message").innerText = `Enviamos um código para o email cadastrado: ${maskedContact}.`; }
+                    else { alert("Erro ao enviar e-mail real. Usando simulação."); document.getElementById("recovery-message").innerText = `Erro no envio. Código simulado: ${code}`; alert(`(SIMULAÇÃO) O seu código é: ${code}`); }
+                }).catch(err => {
+                    alert(`Erro de conexão com o servidor. Verifique se o backend está rodando e veja o console do navegador (F12).\n\nErro: ${err.message}`); document.getElementById("recovery-message").innerText = `Erro de conexão. Código simulado:`; alert(`(SIMULAÇÃO) O seu código é: ${code}`);
                 });
+                */
 
             } else {
                 // SMS Simulado
@@ -1442,16 +1775,18 @@
             const material = document.getElementById("materialAluno").value;
             const qtd = document.getElementById("qtdAluno").value;
             if(qtd <= 0) { alert("Quantidade inválida"); return; }
+            const unidade = getUnidade(material);
             const valorTotal = (parseFloat(qtd) * precos[material]).toFixed(2); // O valor não parece estar sendo usado, mas ok.
             const novoRegistro = { id: Date.now(), aluno: usuarioAtual.nome, material: material, valor: valorTotal, qtd: parseFloat(qtd), data: new Date().toISOString().split('T')[0] };
             registros.push(novoRegistro);
             salvarDados();
-            alert(`Sucesso! Você registrou ${qtd} kg de ${material}.`);
+            alert(`Sucesso! Você registrou ${qtd} ${unidade} de ${material}.`);
             document.getElementById("qtdAluno").value = "";
             renderizarAluno();
             atualizarTotalGeral();
             atualizarRanking();
             atualizarRankingIndividual();
+            atualizarFeed();
             
             // Abre o histórico automaticamente para mostrar o novo registro
             const histContainer = document.getElementById("historico-aluno-container");
@@ -1464,15 +1799,38 @@
             const tbody = document.querySelector("#tabela-aluno tbody");
             tbody.innerHTML = "";
 
-            // Pega valores do filtro
+            const meusRegistros = registros.filter(r => r.aluno === usuarioAtual.nome);
+            let totalQtd = meusRegistros.reduce((acc, r) => acc + parseFloat(r.qtd), 0);
+            
+            // Lógica de Categoria (Selos)
+            const seloImg = document.getElementById("selo-img");
+            const seloNome = document.getElementById("selo-nome");
+            const metaTxt = document.getElementById("proxima-meta-txt");
+            const progressoSelo = document.getElementById("progresso-selo");
+
+            let categoria = { nome: "Piloto Estreante", emoji: "🏎️", meta: 5 };
+            if (totalQtd >= 50) { categoria = { nome: "Lenda das Pistas", emoji: "🏆", meta: 100 }; }
+            else if (totalQtd >= 20) { categoria = { nome: "Piloto Ouro", emoji: "🥇", meta: 50 }; }
+            else if (totalQtd >= 10) { categoria = { nome: "Piloto Prata", emoji: "🥈", meta: 20 }; }
+            else if (totalQtd >= 5) { categoria = { nome: "Piloto Bronze", emoji: "🥉", meta: 10 }; }
+
+            if(seloImg) seloImg.innerText = categoria.emoji;
+            if(seloNome) seloNome.innerText = categoria.nome;
+            
+            const faltam = (categoria.meta - totalQtd).toFixed(1);
+            if (totalQtd < 100) {
+                if(metaTxt) metaTxt.innerHTML = `Faltam <strong>${faltam} kg/L</strong> para você se tornar <strong>${totalQtd >= 50 ? 'Campeão Supremo' : (totalQtd >= 20 ? 'Lenda das Pistas' : (totalQtd >= 10 ? 'Piloto Ouro' : (totalQtd >= 5 ? 'Piloto Prata' : 'Piloto Bronze')))}</strong>!`;
+                if(progressoSelo) progressoSelo.style.width = Math.min((totalQtd / categoria.meta) * 100, 100) + "%";
+            } else {
+                if(metaTxt) metaTxt.innerText = "Você atingiu o nível máximo! É uma Lenda da Reciclagem!";
+                if(progressoSelo) progressoSelo.style.width = "100%";
+            }
+
             const dataInicio = document.getElementById("filtro-aluno-inicio").value;
             const dataFim = document.getElementById("filtro-aluno-fim").value;
 
-            const meusRegistros = registros.filter(r => r.aluno === usuarioAtual.nome);
-            let totalQtd = 0;
-
             const registrosFiltrados = meusRegistros.filter(r => {
-                if (!dataInicio && !dataFim) return true; // Sem filtro
+                if (!dataInicio && !dataFim) return true;
                 const isAfterStart = dataInicio ? r.data >= dataInicio : true;
                 const isBeforeEnd = dataFim ? r.data <= dataFim : true;
                 return isAfterStart && isBeforeEnd;
@@ -1480,13 +1838,15 @@
 
             registrosFiltrados.forEach(r => {
                 const tr = document.createElement("tr");
-                tr.innerHTML = `<td>${formatarDataParaBR(r.data)}</td><td>${r.material}</td><td>${r.qtd.toFixed(1).replace('.',',')} kg</td>`;
+                const unidade = getUnidade(r.material);
+                tr.innerHTML = `<td>${formatarDataParaBR(r.data)}</td><td>${r.material}</td><td>${r.qtd.toFixed(1).replace('.',',')} ${unidade}</td>`;
                 tbody.appendChild(tr);
             });
 
-            // O total geral do aluno não deve ser afetado pelo filtro da tabela
-            totalQtd = meusRegistros.reduce((acc, r) => acc + parseFloat(r.qtd), 0);
             document.getElementById("aluno-total-qtd").innerText = totalQtd.toFixed(1).replace('.',',');
+            if(document.getElementById("aluno-unidade")) {
+                document.getElementById("aluno-unidade").innerText = totalQtd > 0 ? "kg/L" : "kg";
+            }
         }
 
         function limparFiltroAluno() {
@@ -1499,17 +1859,19 @@
             const material = document.getElementById("materialProfessor").value;
             const qtd = document.getElementById("qtdProfessor").value;
             if(qtd <= 0) { alert("Quantidade inválida"); return; }
+            const unidade = getUnidade(material);
             const valorTotal = (parseFloat(qtd) * precos[material]).toFixed(2); // O valor não parece estar sendo usado, mas ok.
             const novoRegistro = { id: Date.now(), aluno: usuarioAtual.nome, material: material, valor: valorTotal, qtd: parseFloat(qtd), data: new Date().toISOString().split('T')[0] };
             registros.push(novoRegistro);
             salvarDados();
-            alert(`Sucesso! Você registrou ${qtd} kg de ${material}.`);
+            alert(`Sucesso! Você registrou ${qtd} ${unidade} de ${material}.`);
             document.getElementById("qtdProfessor").value = "";
             renderizarProfessorRelatorio();
             renderizarProfessorView();
             atualizarTotalGeral();
             atualizarRanking();
             atualizarRankingIndividual();
+            atualizarFeed();
 
             // Abre o histórico automaticamente
             const histContainer = document.getElementById("historico-professor-container");
@@ -1527,11 +1889,12 @@
             meusRegistros.forEach(r => {
                 totalQtd += parseFloat(r.qtd);
                 const tr = document.createElement("tr");
-                tr.innerHTML = `<td>${formatarDataParaBR(r.data)}</td><td>${r.material}</td><td>${r.qtd.toFixed(1).replace('.',',')} kg</td>`;
+                const unidade = getUnidade(r.material);
+                tr.innerHTML = `<td>${formatarDataParaBR(r.data)}</td><td>${r.material}</td><td>${r.qtd.toFixed(1).replace('.',',')} ${unidade}</td>`;
                 tbody.appendChild(tr);
             });
             const totalEl = document.getElementById("professor-total-qtd");
-            if (totalEl) totalEl.innerText = totalQtd.toFixed(1).replace('.',',') + " kg";
+            if (totalEl) totalEl.innerText = totalQtd.toFixed(1).replace('.',',') + " kg/L";
         }
         
         function renderizarProfessorView() {
@@ -1553,7 +1916,8 @@
             registrosFiltrados.forEach(r => {
                 const user = usuarios.find(u => u.nome === r.aluno) || { turma: "?", ano: "?" };
                 const tr = document.createElement("tr");
-                tr.innerHTML = `<td>${formatarDataParaBR(r.data)}</td><td>${r.aluno} <small>(${user.ano} ${user.turma})</small></td><td>${r.material}</td><td>${r.qtd.toFixed(1)}</td>`;
+                const unidade = getUnidade(r.material);
+                tr.innerHTML = `<td>${formatarDataParaBR(r.data)}</td><td>${r.aluno} <small>(${user.ano} ${user.turma})</small></td><td>${r.material}</td><td>${r.qtd.toFixed(1)} ${unidade}</td>`;
                 tbody.appendChild(tr);
             });
         }
@@ -1628,11 +1992,12 @@
             html += `<div class="${showAlunos}"><h2>Registros de Alunos</h2><table class="tabela-geral"><thead><tr><th>Data</th><th>Aluno (Turma)</th><th>Material</th><th>Qtd</th><th>Ações</th></tr></thead><tbody>`;
             registrosAlunosFiltrados.forEach(r => {
                 const user = usuarios.find(u => u.nome === r.aluno);
+                const unidade = getUnidade(r.material);
                 html += `<tr>
                     <td>${formatarDataParaBR(r.data)}</td>
                     <td>${r.aluno} <small>(${user ? user.ano : '?'} ${user ? user.turma : '?'})</small></td>
                     <td>${r.material}</td>
-                    <td>${r.qtd.toFixed(1)}</td>
+                    <td>${r.qtd.toFixed(1)} ${unidade}</td>
                     <td><button class="btn-edit" onclick="editarRegistro(${r.id})">Editar</button><button class="btn-delete" onclick="excluirRegistro(${r.id})">Excluir</button></td>
                 </tr>`;
             });
@@ -1646,11 +2011,12 @@
 
             html += `<div class="${showProf}"><h2>Registros de Professores</h2><table class="tabela-geral"><thead><tr><th>Data</th><th>Professor</th><th>Material</th><th>Qtd</th><th>Ações</th></tr></thead><tbody>`;
             registrosProfessoresFiltrados.forEach(r => {
+                const unidade = getUnidade(r.material);
                 html += `<tr>
                     <td>${formatarDataParaBR(r.data)}</td>
                     <td>${r.aluno}</td>
                     <td>${r.material}</td>
-                    <td>${r.qtd.toFixed(1)}</td>
+                    <td>${r.qtd.toFixed(1)} ${unidade}</td>
                     <td><button class="btn-edit" onclick="editarRegistro(${r.id})">Editar</button><button class="btn-delete" onclick="excluirRegistro(${r.id})">Excluir</button></td>
                 </tr>`;
             });
@@ -1713,7 +2079,7 @@
             if (rankingArray.length === 0) { container.innerHTML = "<p>Nenhuma doação de aluno registrada ainda.</p>"; return; }
             rankingArray.forEach((item, index) => {
                 let classeExtra = index === 0 ? "top1" : "";
-                container.innerHTML += `<div class="rank-card ${classeExtra}"><span class="rank-pos">${index + 1}º</span><span class="rank-turma">${item.turma}</span><span class="rank-valor">${item.total.toFixed(1).replace('.', ',')} kg</span></div>`;
+                container.innerHTML += `<div class="rank-card ${classeExtra}"><span class="rank-pos">${index + 1}º</span><span class="rank-turma">${item.turma}</span><span class="rank-valor">${item.total.toFixed(1).replace('.', ',')} kg/L</span></div>`;
             });
         }
         
@@ -1874,14 +2240,85 @@
                 if (!pessoas[nomePessoa]) pessoas[nomePessoa] = 0;
                 pessoas[nomePessoa] += parseFloat(r.qtd);
             });
-            let rankingArray = Object.keys(pessoas).map(key => ({ nome: key, total: pessoas[key] })).sort((a, b) => b.total - a.total).slice(0, 5);
+
+            let rankingCompleto = Object.keys(pessoas)
+                .map(key => ({ nome: key, total: pessoas[key] }))
+                .sort((a, b) => b.total - a.total);
+
             const container = document.getElementById("ranking-individual-container");
             container.innerHTML = "";
-            if (rankingArray.length === 0) { container.innerHTML = "<p>Nenhuma doação registrada ainda.</p>"; return; }
-            rankingArray.forEach((item, index) => {
+            if (rankingCompleto.length === 0) { container.innerHTML = "<p>Nenhuma doação registrada ainda.</p>"; return; }
+
+            rankingCompleto.slice(0, 5).forEach((item, index) => {
+                let medalha = "";
+                if(index === 0) medalha = "🥇";
+                else if(index === 1) medalha = "🥈";
+                else if(index === 2) medalha = "🥉";
+
                 let classeExtra = index === 0 ? "top1" : "";
-                container.innerHTML += `<div class="rank-card ${classeExtra}"><span class="rank-pos">${index + 1}º</span><span class="rank-turma">${item.nome}</span><span class="rank-valor">${item.total.toFixed(1).replace('.', ',')} kg</span></div>`;
+                
+                // Determina Categoria
+                let catNome = "Piloto Estreante";
+                if (item.total >= 50) catNome = "Lenda das Pistas";
+                else if (item.total >= 20) catNome = "Piloto Ouro";
+                else if (item.total >= 10) catNome = "Piloto Prata";
+                else if (item.total >= 5) catNome = "Piloto Bronze";
+
+                container.innerHTML += `
+                    <div class="rank-card ${classeExtra}">
+                        <span class="medalha">${medalha}</span>
+                        <span class="rank-pos">${index + 1}º Lugar</span>
+                        <span class="rank-categoria">${catNome}</span>
+                        <span class="rank-turma">${item.nome}</span>
+                        <span class="rank-valor">${item.total.toFixed(1).replace('.', ',')} kg/L</span>
+                    </div>`;
             });
+
+            // Lógica "Sua Posição"
+            if (usuarioAtual && usuarioAtual.role === 'aluno') {
+                const minhaPos = rankingCompleto.findIndex(item => item.nome === usuarioAtual.nome);
+                if (minhaPos !== -1) {
+                    const meuDados = rankingCompleto[minhaPos];
+                    const seuCard = document.createElement("div");
+                    seuCard.className = "seu-ranking-card";
+                    seuCard.innerHTML = `
+                        <div style="text-align: left;">
+                            <span style="display:block; font-size: 0.8rem; color: #fff;">Sua Posição Atual:</span>
+                            <strong style="font-size: 1.5rem; color: var(--amarelo);">${minhaPos + 1}º Lugar</strong>
+                        </div>
+                        <div style="text-align: right;">
+                            <span style="display:block; font-size: 0.8rem; color: #fff;">Seu Total:</span>
+                            <strong style="font-size: 1.5rem; color: var(--amarelo);">${meuDados.total.toFixed(1).replace('.', ',')} kg/L</strong>
+                        </div>
+                    `;
+                    container.parentElement.appendChild(seuCard);
+                }
+            }
+        }
+
+        function gerenciarLembrarSenha(role, dados) {
+            const checkbox = role === 'aluno' ? document.getElementById('lembrarLoginAluno') : document.getElementById('lembrarLoginProf');
+            if (checkbox && checkbox.checked) {
+                localStorage.setItem(`lembrar_${role}`, JSON.stringify(dados));
+            } else {
+                localStorage.removeItem(`lembrar_${role}`);
+            }
+        }
+
+        function carregarDadosSalvos() {
+            const dadosAluno = JSON.parse(localStorage.getItem('lembrar_aluno'));
+            if (dadosAluno) {
+                if(document.getElementById('loginRaNum')) document.getElementById('loginRaNum').value = dadosAluno.raNum;
+                if(document.getElementById('loginRaDigito')) document.getElementById('loginRaDigito').value = dadosAluno.raDigito;
+                if(document.getElementById('loginRaUF')) document.getElementById('loginRaUF').value = dadosAluno.raUF;
+                if(document.getElementById('loginSenhaAluno')) document.getElementById('loginSenhaAluno').value = dadosAluno.senha;
+            }
+
+            const dadosProf = JSON.parse(localStorage.getItem('lembrar_professor'));
+            if (dadosProf) {
+                if(document.getElementById('loginEmailProf')) document.getElementById('loginEmailProf').value = dadosProf.email;
+                if(document.getElementById('loginSenhaProf')) document.getElementById('loginSenhaProf').value = dadosProf.senha;
+            }
         }
     </script>
 
