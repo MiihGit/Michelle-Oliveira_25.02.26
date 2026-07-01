@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senna Recicla</title>
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#008751">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
@@ -24,12 +22,6 @@
 
         body{background:var(--preto);color:#fff;}
 
-        /* Melhoria de acessibilidade: Indicador de foco */
-        :focus {
-            outline: 3px solid var(--amarelo); 
-            outline-offset: 2px;
-        }
-
         /* NAV */
         .nav-bar{
             position:fixed;
@@ -44,17 +36,14 @@
             z-index:1000;
         }
 
-        .logo{font-weight:900;font-style:italic;font-size:1.3rem; cursor: pointer; background: none; border: none; color: white;}
+        .logo{font-weight:900;font-style:italic;font-size:1.3rem; cursor: pointer;}
         .logo span{color:var(--amarelo);}
 
         .menu-btn{
             font-size:1.8rem;
             cursor:pointer;
             color:var(--amarelo);
-            padding: 5px 10px;
-            background: transparent;
-            border: 2px solid transparent;
-            border-radius: 8px;
+            padding:10px;
         }
 
         .nav-right {
@@ -107,8 +96,6 @@
             font-size: 1.8rem;
             cursor: pointer;
             color: var(--amarelo);
-            background: transparent;
-            border: none;
             padding: 10px;
         }
 
@@ -127,7 +114,11 @@
         }
 
         @keyframes heroCarousel {
-            0%, 100% { background: linear-gradient(to top,var(--preto),transparent), url('https://wallpapercave.com/wp/QgdjgGZ.jpg') center/cover no-repeat; }
+            0% { background: linear-gradient(to top,var(--preto),transparent), url('https://wallpapercave.com/wp/QgdjgGZ.jpg') center/cover no-repeat; }
+            25% { background: linear-gradient(to top,var(--preto),transparent), url('https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=1200') center/cover no-repeat; }
+            50% { background: linear-gradient(to top,var(--preto),transparent), url('https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?w=1200') center/cover no-repeat; }
+            75% { background: linear-gradient(to top,var(--preto),transparent), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1200') center/cover no-repeat; }
+            100% { background: linear-gradient(to top,var(--preto),transparent), url('https://wallpapercave.com/wp/QgdjgGZ.jpg') center/cover no-repeat; }
         }
 
         .hero-content{max-width:500px;}
@@ -139,7 +130,8 @@
         .hero-content span{color:var(--amarelo);}
 
         .senna-img{
-            height:350px;
+            max-height:350px;
+            width: auto;
             border-radius:20px;
             box-shadow:0 0 30px var(--amarelo);
             margin-top: 40px;
@@ -302,10 +294,11 @@
         .admin-section { display: none; }
         .admin-section.active-section { display: block; animation: fadeIn 0.3s ease; }
 
-        .tabela-geral { width: 100%; border-collapse: collapse; margin-top: 20px; background: #222; border-radius: 10px; display: block; overflow-x: auto; }
-        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #333; }
+        .tabela-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 20px; border-radius: 10px; }
+        .tabela-geral { width: 100%; border-collapse: collapse; background: #222; border-radius: 10px; overflow: hidden; min-width: 500px; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #333; white-space: nowrap; }
         th { background: var(--verde); color: white; }
-        tbody tr:hover { background: #2a2a2a; }
+        tr:hover { background: #2a2a2a; }
         td small { color: #888; }
 
         .btn-edit { background: var(--amarelo); color: black; margin-right: 5px; cursor: pointer; border:none; padding:8px 12px; border-radius:4px; font-size: 0.8rem;}
@@ -350,6 +343,272 @@
             color: #ccc;
         }
 
+        /* SLIDER INTERATIVO */
+        .sim-slider-track {
+            padding: 8px 0 2px;
+        }
+        .sim-slider-track input[type=range] {
+            width: 100%; height: 8px;
+            -webkit-appearance: none; appearance: none;
+            background: linear-gradient(to right, var(--verde) 0%, #333 0%);
+            border-radius: 10px; outline: none; cursor: pointer;
+        }
+        .sim-slider-track input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none; appearance: none;
+            width: 22px; height: 22px; border-radius: 50%;
+            background: var(--verde);
+            border: 3px solid var(--amarelo);
+            cursor: pointer;
+            box-shadow: 0 0 12px rgba(0,200,0,.4);
+            transition: box-shadow .2s;
+        }
+        .sim-slider-track input[type=range]::-webkit-slider-thumb:hover {
+            box-shadow: 0 0 20px rgba(0,200,0,.7);
+        }
+        .sim-slider-track input[type=range]::-moz-range-thumb {
+            width: 22px; height: 22px; border-radius: 50%;
+            background: var(--verde);
+            border: 3px solid var(--amarelo);
+            cursor: pointer;
+        }
+        .sim-slider-marks {
+            display: flex; justify-content: space-between;
+            font-size: 0.6rem; color: #666; margin-top: 2px;
+        }
+        .sim-slider-marks span:nth-child(2) {
+            color: var(--amarelo); font-weight: bold;
+        }
+
+        /* QUIZ AMBIENTAL — MODAL */
+        .quiz-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,.85);
+            display: none; align-items: center; justify-content: center;
+            z-index: 5000; padding: 20px;
+            backdrop-filter: blur(6px);
+            animation: quizFadeIn .3s ease;
+        }
+        .quiz-overlay.active { display: flex; }
+        @keyframes quizFadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes quizSlideUp { from { opacity: 0; transform: translateY(40px) scale(.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes quizPulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+        .quiz-modal {
+            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+            border: 1px solid rgba(0,200,0,.2);
+            border-radius: 28px;
+            padding: 40px 36px;
+            max-width: 560px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 80px rgba(0,0,0,.8), 0 0 60px rgba(0,200,0,.06);
+            animation: quizSlideUp .4s cubic-bezier(.16,1,.3,1);
+            position: relative;
+        }
+        .quiz-modal::-webkit-scrollbar { width: 4px; }
+        .quiz-modal::-webkit-scrollbar-thumb { background: var(--verde); border-radius: 4px; }
+
+        .quiz-modal-close {
+            position: absolute; top: 16px; right: 20px;
+            font-size: 1.6rem; cursor: pointer; color: #666;
+            transition: .2s; width: 36px; height: 36px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; background: rgba(255,255,255,.04);
+        }
+        .quiz-modal-close:hover { color: #fff; background: rgba(255,50,50,.2); }
+
+        .quiz-head {
+            text-align: center; margin-bottom: 28px;
+        }
+        .quiz-head-icon {
+            font-size: 2.6rem; margin-bottom: 6px;
+        }
+        .quiz-head h2 {
+            color: var(--amarelo); margin: 0; font-size: 1.5rem;
+            letter-spacing: -.5px;
+        }
+        .quiz-head p {
+            color: #888; font-size: .85rem; margin: 6px 0 0;
+        }
+        .quiz-head p strong { color: var(--verde); }
+
+        .quiz-dots {
+            display: flex; justify-content: center; gap: 10px; margin-bottom: 24px;
+        }
+        .quiz-dot {
+            width: 12px; height: 12px; border-radius: 50%;
+            background: #333; transition: all .4s cubic-bezier(.16,1,.3,1);
+        }
+        .quiz-dot.active { background: var(--verde); box-shadow: 0 0 12px rgba(0,200,0,.4); transform: scale(1.2); }
+        .quiz-dot.done { background: var(--amarelo); }
+
+        .quiz-steps > div {
+            animation: quizSlideUp .35s cubic-bezier(.16,1,.3,1);
+        }
+
+        /* START */
+        .quiz-start-icon {
+            font-size: 4.5rem; text-align: center; margin-bottom: 10px;
+            animation: quizPulse 2s ease-in-out infinite;
+        }
+        .quiz-start p { color: #aaa; font-size: .95rem; max-width: 380px; margin: 0 auto 24px; text-align: center; line-height: 1.6; }
+
+        .quiz-name-wrap {
+            max-width: 320px; margin: 0 auto 22px;
+        }
+        .quiz-name-wrap label {
+            display: block; color: var(--amarelo); font-size: .8rem; margin-bottom: 8px; font-weight: 600;
+            letter-spacing: .5px; text-transform: uppercase;
+        }
+        .quiz-name-wrap input {
+            width: 100%; padding: 14px 18px;
+            border-radius: 14px; border: 2px solid #333;
+            background: #111; color: #fff; font-size: 1rem;
+            font-weight: 700; text-align: center;
+            transition: .3s; outline: none;
+        }
+        .quiz-name-wrap input:focus { border-color: var(--verde); box-shadow: 0 0 20px rgba(0,200,0,.1); }
+        .quiz-name-wrap input::placeholder { color: #555; font-weight: 400; }
+        .quiz-name-hint { color: #555; font-size: .7rem; text-align: center; margin-top: 6px; }
+
+        .quiz-btn-primary {
+            display: block; margin: 0 auto;
+            padding: 16px 48px; border-radius: 50px;
+            background: linear-gradient(135deg, var(--verde), #00b894);
+            color: #fff; font-size: 1rem; font-weight: 800;
+            border: none; cursor: pointer;
+            transition: .3s; letter-spacing: .3px;
+            box-shadow: 0 4px 20px rgba(0,200,0,.25);
+            width: auto;
+        }
+        .quiz-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,200,0,.35); }
+        .quiz-btn-primary:active { transform: translateY(0); }
+
+        .quiz-btn-secondary {
+            display: block; margin: 10px auto 0;
+            padding: 10px 24px; border-radius: 50px;
+            background: transparent; color: #666;
+            border: 1px solid #333; cursor: pointer;
+            font-size: .85rem; transition: .3s; width: auto;
+        }
+        .quiz-btn-secondary:hover { border-color: #666; color: #aaa; }
+
+        /* PLAY */
+        .quiz-pergunta-num {
+            text-align: center; font-size: .75rem; color: #666; font-weight: 600;
+            letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px;
+        }
+        .quiz-pergunta-texto {
+            font-size: 1.2rem; font-weight: 700; color: #fff;
+            text-align: center; line-height: 1.5; margin-bottom: 24px;
+            padding: 0 4px;
+        }
+        .quiz-opcoes {
+            display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;
+        }
+        .quiz-opcao {
+            background: rgba(255,255,255,.04);
+            border: 2px solid rgba(255,255,255,.08);
+            border-radius: 16px; padding: 16px 20px;
+            cursor: pointer; font-size: .95rem; color: #ccc;
+            text-align: left; transition: all .25s; width: 100%;
+            font-weight: 500; line-height: 1.4;
+        }
+        .quiz-opcao:hover {
+            border-color: var(--verde); background: rgba(0,200,0,.06);
+            transform: translateX(4px); color: #fff;
+        }
+        .quiz-opcao.certa {
+            background: rgba(0,200,0,.12); border-color: var(--verde);
+            color: var(--verde); font-weight: 700;
+            transform: translateX(4px);
+        }
+        .quiz-opcao.errada {
+            background: rgba(200,0,0,.12); border-color: #c00;
+            color: #f88; transform: translateX(4px);
+        }
+        .quiz-opcao.disabled { pointer-events: none; opacity: .5; }
+        .quiz-opcao.disabled.certa, .quiz-opcao.disabled.errada { opacity: 1; }
+
+        .quiz-next-btn-wrap { text-align: right; }
+        .quiz-next-btn {
+            padding: 12px 36px; border-radius: 50px;
+            background: linear-gradient(135deg, var(--amarelo), #f0a500);
+            color: var(--preto); font-weight: 800; font-size: .95rem;
+            border: none; cursor: pointer; transition: .3s; width: auto;
+            box-shadow: 0 4px 16px rgba(255,200,0,.2);
+        }
+        .quiz-next-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(255,200,0,.3); }
+
+        /* RESULT */
+        .quiz-result-icon {
+            font-size: 4.5rem; text-align: center; margin-bottom: 4px;
+            animation: quizPulse 1.5s ease-in-out infinite;
+        }
+        .quiz-result-title {
+            text-align: center; font-size: 1.4rem; font-weight: 800;
+            margin: 0 0 2px;
+        }
+        .quiz-result-score {
+            text-align: center; font-size: 3rem; font-weight: 900;
+            color: var(--amarelo); margin: 6px 0;
+            letter-spacing: -1px;
+        }
+        .quiz-result-msg {
+            text-align: center; color: #aaa; font-size: .9rem;
+            max-width: 380px; margin: 0 auto 4px; line-height: 1.5;
+        }
+        .quiz-result-detail {
+            text-align: center; color: #666; font-size: .75rem; margin-bottom: 20px;
+        }
+
+        .quiz-reviews {
+            background: rgba(255,255,255,.03);
+            border-radius: 16px; padding: 16px;
+            margin-bottom: 20px; max-height: 200px; overflow-y: auto;
+        }
+        .quiz-reviews::-webkit-scrollbar { width: 4px; }
+        .quiz-reviews::-webkit-scrollbar-thumb { background: var(--verde); border-radius: 4px; }
+        .quiz-review-item {
+            padding: 10px 12px; margin-bottom: 6px;
+            border-left: 3px solid var(--verde);
+            font-size: .82rem; line-height: 1.4;
+        }
+        .quiz-review-q { font-weight: 700; color: #fff; margin-bottom: 2px; }
+        .quiz-review-r { color: #999; font-size: .78rem; }
+        .quiz-review-item:last-child { margin-bottom: 0; }
+
+        .quiz-ranking-box {
+            background: rgba(255,255,255,.03);
+            border-radius: 16px; padding: 16px;
+            margin-bottom: 16px; max-height: 220px; overflow-y: auto;
+        }
+        .quiz-ranking-box::-webkit-scrollbar { width: 4px; }
+        .quiz-ranking-box::-webkit-scrollbar-thumb { background: var(--verde); border-radius: 4px; }
+        .quiz-ranking-title {
+            font-size: .9rem; font-weight: 700; color: var(--amarelo);
+            margin: 0 0 10px; text-align: center;
+        }
+        .quiz-ranking-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 6px 8px; border-radius: 8px;
+            font-size: .82rem; transition: .2s;
+        }
+        .quiz-ranking-row:hover { background: rgba(255,255,255,.04); }
+        .quiz-ranking-row.top { background: rgba(255,200,0,.06); }
+        .quiz-ranking-name { color: #fff; font-weight: 600; }
+        .quiz-ranking-score { color: var(--verde); font-weight: 700; }
+        .quiz-ranking-score small { color: #666; font-weight: 400; }
+
+        .quiz-empty {
+            text-align: center; color: #555; font-size: .85rem; padding: 16px;
+        }
+
+        .quiz-actions {
+            display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+        }
+
         /* PLACAR E RANKING */
         .placar-banner { 
             background: linear-gradient(to right, #111, #222); 
@@ -358,12 +617,11 @@
             border: 1px solid var(--verde); 
             margin: 0 auto 60px auto; 
             width: fit-content; 
-            max-width: 100%;
             text-align: center;
             box-shadow: 0 5px 20px rgba(0,0,0,0.5);
         }
-        .placar-banner p { margin: 5px 10px; color:#ccc; font-size: 1rem; }
-        .placar-banner h2 { color: var(--amarelo); font-size: 1.5rem; margin: 5px 0; }
+        .placar-banner p { display:inline-block; margin-right:10px; color:#ccc; font-size: 1rem; }
+        .placar-banner h2 { display:inline-block; color: var(--amarelo); font-size: 1.5rem; margin: 0; vertical-align: middle;}
         
         .ranking-box { text-align: center; margin-bottom: 60px; }
         .ranking-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 20px; padding-top: 20px; }
@@ -402,36 +660,220 @@
             border-top:2px solid var(--verde);
         }
 
-        /* RESPONSIVO */
+        /* PAINEL DE IMPACTO UNIFICADO */
+        .painel-impacto{background:var(--cinza);border-radius:20px;padding:40px;margin-top:40px;border:2px solid var(--verde);}
+        .painel-hero{text-align:center;padding:20px 0 30px;border-bottom:1px solid #333;}
+        .painel-hero .rotulo{font-size:0.85rem;color:#aaa;margin-bottom:5px;}
+        .painel-hero .numero-principal{font-size:3.5rem;font-weight:900;color:var(--amarelo);line-height:1.1;}
+        .painel-hero .numero-principal small{font-size:1.2rem;color:var(--verde);font-weight:400;}
+        .painel-hero .sub-texto{font-size:0.8rem;color:#888;margin-top:5px;}
+        .painel-meta{margin:25px 0;}
+        .painel-stats{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;padding-top:20px;}
+        .painel-stat{text-align:center;min-width:120px;}
+        .painel-stat .stat-valor{font-size:1.3rem;font-weight:bold;}
+        .painel-stat .stat-rotulo{font-size:0.75rem;color:#888;margin-top:3px;}
+        .painel-stat .stat-valor.verde{color:var(--verde);}
+        .painel-stat .stat-valor.amarelo{color:var(--amarelo);}
+        .painel-stat .stat-valor.branco{color:#fff;}
+        /* SIMULAÇÃO DE POTENCIAL — DESIGN COMPACTO AVANÇADO */
+        .painel-simulacao{margin-top:30px;padding-top:25px;border-top:1px solid #333;}
+        .painel-simulacao .simul-header{text-align:center;margin-bottom:20px;}
+        .painel-simulacao .simul-header .simul-titulo{font-size:0.85rem;color:var(--amarelo);font-weight:bold;display:flex;align-items:center;justify-content:center;gap:8px;}
+        .painel-simulacao .simul-header .simul-sub{font-size:0.7rem;color:#777;margin-top:3px;}
+        .painel-simulacao .simul-body{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;}
+        .simul-col{background:linear-gradient(145deg,#111,#0d0d0d);border-radius:14px;padding:18px;border:1px solid #333;position:relative;overflow:hidden;}
+        .simul-col::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+        .simul-col.agora::before{background:linear-gradient(90deg,#ff4444,#ff6b6b);}
+        .simul-col.potencial::before{background:linear-gradient(90deg,var(--verde),#00e676);}
+        .simul-col.agora{border-color:#444;}
+        .simul-col.potencial{border-color:var(--verde);}
+        .simul-col-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+        .simul-col-badge{font-size:0.7rem;font-weight:bold;padding:3px 12px;border-radius:20px;}
+        .simul-col.agora .simul-col-badge{background:rgba(255,68,68,.15);color:#ff6b6b;border:1px solid rgba(255,68,68,.3);}
+        .simul-col.potencial .simul-col-badge{background:rgba(0,135,81,.15);color:var(--verde);border:1px solid rgba(0,135,81,.3);}
+        .simul-col-numero{font-size:1.6rem;font-weight:900;line-height:1.1;margin-bottom:10px;}
+        .simul-col.agora .simul-col-numero{color:#ff6b6b;}
+        .simul-col.potencial .simul-col-numero{color:var(--verde);}
+        .simul-col-numero small{font-size:0.6rem;font-weight:400;color:#888;margin-left:4px;}
+        .simul-col-stats{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px;}
+        .simul-stat{display:flex;justify-content:space-between;align-items:center;padding:3px 0;font-size:0.72rem;border-bottom:1px solid rgba(255,255,255,.04);}
+        .simul-stat:nth-last-child(-n+2){border-bottom:none;}
+        .simul-stat .sl{color:#888;}
+        .simul-stat .sv{font-weight:700;color:#ddd;}
+        .simul-stat .sv.green{color:var(--verde);}
+        .simul-stat .sv.yellow{color:var(--amarelo);}
+        .simul-col.potencial .simul-stat .sv{color:var(--verde);}
+        .simul-vs{display:flex;flex-direction:column;align-items:center;gap:6px;padding:0 4px;}
+        .simul-vs-line{width:2px;flex:1;background:linear-gradient(to bottom,transparent,#444,transparent);min-height:20px;}
+        .simul-vs-circle{width:42px;height:42px;border-radius:50%;background:var(--cinza);border:2px solid var(--amarelo);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:900;color:var(--amarelo);position:relative;}
+        .simul-vs-circle .vs-pct{position:absolute;bottom:-16px;font-size:0.6rem;color:var(--verde);font-weight:700;background:var(--preto);padding:0 6px;border-radius:4px;white-space:nowrap;}
+        .simul-vs-label{font-size:0.55rem;color:#555;text-align:center;line-height:1.2;}
+        .simul-footer{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:16px;padding:10px 18px;background:linear-gradient(135deg,rgba(255,215,0,.06),rgba(0,135,81,.06));border-radius:10px;border:1px solid rgba(255,215,0,.15);flex-wrap:wrap;}
+        .simul-footer .sf-icon{font-size:1.2rem;}
+        .simul-footer .sf-valor{font-size:1.2rem;font-weight:900;color:var(--verde);}
+        .simul-footer .sf-texto{font-size:0.72rem;color:#aaa;}
+        .simul-footer .sf-badge{font-size:0.6rem;color:#666;border-left:1px solid #333;padding-left:12px;}
+        @media(max-width:600px){
+            .painel-simulacao .simul-body{grid-template-columns:1fr;}
+            .simul-vs{flex-direction:row;padding:8px 0;}
+            .simul-vs-line{width:auto;height:2px;flex:1;background:linear-gradient(to right,transparent,#444,transparent);min-height:auto;min-width:20px;}
+            .simul-col-stats{grid-template-columns:1fr 1fr;}
+        }
+
+        /* IMPACTÔMETRO AMBIENTAL - REFATORADO */
+        .impact-section{background:var(--cinza);border-radius:20px;padding:40px;margin-top:40px;border:2px solid var(--verde);}
+        .impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:20px;}
+        .impact-card{background:#111;border-radius:15px;padding:25px;text-align:center;border:1px solid #333;transition:.3s;}
+        .impact-card:hover{border-color:var(--amarelo);transform:translateY(-5px);}
+        .impact-icon{font-size:2.5rem;margin-bottom:10px;}
+        .impact-value{font-size:2rem;font-weight:900;color:var(--amarelo);}
+        .impact-label{font-size:0.85rem;color:#aaa;margin-top:5px;}
+        .impact-detail{font-size:0.75rem;color:#777;margin-top:8px;line-height:1.4;}
+        .impact-tag{display:inline-block;background:var(--verde);color:#fff;padding:3px 10px;border-radius:20px;font-size:0.7rem;margin-top:10px;}
+        .grupo-impacto{margin-top:30px;}
+        .grupo-impacto:first-child{margin-top:0;}
+        .grupo-titulo{font-size:0.9rem;font-weight:bold;color:var(--verde);margin-bottom:15px;display:flex;align-items:center;gap:10px;}
+        .grupo-titulo i{font-size:1.1rem;}
+        .grupo-titulo::after{content:'';flex:1;height:1px;background:#333;}
+        .impact-grid.grupo-1{grid-template-columns:1fr;}
+        .impact-grid.grupo-2{grid-template-columns:repeat(2,1fr);}
+        .impact-grid.grupo-3{grid-template-columns:repeat(3,1fr);}
+
+        /* TABELA DE DECOMPOSIÇÃO — FLIP CARD */
+        .decomp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;}
+        .decomp-card{background:transparent;border-radius:12px;border:none;perspective:800px;cursor:pointer;height:320px;}
+        .decomp-card-inner{position:relative;width:100%;height:100%;transition:transform .6s cubic-bezier(.4,.0,.2,1);transform-style:preserve-3d;border-radius:12px;}
+        .decomp-card.flipped .decomp-card-inner{transform:rotateY(180deg);}
+        .decomp-front,.decomp-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:12px;padding:18px;text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;}
+        .decomp-front{background:#111;border:1px solid #333;z-index:2;}
+        .decomp-back{background:#111;border:2px solid var(--amarelo);transform:rotateY(180deg);z-index:1;gap:8px;}
+        .decomp-back-icon{font-size:2.2rem;margin-bottom:4px;}
+        .decomp-back-titulo{font-size:0.85rem;font-weight:bold;color:var(--amarelo);}
+        .decomp-back-texto{font-size:0.78rem;color:#bbb;line-height:1.5;max-width:200px;}
+        .decomp-back-fonte{font-size:0.65rem;color:#666;margin-top:4px;font-style:italic;}
+        .decomp-card:hover .decomp-front{border-color:var(--amarelo);}
+        .decomp-img{width:80px;height:80px;margin:0 auto 10px;border-radius:50%;overflow:hidden;border:2px solid #444;flex-shrink:0;}
+        .decomp-img img{width:100%;height:100%;object-fit:cover;display:block;}
+        .decomp-titulo{font-size:0.9rem;font-weight:bold;color:#fff;margin-bottom:8px;}
+        .decomp-tempo{font-size:0.8rem;color:#ccc;margin-bottom:6px;}
+        .decomp-tempo .decomp-label{color:#888;}
+        .decomp-impacto{font-size:0.75rem;color:#999;line-height:1.4;}
+        .decomp-hint{font-size:0.65rem;color:#555;margin-top:8px;border-top:1px solid #222;padding-top:6px;width:100%;}
+
+        /* POTENCIÔMETRO - PROJEÇÕES DE IMPACTO */
+        .potenciometro-section{background:var(--cinza);border-radius:20px;padding:40px;margin-top:40px;border:2px solid var(--amarelo);}
+        .poten-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:25px;}
+        .poten-card{background:#111;border-radius:15px;padding:20px;text-align:center;border:1px solid #333;transition:.3s;}
+        .poten-card:hover{border-color:var(--verde);transform:translateY(-3px);}
+        .poten-card.destaque{border:2px solid var(--amarelo);background:linear-gradient(to bottom,#111,#1a1a00);}
+        .poten-label{font-size:0.8rem;color:#aaa;margin-bottom:5px;}
+        .poten-value{font-size:1.8rem;font-weight:900;color:var(--amarelo);}
+        .poten-value .verde{color:var(--verde);}
+        .poten-sub{font-size:0.75rem;color:#777;margin-top:5px;}
+
+        .poten-slider{width:100%;margin:20px 0;accent-color:var(--amarelo);height:6px;border-radius:3px;cursor:pointer;}
+        .poten-slider::-webkit-slider-thumb{appearance:none;width:22px;height:22px;border-radius:50%;background:var(--amarelo);cursor:pointer;border:3px solid var(--preto);}
+        .poten-slider::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--amarelo);cursor:pointer;border:3px solid var(--preto);}
+
+        .poten-periodo{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:15px 0;}
+        .poten-btn{background:#333;color:#ccc;border:1px solid #555;padding:10px 20px;border-radius:30px;cursor:pointer;font-weight:bold;transition:.3s;width:auto;}
+        .poten-btn.active{background:var(--verde);color:#fff;border-color:var(--verde);}
+        .poten-btn:hover:not(.active){background:#444;}
+
+        .poten-comparacao{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;margin-top:20px;padding:20px;background:#0a0a0a;border-radius:15px;border:1px solid #333;}
+        .poten-comp-item{text-align:center;padding:10px;}
+        .poten-comp-icon{font-size:2rem;margin-bottom:5px;}
+        .poten-comp-texto{font-size:0.8rem;color:#aaa;line-height:1.4;}
+        .poten-comp-destaque{color:var(--amarelo);font-weight:900;font-size:1.1rem;}
+
+        /* MODO FEIRA / EXPOSIÇÃO */
+        .feira-bar{background:linear-gradient(90deg,var(--verde),var(--amarelo));padding:12px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:80px;}
+        .feira-bar span{color:var(--preto);font-weight:900;font-size:0.9rem;}
+        .feira-bar button{background:var(--preto);color:var(--amarelo);border:none;padding:8px 20px;border-radius:30px;font-weight:bold;cursor:pointer;font-size:0.85rem;width:auto;transition:.3s;}
+        .feira-bar button:hover{background:#222;color:#fff;}
+        .feira-badge{background:red;color:#fff;padding:2px 10px;border-radius:20px;font-size:0.7rem;font-weight:bold;animation:pulse 1.5s infinite;}
+        @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.5;}}
+
+        /* QR CODE */
+        .qr-section{text-align:center;padding:30px;background:#111;border-radius:15px;border:1px solid #444;margin-top:30px;}
+        .qr-section img{width:180px;height:180px;border-radius:10px;background:#fff;padding:10px;margin:15px 0;}
+        .qr-section p{color:#aaa;font-size:0.85rem;}
+
+        /* OFFLINE FALLBACK */
+        @font-face{font-family:'Inter Fallback';src:local('Arial'),local('Helvetica');}
+        
+        /* RESPONSIVO - TABLET E MENOR */
         @media(max-width:768px){
-            .hero { flex-direction: column; text-align: center; height: auto; padding: 100px 20px 50px; }
-            .senna-img { height: auto; max-width: 100%; margin-top: 20px; }
-            .grid { grid-template-columns: 1fr; }
-            .hero-content h1 { font-size: 2.3rem; }
-            section { padding: 60px 5%; }
-            .sobre-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            .placar-banner {
-                padding: 20px;
-                border-radius: 20px;
-                display: flex;
-                flex-direction: column;
-            }
-            .placar-banner p { margin-left: 0 !important; }
-            .seu-ranking-card {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center !important;
-            }
-            .seu-ranking-card div { text-align: center !important; }
-            
-            .nav-bar { padding: 10px 5%; }
-            .logo { font-size: 1.1rem; }
-            
-            /* Ajuste para inputs não darem zoom automático no iPhone */
-            input, select, textarea { font-size: 16px !important; }
+            .hero{flex-direction:column;text-align:center;height:auto;padding:50px 20px;}
+            .senna-img{height:250px;margin-top:20px;}
+            .grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));}
+            .hero-content h1{font-size:2.3rem;}
+            section{padding:80px 5%;}
+            .sobre-content{flex-direction:column;text-align:center;}
+            .sobre-content img{max-width:100%;}
+            .dashboard-header{flex-direction:column;gap:15px;text-align:center;}
+            .admin-tabs{flex-direction:column;}
+            .tab-btn{flex:none;}
+            .btn-sub-tab{flex:none;}
+            .step-box{width:100%;max-width:280px;}
+            .rank-card{width:100%;max-width:280px;}
+            .rank-card.top1{transform:scale(1.05);}
+            .impact-grid.grupo-1,.impact-grid.grupo-2,.impact-grid.grupo-3{grid-template-columns:1fr;}
+            .seu-ranking-card{flex-direction:column;gap:15px;text-align:center;}
+            #nav-user-greeting{font-size:0.8rem;}
+            .resumo-box span{font-size:1.4rem;}
+            .resumo-box{flex-direction:column;gap:15px;}
+        }
+
+        /* RESPONSIVO - CELULAR PEQUENO */
+        @media(max-width:480px){
+            .nav-bar{padding:10px 4%;}
+            .logo{font-size:1rem;}
+            .sidebar{width:220px;right:-230px;}
+            .hero{padding:30px 15px;margin-top:60px;}
+            .hero-content h1{font-size:1.6rem;}
+            .hero-content p{font-size:0.9rem;}
+            .senna-img{height:180px;}
+            section{padding:40px 4%;}
+            .section-title{font-size:1.2rem;margin-bottom:25px;}
+            .grid{grid-template-columns:1fr;}
+            .card img{height:120px;}
+            .card-info{padding:12px;}
+            .form-box,.auth-box{padding:25px 15px;margin:0 10px;}
+            h2{font-size:1.2rem;}
+            input,select,button{padding:10px;font-size:0.9rem;}
+            .step-container{gap:15px;}
+            .step-box{padding:20px;max-width:100%;}
+            .placar-banner p{font-size:0.85rem;}
+            .placar-banner h2{font-size:1.2rem;}
+            .feed-container{padding:15px;}
+            .feed-item{gap:10px;padding:10px;}
+            .feed-icon{width:32px;height:32px;font-size:1rem;}
+            .feed-text{font-size:0.8rem;}
+            .tabela-wrapper{border-radius:8px;}
+            th,td{padding:10px 8px;font-size:0.8rem;}
+            .btn-edit,.btn-delete,.btn-reset{padding:6px 8px;font-size:0.7rem;margin-bottom:3px;display:inline-block;}
+            .admin-tabs{gap:5px;}
+            .tab-btn{padding:12px;font-size:0.85rem;}
+            .dashboard-card{padding:15px;}
+            .dashboard-header h1{font-size:1.2rem;}
+            .btn-sair{padding:8px 12px;font-size:0.8rem;}
+            .filtro-container{flex-direction:column;align-items:stretch;}
+            .filtro-container label{margin-bottom:0;}
+            .filtro-container input[type=date]{width:100%!important;}
+            .filtro-container button{width:100%!important;}
+            footer{padding:25px;font-size:0.85rem;}
+            .ranking-grid{gap:15px;}
+            .rank-card{max-width:100%;padding:15px;}
+            .meta-info{flex-direction:column;gap:5px;text-align:center;}
+            .seu-ranking-card{padding:15px;}
+            #dashboard-aluno,#dashboard-admin,#dashboard-professor,#rankings,#area-acesso{padding-top:80px;}
+            .impact-section,.potenciometro-section{padding:25px 15px;}
+            .poten-value{font-size:1.4rem;}
+            .poten-comparacao{grid-template-columns:1fr;}
+            .poten-grid{grid-template-columns:1fr;}
+            .poten-periodo{gap:5px;}
+            .poten-btn{padding:8px 14px;font-size:0.8rem;}
         }
     </style>
 </head>
@@ -439,27 +881,35 @@
 
     <!-- ===== BARRA DE NAVEGAÇÃO ===== -->
     <nav class="nav-bar">
-        <button class="logo" onclick="voltarParaHome()" aria-label="Ir para o início">Senna<span>Recicla</span></button>
+        <div class="logo" onclick="voltarParaHome()">Senna<span>Recicla</span></div>
         <div class="nav-right">
             <div id="nav-user-greeting" class="hidden"></div>
-            <button class="menu-btn" onclick="openMenu()" aria-label="Abrir menu de navegação" aria-expanded="false">
+            <div class="menu-btn" onclick="openMenu()">
                 <i class="fas fa-bars"></i>
-            </button>
+            </div>
         </div>
     </nav>
 
     <!-- ===== MENU LATERAL ===== -->
     <div class="sidebar" id="menu">
-        <button class="close-btn" onclick="closeMenu()" aria-label="Fechar menu"><i class="fas fa-times"></i></button>
-        <a href="#" onclick="voltarParaHome(); closeMenu(); return false;">Início</a>
-        <a href="#" id="menu-dashboard" class="hidden" onclick="abrirDashboard(); return false;">Meu Painel</a>
-        <a href="#" id="menu-acesso" onclick="mostrarAreaAcesso(); return false;">Acessar / Cadastrar</a>
-        <a href="#" onclick="navegarMenu('sobre'); return false;">Sobre o Projeto</a>
-        <a href="#" onclick="navegarMenu('importancia-reciclagem'); return false;">A Importância de Reciclar</a>
-        <a href="#" onclick="navegarMenu('produtos'); return false;">O que Reciclamos</a>
-        <a href="#" id="menu-ranking-geral" class="hidden" onclick="navegarMenu('ranking-geral'); return false;">Ranking de Turmas</a>
-        <a href="#" id="menu-rankings" class="hidden" onclick="navegarMenu('ranking-individual'); return false;">Ranking Individual</a>
-        <a href="#" id="menu-sair" class="hidden" onclick="sairSistema(); return false;">Sair</a>
+        <div class="close-btn" onclick="closeMenu()"><i class="fas fa-times"></i></div>
+        <a onclick="voltarParaHome(); closeMenu();">Início</a>
+        <a id="menu-dashboard" class="hidden" onclick="abrirDashboard()">Meu Painel</a>
+        <a id="menu-acesso" onclick="mostrarAreaAcesso()">Acessar / Cadastrar</a>
+        <a onclick="navegarMenu('sobre')">Sobre o Projeto</a>
+        <a onclick="navegarMenu('importancia-reciclagem')">A Importância de Reciclar</a>
+        <a onclick="navegarMenu('produtos')">O que Reciclamos</a>
+        <a onclick="abrirQuiz()">🧠 Quiz Ambiental</a>
+        <a id="menu-ranking-geral" class="hidden" onclick="navegarMenu('ranking-geral')">Ranking de Turmas</a>
+        <a id="menu-rankings" class="hidden" onclick="navegarMenu('ranking-individual')">Ranking Individual</a>
+        <a id="menu-sair" class="hidden" onclick="sairSistema()">Sair</a>
+    </div>
+
+    <!-- ===== BARRA DO MODO FEIRA ===== -->
+    <div id="feira-bar" class="feira-bar hidden">
+        <span>🏁 MODO EXPOSIÇÃO ATIVO</span>
+        <span>Apresentação na Feira de Sustentabilidade <span class="feira-badge">AO VIVO</span></span>
+        <button onclick="pararSimulacaoFeira()">⏹ Desativar</button>
     </div>
 
     <!-- ===== CONTEÚDO PRINCIPAL (HOME) ===== -->
@@ -468,6 +918,7 @@
             <div class="hero-content">
                 <h1>RUMO À <span>VITÓRIA</span></h1>
                 <p>Inspirado em Ayrton Senna, transformamos reciclagem em conquista.</p>
+                <button onclick="ativarModoFeira()" style="width:auto;margin-top:20px;background:var(--verde);color:#fff;padding:12px 30px;font-size:1rem;">🏁 Ativar Modo Feira</button>
             </div>
         </header>
 
@@ -475,8 +926,8 @@
             <section id="sobre">
                 <h2 class="section-title">O Propósito do Senna Recicla</h2>
                 <div class="sobre-texto" style="margin-bottom: 30px;">
-                    <p>Inspirado na determinação de Ayrton Senna, este projeto transforma a conscientização em ação concreta. Acreditamos que o esforço coletivo pode gerar mudanças reais no planeta e, ao mesmo tempo, valorizar a jornada dos nossos alunos.</p>
-                    <p>Cada material reciclado aqui contribui para o Fundo de Formatura, transformando o que seria descartado em recursos para celebrar essa grande conquista. É a vitória do meio ambiente e da sua turma!</p>
+                    <p>Inspirado na determinação de Ayrton Senna, este projeto transforma a conscientização em ação concreta. Acreditamos que o esforço coletivo pode gerar mudanças reais no planeta e, ao mesmo tempo, **valorizar a jornada dos nossos alunos**.</p>
+                    <p>Cada material reciclado aqui **evita emissões de CO₂, preserva árvores e despolui nossos rios**. O que seria descartado vira recurso — para o planeta e para a nossa comunidade. É a vitória do meio ambiente e da sua turma!</p>
                 </div>
                 
                 <h3 style="text-align: center; color: var(--amarelo); margin-top: 40px; margin-bottom: 10px;">Como participar na prática?</h3>
@@ -499,86 +950,275 @@
                     <div class="step-box">
                         <div class="step-number">4</div>
                         <h3>Suba no Pódio</h3>
-                        <p>Acompanhe seu ranking e o crescimento do Fundo de Formatura!</p>
+                        <p>Acompanhe seu ranking e veja o impacto ambiental da sua turma!</p>
                     </div>
                 </div>
 
-                <div class="placar-banner">
-                    <p>Total Arrecadado para a Formatura:</p>
-                    <h2 id="valor-total-dinheiro">R$ 0,00</h2>
-                    <p style="margin-left: 15px;">Total Coletado (Massa/Vol):</p>
-                    <h2 id="valor-total-geral">0,0 kg/L</h2>
+                <!-- TABELA DE DECOMPOSIÇÃO E IMPACTO -->
+                <div class="dashboard-card" style="margin-top: 40px; border: 1px solid #444; padding: 25px;">
+                    <h3 style="color: var(--amarelo); text-align: center; margin: 0 0 5px 0;">⏳ O que cada material faz com o planeta</h3>
+                    <p style="text-align:center;font-size:0.8rem;color:#888;margin-bottom:20px;">Tempo de decomposição e impacto de cada item que você recicla</p>
+                    <div class="decomp-grid">
+                        <div class="decomp-card" onclick="this.classList.toggle('flipped')">
+                            <div class="decomp-card-inner">
+                                <div class="decomp-front">
+                                    <div class="decomp-img"><img src="https://picsum.photos/seed/latinhas-reciclagem/150/150" alt="Latinhas de alumínio" loading="lazy"></div>
+                                    <div class="decomp-titulo">Latinhas de Alumínio</div>
+                                    <div class="decomp-tempo"><span class="decomp-label">Decomposição:</span> <strong>200 a 500 anos</strong></div>
+                                    <div class="decomp-impacto">Reciclar 1 latinha economiza energia para uma TV ligada por <strong>3 horas</strong>. O Brasil recicla <strong>97,3%</strong> — líder mundial.</div>
+                                    <div class="decomp-hint">👆 clique para virar</div>
+                                </div>
+                                <div class="decomp-back">
+                                    <div class="decomp-back-icon">♻️</div>
+                                    <div class="decomp-back-titulo">Você sabia?</div>
+                                    <div class="decomp-back-texto">Uma latinha reciclada hoje pode virar uma nova latinha em <strong>60 dias</strong> — e economiza 95% da energia. 1 latinha evita <strong>158,4 g CO₂</strong> (Planton 2025).</div>
+                                    <div class="decomp-back-fonte">Fonte: ABAL + Planton/eureciclo 2025 + Aluminum Association</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="decomp-card" onclick="this.classList.toggle('flipped')">
+                            <div class="decomp-card-inner">
+                                <div class="decomp-front">
+                                    <div class="decomp-img"><img src="https://picsum.photos/seed/papelao-reciclagem/150/150" alt="Papelão" loading="lazy"></div>
+                                    <div class="decomp-titulo">Papelão</div>
+                                    <div class="decomp-tempo"><span class="decomp-label">Decomposição:</span> <strong>2 a 6 meses</strong></div>
+                                    <div class="decomp-impacto">A cada 50 kg reciclados, <strong>1 árvore</strong> é poupada. Papelão em aterro vira metano — gás 21x mais agressivo que o CO₂.</div>
+                                    <div class="decomp-hint">👆 clique para virar</div>
+                                </div>
+                                <div class="decomp-back">
+                                    <div class="decomp-back-icon">🌳</div>
+                                    <div class="decomp-back-titulo">Impacto Oculto</div>
+                                    <div class="decomp-back-texto">Papelão em aterro libera metano, gás <strong>21x mais potente</strong> que o CO₂. Reciclar 1 tonelada de papelão evita 1.200 kg de CO₂ equivalente.</div>
+                                    <div class="decomp-back-fonte">Fonte: EPA WARM / GHG Protocol</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="decomp-card" onclick="this.classList.toggle('flipped')">
+                            <div class="decomp-card-inner">
+                                <div class="decomp-front">
+                                    <div class="decomp-img"><img src="https://picsum.photos/seed/tampinhas-plastico/150/150" alt="Tampinhas plásticas" loading="lazy"></div>
+                                    <div class="decomp-titulo">Tampinhas (Plástico)</div>
+                                    <div class="decomp-tempo"><span class="decomp-label">Decomposição:</span> <strong>200 a 450 anos</strong></div>
+                                    <div class="decomp-impacto">Se viram microplástico que invade a cadeia alimentar. Cada kg reciclado evita <strong>1,5 L de petróleo</strong> na extração.</div>
+                                    <div class="decomp-hint">👆 clique para virar</div>
+                                </div>
+                                <div class="decomp-back">
+                                    <div class="decomp-back-icon">🐠</div>
+                                    <div class="decomp-back-titulo">Cadeia Alimentar</div>
+                                    <div class="decomp-back-texto">Microplásticos já são encontrados em <strong>90% das espécies marinhas</strong> e chegam ao nosso prato. Reciclar plástico salva os oceanos.</div>
+                                    <div class="decomp-back-fonte">Fonte: ONU Meio Ambiente / ODS 14</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="decomp-card" onclick="this.classList.toggle('flipped')">
+                            <div class="decomp-card-inner">
+                                <div class="decomp-front">
+                                    <div class="decomp-img"><img src="https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=150&h=150&fit=crop&crop=center&q=80" alt="Óleo de cozinha" loading="lazy"></div>
+                                    <div class="decomp-titulo">Óleo de Cozinha</div>
+                                    <div class="decomp-tempo"><span class="decomp-label">Impacto:</span> <strong style="color:var(--amarelo);">1L polui 1 milhão de litros de água</strong></div>
+                                    <div class="decomp-impacto">O que uma pessoa bebe em <strong>40 anos</strong>. Reciclado vira biodiesel — combustível limpo que movimenta o Brasil.</div>
+                                    <div class="decomp-hint">👆 clique para virar</div>
+                                </div>
+                                <div class="decomp-back">
+                                    <div class="decomp-back-icon">🛢️</div>
+                                    <div class="decomp-back-titulo">Energia Limpa</div>
+                                    <div class="decomp-back-texto">O óleo de cozinha reciclado vira biodiesel — um combustível que reduz em até <strong>70% as emissões</strong> comparado ao diesel fóssil.</div>
+                                    <div class="decomp-back-fonte">Fonte: Agência Nacional do Petróleo (ANP)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="dashboard-card" style="margin-top: 40px;">
-                    <h2 style="text-align: center; color: var(--amarelo); margin-bottom: 20px;">Meta para a Formatura</h2>
-                    <div class="meta-info">
-                        <span>Progresso da Arrecadação</span>
-                        <span id="meta-porcentagem">0%</span>
+                <!-- PAINEL DE IMPACTO UNIFICADO -->
+                <div class="painel-impacto">
+                    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:10px;">
+                        <span style="background:rgba(255,255,255,0.06);border:1px solid #444;border-radius:20px;padding:4px 14px;font-size:0.7rem;color:#aaa;">🇧🇷 <strong style="color:var(--verde);">97,3%</strong> latinhas recicladas (ABAL/Abralatas 2024)</span>
+                        <span style="background:rgba(255,255,255,0.06);border:1px solid #444;border-radius:20px;padding:4px 14px;font-size:0.7rem;color:#aaa;">♻️ 1t reciclada evita <strong style="color:var(--verde);">2.059 kg CO₂</strong> (Planton+eureciclo 2025)</span>
+                        <span style="background:rgba(255,255,255,0.06);border:1px solid #444;border-radius:20px;padding:4px 14px;font-size:0.7rem;color:#aaa;">🌍 Alumínio: <strong style="color:var(--verde);">9,1 kg CO₂</strong>/kg (EPA WARM) · <strong style="color:var(--verde);">10,56</strong> (Planton)</span>
                     </div>
-                    <div class="meta-container">
-                        <div class="meta-progress" id="meta-barra">0%</div>
+                    <div class="painel-hero">
+                        <div class="rotulo">🌍 NOSSO IMPACTO TOTAL</div>
+                        <div class="numero-principal" id="valor-total-co2">0 <small>kg</small></div>
+                        <div class="sub-texto">de CO₂ evitados — <strong style="color:var(--verde);" id="meta-porcentagem-texto">0%</strong> da meta de 50.000 kg</div>
                     </div>
-                    <div class="meta-info">
-                        <span>Arrecadado: <strong id="meta-atual">R$ 0,00</strong></span>
-                        <span>Meta: <strong id="meta-objetivo">R$ 5.000,00</strong></span>
+                    <div class="painel-meta">
+                        <div class="meta-info">
+                            <span>🎚️ <strong>Simulador:</strong> <span id="sim-slider-label" style="color:var(--verde);">0 alunos</span> participando</span>
+                            <span id="meta-porcentagem">0%</span>
+                        </div>
+                        <div class="sim-slider-track">
+                            <input type="range" id="sim-slider" min="0" max="590" value="0" step="1"
+                                   oninput="mexerSimulador(this.value)">
+                            <div class="sim-slider-marks">
+                                <span>0</span>
+                                <span id="sim-slider-atual-marca">0</span>
+                                <span>590</span>
+                            </div>
+                        </div>
+                        <div class="meta-container" style="margin:6px 0 4px;height:18px;">
+                            <div class="meta-progress" id="meta-barra" style="width:0%;font-size:0.7rem;">0%</div>
+                        </div>
+                        <div class="meta-info">
+                            <span><strong id="meta-atual">0 kg CO₂</strong></span>
+                            <span>Meta: <strong>50.000 kg CO₂</strong></span>
+                        </div>
                     </div>
-                </div>
-
-                <div style="display: flex; flex-wrap: wrap; gap: 20px;">
-                    <div class="dashboard-card" style="flex: 1; min-width: 300px; margin-bottom: 0;">
-                        <h2 style="text-align: center; color: var(--amarelo); margin-bottom: 20px;">Cotação do Mercado (Hoje)</h2>
-                        <p style="text-align: center; font-size: 0.8rem; color: #888; margin-bottom: 20px;">Valores médios por kg/litro atualizados via API</p>
-                        <div class="grid" id="cotacao-grid">
-                            <!-- Cards de Cotação via JS -->
+                    <div class="painel-stats">
+                        <div class="painel-stat">
+                            <div class="stat-valor verde" id="meta-kg-atual">0 kg</div>
+                            <div class="stat-rotulo">📦 Total Reciclado</div>
+                        </div>
+                        <div class="painel-stat">
+                            <div class="stat-valor amarelo" id="meta-dinheiro-atual">R$ 0,00</div>
+                            <div class="stat-rotulo">💰 Valor Gerado</div>
+                        </div>
+                        <div class="painel-stat">
+                            <div class="stat-valor branco" id="meta-arvores-atual">0</div>
+                            <div class="stat-rotulo">🌳 Árvores Preservadas</div>
+                        </div>
+                        <div class="painel-stat">
+                            <div class="stat-valor verde" id="meta-latinhas-atual">0</div>
+                            <div class="stat-rotulo">🥫 Latinhas Recicladas</div>
                         </div>
                     </div>
 
-                    <div class="dashboard-card" style="flex: 1; min-width: 300px; margin-bottom: 0;">
-                        <h2 style="text-align: center; color: var(--verde); margin-bottom: 10px;">Últimas Acelerações</h2>
-                        <p style="text-align: center; font-size: 0.8rem; color: #888;">Doações recentes em tempo real</p>
-                        <div class="feed-container" id="live-feed" aria-live="polite">
-                            <!-- Feed populado via JS -->
+                    <!-- SIMULAÇÃO DE POTENCIAL TOTAL — DESIGN COMPACTO -->
+                    <div class="painel-simulacao">
+                        <div class="simul-header">
+                            <div class="simul-titulo">🚀 E SE TODOS OS 590 ALUNOS + FAMÍLIAS PARTICIPASSEM?</div>
+                            <div class="simul-sub">Comparação entre o impacto atual e o potencial com engajamento total</div>
+                        </div>
+                        <div class="simul-body">
+                            <div class="simul-col agora">
+                                <div class="simul-col-header">
+                                    <span style="color:#999;font-size:0.7rem;font-weight:bold;">🔴 AGORA</span>
+                                    <span class="simul-col-badge"><span id="simul-alunos-ativos">0</span> alunos</span>
+                                </div>
+                                <div class="simul-col-numero"><span id="simul-kg-agora">0 kg</span> <small>reciclados</small></div>
+                                <div class="simul-col-stats">
+                                    <div class="simul-stat"><span class="sl">💰 Valor</span><span class="sv yellow" id="simul-dinheiro-agora">R$ 0</span></div>
+                                    <div class="simul-stat"><span class="sl">🥫 Latinhas</span><span class="sv" id="simul-latinhas-agora">0</span></div>
+                                    <div class="simul-stat"><span class="sl">🌍 CO₂</span><span class="sv" id="simul-co2-agora">0</span></div>
+                                    <div class="simul-stat"><span class="sl">🌳 Árvores</span><span class="sv" style="opacity:.4;">—</span></div>
+                                </div>
+                            </div>
+                            <div class="simul-vs">
+                                <div class="simul-vs-line"></div>
+                                <div class="simul-vs-circle">
+                                    VS
+                                    <span class="vs-pct" id="simul-ratio-pct">0%</span>
+                                </div>
+                                <div class="simul-vs-label">atual<br>→ potencial</div>
+                                <div class="simul-vs-line"></div>
+                            </div>
+                            <div class="simul-col potencial">
+                                <div class="simul-col-header">
+                                    <span style="color:var(--verde);font-size:0.7rem;font-weight:bold;">🟢 POTENCIAL</span>
+                                    <span class="simul-col-badge">590 famílias</span>
+                                </div>
+                                <div class="simul-col-numero"><span id="simul-kg-potencial">0 kg</span> <small>projetados</small></div>
+                                <div class="simul-col-stats">
+                                    <div class="simul-stat"><span class="sl">💰 Valor</span><span class="sv" id="simul-dinheiro-potencial">R$ 0</span></div>
+                                    <div class="simul-stat"><span class="sl">🥫 Latinhas</span><span class="sv" id="simul-latinhas-potencial">0</span></div>
+                                    <div class="simul-stat"><span class="sl">🌍 CO₂</span><span class="sv" id="simul-co2-potencial">0</span></div>
+                                    <div class="simul-stat"><span class="sl">🌳 Árvores</span><span class="sv" id="simul-arvores-potencial">0</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="simul-footer">
+                            <span class="sf-icon">🎯</span>
+                            <span class="sf-valor" id="simul-por-semana">0 kg</span>
+                            <span class="sf-texto">por família por semana — uma sacolinha leve!</span>
+                            <span class="sf-badge">EPA WARM: Al 9,1 · Pap 0,9 · PET 1,5 · Planton: Al 10,56 tCO₂e/t</span>
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <section id="importancia-reciclagem">
-                <h2 class="section-title">Por que sua participação é Vital?</h2>
-                <div class="sobre-content">
-                    <div style="text-align: center;">
-                        <img src="https://www.dionambiental.com.br/wp-content/uploads/2024/05/DIA-MUNDIAL-DA-RECICLAGEM-BLOG-1.png.webp" alt="Símbolo da reciclagem" style="max-width: 300px;">
-                        <p style="font-size: 0.8rem; color: var(--amarelo); margin-top: 10px; font-style: italic;">O Símbolo da Vitória: Reduzir, Reutilizar e Reciclar.</p>
+                <!-- POR QUE SUA PARTICIPAÇÃO É VITAL -->
+                <div id="importancia-reciclagem" class="dashboard-card" style="margin-top: 40px; border: 1px solid #444; padding: 30px;">
+                    <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:20px;">
+                        <a href="https://odsbrasil.gov.br/objetivo12" target="_blank" style="background:rgba(255,255,255,0.06);border:1px solid #444;border-radius:20px;padding:4px 14px;font-size:0.7rem;color:#aaa;text-decoration:none;">🎯 ODS 12 — Consumo e Produção Sustentáveis (ONU)</a>
+                        <a href="https://agenciabrasil.ebc.com.br/economia/noticia/2025-08/brasil-reciclou-973-das-latinhas-de-aluminio-em-2024" target="_blank" style="background:rgba(255,255,255,0.06);border:1px solid #444;border-radius:20px;padding:4px 14px;font-size:0.7rem;color:#aaa;text-decoration:none;">📄 ABAL: 97,3% latas recicladas (2024)</a>
+                        <a href="https://www.certirecicla.cl/blog/co2-evitado-reciclaje-tabla-materiales" target="_blank" style="background:rgba(255,255,255,0.06);border:1px solid #444;border-radius:20px;padding:4px 14px;font-size:0.7rem;color:#aaa;text-decoration:none;">📊 EPA WARM + DEFRA 2025</a>
+                        <a href="https://fitecambiental.com.br/estudo-inedito-no-brasil-quantifica-impacto-da-reciclagem-na-descarbonizacao-e-reforca-urgencia-da-economia-circular/" target="_blank" style="background:rgba(255,255,255,0.06);border:1px solid #444;border-radius:20px;padding:4px 14px;font-size:0.7rem;color:#aaa;text-decoration:none;">📈 Planton+eureciclo: 2.059 kg CO₂/t evitados</a>
+                        <a href="https://www1.folha.uol.com.br/mercado/2026/05/brasil-reaproveita-so-13-dos-materiais-que-consome-diz-novo-relatorio.shtml" target="_blank" style="background:rgba(255,255,255,0.06);border:1px solid #444;border-radius:20px;padding:4px 14px;font-size:0.7rem;color:#aaa;text-decoration:none;">📉 Circularity Gap: só 1,3% de circularidade</a>
+                        <a href="https://www.abiplast.org.br/publicacoes/indices-de-reciclagem-mecanica-de-plasticos-pos-consumo-no-brasil-2025/" target="_blank" style="background:rgba(255,255,255,0.06);border:1px solid #444;border-radius:20px;padding:4px 14px;font-size:0.7rem;color:#aaa;text-decoration:none;">♻️ ABIPLAST: 24,4% embalagens recicladas</a>
                     </div>
-                    <div class="sobre-texto">
-                        <p>O famoso símbolo das três setas não é apenas um desenho; ele representa o **Ciclo de Sustentabilidade**. Cada seta tem um significado vital para a nossa missão:</p>
-                        <ul style="margin-left: 20px; margin-top: 10px; list-style-type: '🏁 ';">
-                            <li style="margin-bottom: 15px;"><strong>Aceleração Contra o Aquecimento Global:</strong> A extração de matérias-primas virgens é uma das maiores fontes de CO2 do planeta. Reciclar reduz as emissões em até 95%, combatendo diretamente o efeito estufa e mantendo o clima da Terra em uma "faixa de segurança" para a vida.</li>
-                            <li style="margin-bottom: 15px;"><strong>Eficiência Energética de Elite:</strong> Produzir uma única latinha de alumínio do zero gasta a mesma energia que reciclar 20 latas. Essa economia gigante evita a sobrecarga do sistema elétrico e a necessidade de construir novas hidrelétricas que inundam nossas florestas.</li>
-                            <li style="margin-bottom: 15px;"><strong>Blindagem de Nossas Reservas Hídricas:</strong> O lixo descartado incorretamente se fragmenta em microplásticos que invadem o solo e contaminam a água que bebemos e os peixes que comemos. Reciclar é o único filtro eficiente para manter nossos oceanos e lençóis freáticos limpos para o futuro.</li>
-                        </ul>
-                        <p style="margin-top: 20px; border-left: 3px solid var(--amarelo); padding-left: 15px; font-style: italic; color: #ccc;">
-                            "Eu não tenho ídolos. Tenho admiração por trabalho, dedicação e competência." <br>— <strong>Ayrton Senna</strong>. <br>Reciclar exige dedicação, mas o resultado é a nossa formatura!
-                        </p>
+                    <h2 class="section-title" style="margin-top: 0;">🏁 Por que sua participação é Vital?</h2>
+                    <div class="sobre-content">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <img src="https://img.freepik.com/fotos-premium/um-close-up-de-um-logotipo-de-reciclagem-verde-em-um-fundo-preto-generativo-ai_899870-32512.jpg?semt=ais_hybrid&w=740&q=80" alt="Símbolo da reciclagem" style="max-width: 180px; border: 2px solid var(--verde); border-radius: 50%; padding: 10px;">
+                            <p style="font-size: 0.85rem; color: var(--amarelo); margin-top: 12px; font-style: italic;">O Símbolo da Vitória: Reduzir, Reutilizar e Reciclar.</p>
+                        </div>
+                        <div class="sobre-texto">
+                            <p style="font-size: 1.05rem;">As três setas do símbolo da reciclagem não são um enfeite — são um <strong>manual de sobrevivência</strong> para o planeta. E cada uma delas tem tudo a ver com a nossa missão aqui:</p>
+                            <ul style="margin-left: 0; margin-top: 20px; list-style: none; padding: 0;">
+                                <li style="margin-bottom: 22px; padding-left: 28px; position: relative;">
+                                    <span style="position: absolute; left: 0; top: 0; font-size: 1.1rem;">🔥</span>
+                                    <strong style="color: var(--amarelo);">Aceleração Contra o Aquecimento Global</strong><br>
+                                    <span style="color: #ccc;">Extrair matéria-prima virgem é uma das maiores bombas de CO₂ do planeta. Reciclar reduz essas emissões em até <strong style="color: var(--verde);">95%</strong> — é como trocar um caminhão a diesel por um carro elétrico da noite para o dia. Cada latinha que você traz é uma volta no grid contra o efeito estufa.</span>
+                                </li>
+                                <li style="margin-bottom: 22px; padding-left: 28px; position: relative;">
+                                    <span style="position: absolute; left: 0; top: 0; font-size: 1.1rem;">⚡</span>
+                                    <strong style="color: var(--amarelo);">Eficiência Energética de Elite</strong><br>
+                                    <span style="color: #ccc;">Fabricar <strong style="color: var(--verde);">1 latinha</strong> de alumínio do zero consome a mesma energia que reciclar <strong style="color: var(--verde);">20 latas</strong>. Essa economia evita a construção de hidrelétricas que alagam florestas inteiras. É a diferença entre pisar fundo no acelerador ou deixar o motor desligado.</span>
+                                </li>
+                                <li style="margin-bottom: 22px; padding-left: 28px; position: relative;">
+                                    <span style="position: absolute; left: 0; top: 0; font-size: 1.1rem;">💧</span>
+                                    <strong style="color: var(--amarelo);">Blindagem das Nossas Reservas Hídricas</strong><br>
+                                    <span style="color: #ccc;"><strong style="color: var(--verde);">1 litro de óleo</strong> contamina <strong style="color: var(--verde);">1 milhão de litros de água</strong> — o que uma pessoa bebe em 40 anos. O lixo descartado errado vira microplástico que invade o solo, os rios e até o seu prato. Reciclar é o único filtro que mantém nossos oceanos e lençóis freáticos limpos para a próxima geração.</span>
+                                </li>
+                            </ul>
+                            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:25px;margin-bottom:15px;justify-content:center;">
+                                <span style="background:rgba(255,50,50,0.1);border:1px solid #f33;border-radius:20px;padding:6px 16px;font-size:0.75rem;color:#f88;">⚠️ Brasil reaproveita apenas <strong style="color:#fff;">1,3%</strong> dos materiais (Circularity Gap 2026)</span>
+                                <span style="background:rgba(255,255,255,0.06);border:1px solid #444;border-radius:20px;padding:6px 16px;font-size:0.75rem;color:#aaa;">👥 <strong style="color:var(--verde);">800 mil</strong> catadores no Brasil — <strong style="color:var(--verde);">70%</strong> são mulheres (MNCR)</span>
+                                <span style="background:rgba(255,255,255,0.06);border:1px solid #444;border-radius:20px;padding:6px 16px;font-size:0.75rem;color:#aaa;">💰 R$ <strong style="color:var(--amarelo);">120 bilhões</strong> perdidos por ano com lixo não reciclado (Embrapa 2025)</span>
+                                <span style="background:rgba(255,255,255,0.06);border:1px solid #444;border-radius:20px;padding:6px 16px;font-size:0.75rem;color:#aaa;">🛢️ <strong style="color:var(--verde);">20 milhões de L</strong> de óleo viram biodiesel/ano (Binatural 2024)</span>
+                            </div>
+                            <div style="border-left: 3px solid var(--amarelo); padding: 15px 20px; background: rgba(255,255,255,0.03); border-radius: 0 10px 10px 0;">
+                                <p style="font-style: italic; color: #ddd; margin: 0;">
+                                    "Eu não tenho ídolos. Tenho admiração por trabalho, dedicação e competência."
+                                </p>
+                                <p style="margin: 5px 0 0 0; color: var(--amarelo); font-weight: bold;">— Ayrton Senna</p>
+                                <p style="margin: 8px 0 0 0; color: #aaa; font-size: 0.9rem;">
+                                    Reciclar exige trabalho, dedicação e competência. O prêmio? <strong style="color: var(--verde);">Um planeta que ainda dá para salvar.</strong> E isso, pra gente, é vitória.
+                                </p>
+                                <p style="margin: 10px 0 0 0; font-size: 0.7rem; color: #666;">
+                                    <a href="https://odsbrasil.gov.br/objetivo12" target="_blank" style="color:var(--verde);text-decoration:none;">🎯 ODS 12</a> — Consumo e Produção Sustentáveis (ONU) 
+                                    · Dados: <strong>ABAL</strong> (97,3% reciclagem) · <strong>EPA WARM</strong> (fatores CO₂)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; padding-top: 25px; border-top: 1px solid #333;">
+                        <div style="text-align: center; padding: 15px;">
+                            <div style="font-size: 2rem; margin-bottom: 8px;">🌿</div>
+                            <h4 style="color: var(--amarelo); margin: 0 0 8px 0;">Biodiversidade Local</h4>
+                            <p style="font-size: 0.85rem; margin: 0; color: #ccc;">Cada plástico que não chega ao bueiro da sua rua é um peixe a mais no rio da sua cidade. A mudança começa no quarteirão ao lado.</p>
+                        </div>
+                        <div style="text-align: center; padding: 15px;">
+                            <div style="font-size: 2rem; margin-bottom: 8px;">🌎</div>
+                            <h4 style="color: var(--amarelo); margin: 0 0 8px 0;">Impacto Ambiental Real</h4>
+                            <p style="font-size: 0.85rem; margin: 0; color: #ccc;">O que antes era lixo no aterro vira matéria-prima. Menos CO₂, menos sujeira, mais ciclos. A economia circular não é teoria — é o que a gente pratica toda semana.</p>
+                        </div>
+                        <div style="text-align: center; padding: 15px;">
+                            <div style="font-size: 2rem; margin-bottom: 8px;">🏆</div>
+                            <h4 style="color: var(--amarelo); margin: 0 0 8px 0;">Legado Senna</h4>
+                            <p style="font-size: 0.85rem; margin: 0; color: #ccc;">Ayrton nunca desistiu de lutar pelo Brasil. Cuidar da nossa escola, do nosso bairro e do nosso planeta é manter esse legado acelerado — uma latinha de cada vez.</p>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="dashboard-card" style="margin-top: 30px; border: 1px solid #444;">
-                    <h3 style="color: var(--verde); margin-bottom: 15px;">Impacto Direto na Nossa Realidade:</h3>
-                    <div class="grid">
-                        <div style="padding: 10px;">
-                            <h4 style="color: var(--amarelo);">Biodiversidade Local</h4>
-                            <p style="font-size: 0.85rem;">Ao evitar que plásticos e óleos cheguem aos bueiros da nossa cidade, protegemos os rios e a fauna da nossa região.</p>
-                        </div>
-                        <div style="padding: 10px;">
-                            <h4 style="color: var(--amarelo);">Economia da Formatura</h4>
-                            <p style="font-size: 0.85rem;">O que antes era custo de limpeza para a escola, agora é investimento para a nossa festa. O lixo vira patrimônio da turma!</p>
-                        </div>
-                        <div style="padding: 10px;">
-                            <h4 style="color: var(--amarelo);">Legado Senna</h4>
-                            <p style="font-size: 0.85rem;">Ayrton sempre lutou pelo Brasil. Cuidar do nosso ambiente escolar é continuar o legado de orgulho pelo nosso país.</p>
-                        </div>
+
+                <!-- FEED DE ATIVIDADES -->
+                <div class="dashboard-card" style="margin-top: 40px; border: 1px solid #444;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+                        <h3 style="color: var(--verde);">🏁 Últimas Acelerações</h3>
+                        <span style="font-size: 0.75rem; color: #888;">Doações recentes dos participantes</span>
+                    </div>
+                    <div class="feed-container" id="live-feed">
+                        <!-- Feed populado via JS -->
                     </div>
                 </div>
             </section>
@@ -589,38 +1229,314 @@
                     <div class="card">
                         <img src="https://www.projetodraft.com/wp-content/uploads/2023/11/Sustentabilidade-na-lata.jpg" alt="Latinhas">
                         <div class="card-info">
-                            <h3>Latinhas (Alumínio)</h3>
-                            <p>É o material mais valioso. Reciclar latas economiza **95% da energia** necessária para fabricar alumínio virgem. É 100% reciclável, sem perder a qualidade.</p>
+                            <h3>🥫 Latinhas (Alumínio)</h3>
+                            <p>O alumínio é o material mais valioso da reciclagem. Reciclar economiza <strong>95% da energia</strong> da produção virgem — e o Brasil recicla <strong>97,3%</strong> das latinhas (líder mundial). Uma latinha descartada hoje volta às prateleiras em <strong>60 dias</strong>. Cada kg reciclado evita <strong>9,1 kg de CO₂</strong> (EPA WARM). É 100% reciclável infinitas vezes.</p>
                         </div>
                     </div>
                     <div class="card">
                         <img src="https://www.aparascarvalho.com.br/imagens/informacoes/reciclagem-papel-e-papelao-01.jpg" alt="Papelão">
                         <div class="card-info">
-                            <h3>Papelão</h3>
-                            <p>A cada tonelada de papel reciclado, **20 árvores** são poupadas e o consumo de água na produção cai pela metade. Mantê-lo seco é fundamental para o valor de revenda.</p>
+                            <h3>📦 Papelão</h3>
+                            <p>A cada tonelada reciclada, <strong>20 árvores</strong> são poupadas e o consumo de água cai pela metade. Cada kg reciclado evita <strong>0,9 kg de CO₂</strong> (EPA WARM). Papelão limpo e seco tem alto valor de revenda — e evita que milhares de árvores sejam cortadas para virar caixa nova.</p>
                         </div>
                     </div>
                     <div class="card">
                         <img src="https://www.reciclasampa.com.br/imgs/conteudos/10_projeto_coleta_tampinhas_e_ajuda_criancas_com_cancer_padrao.jpg" alt="Tampinhas">
                         <div class="card-info">
-                            <h3>Tampinhas</h3>
-                            <p>Plásticos rígidos (PP e PEAD) são altamente rentáveis. Juntas, elas se transformam em cadeiras, caixas e até próteses, evitando que fragmentos matem a fauna marinha.</p>
+                            <h3>🔵 Tampinhas (Plástico Rígido)</h3>
+                            <p>Plásticos PP e PEAD são recicláveis e rentáveis. Cada kg reciclado evita <strong>1,5 litro de petróleo</strong> na extração e <strong>1,5 kg de CO₂</strong> (EPA WARM). Viram cadeiras, caixas, próteses e novos produtos — e deixam de fragmentar em microplásticos que matam a fauna marinha.</p>
                         </div>
                     </div>
                     <div class="card">
                         <img src="https://media.istockphoto.com/id/1311288065/pt/foto/industrial-waste-oil-container.jpg?s=612x612&w=0&k=20&c=2OCVNi0swG9Yyy8Mt7fqYxM6eoFOqAFM0RBlrpHyj2I=" alt="Óleo">
                         <div class="card-info">
-                            <h3>Óleo de Cozinha</h3>
-                            <p>Um litro de óleo polui **1 milhão de litros de água**. Transformamos esse vilão ambiental em biodiesel e sabão, gerando lucro limpo para nossa meta.</p>
+                            <h3>🛢️ Óleo de Cozinha</h3>
+                            <p><strong>1 litro</strong> de óleo contamina <strong>1 milhão de litros de água</strong> — o que uma pessoa bebe em 40 anos. Reciclado, vira biodiesel e sabão. Cada litro reciclado evita <strong>2,5 kg de CO₂</strong> e preserva mananciais inteiros. O vilão ambiental mais perigoso da sua cozinha.</p>
+                        </div>
+                    </div>
+                </div>
+                <p style="text-align:center;font-size:0.7rem;color:#666;margin-top:20px;">Fontes: EPA WARM v16 | DEFRA 2025 | ABAL/Abralatas (2024) | Planton+eureciclo 2025 | Circularity Gap 2026 | CertiRecicla (GHG Protocol / IPCC)</p>
+            </section>
+
+            <!-- ===== IMPACTÔMETRO AMBIENTAL ===== -->
+            <section id="impactometro">
+                <div class="impact-section">
+                    <h2 class="section-title" style="border-left-color:var(--amarelo);">🌍 Impactômetro Ambiental</h2>
+                    <p style="text-align:center;color:#aaa;margin-bottom:5px;">O que já conseguimos juntos — cada material reciclado vira preservação</p>
+                    <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:15px;">
+                        <a href="https://odsbrasil.gov.br/objetivo12" target="_blank" style="color:var(--verde);text-decoration:none;background:rgba(255,255,255,0.06);border:1px solid #444;border-radius:16px;padding:3px 12px;font-size:0.7rem;">🎯 ODS 12</a>
+                        <span style="color:#666;background:rgba(255,255,255,0.06);border:1px solid #444;border-radius:16px;padding:3px 12px;font-size:0.7rem;">EPA WARM / DEFRA 2025</span>
+                        <span style="color:#666;background:rgba(255,255,255,0.06);border:1px solid #444;border-radius:16px;padding:3px 12px;font-size:0.7rem;">📈 Planton+eureciclo 2025</span>
+                        <span style="color:#666;background:rgba(255,255,255,0.06);border:1px solid #444;border-radius:16px;padding:3px 12px;font-size:0.7rem;">📉 Circularity Gap 2026</span>
+                    </div>
+                    
+                    <div class="grupo-impacto">
+                        <div class="grupo-titulo"><i>📦</i> Materiais Reciclados</div>
+                        <div class="impact-grid grupo-2">
+                            <div class="impact-card">
+                                <div class="impact-icon">♻️</div>
+                                <div class="impact-value" id="imp-latinhas">0</div>
+                                <div class="impact-label">Latinhas Recicladas</div>
+                                <div class="impact-detail">Cada latinha volta às prateleiras em 60 dias. Brasil recicla 97,3% (líder mundial)!</div>
+                                <span class="impact-tag">Economia Circular</span>
+                            </div>
+                            <div class="impact-card">
+                                <div class="impact-icon">🛢️</div>
+                                <div class="impact-value" id="imp-petroleo">0 <small style="font-size:1rem;">L</small></div>
+                                <div class="impact-label">Plástico Não Extraído</div>
+                                <div class="impact-detail">Cada kg de plástico reciclado evita 1,5 litros de petróleo bruto</div>
+                                <span class="impact-tag">Recursos</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grupo-impacto">
+                        <div class="grupo-titulo"><i>🌱</i> Recursos Naturais Preservados</div>
+                        <div class="impact-grid grupo-3">
+                            <div class="impact-card">
+                                <div class="impact-icon">🌳</div>
+                                <div class="impact-value" id="imp-arvores">0</div>
+                                <div class="impact-label">Árvores Preservadas</div>
+                                <div class="impact-detail">A cada 50 kg de papelão, 1 árvore é poupada do corte</div>
+                                <span class="impact-tag">Biodiversidade</span>
+                            </div>
+                            <div class="impact-card">
+                                <div class="impact-icon">💧</div>
+                                <div class="impact-value" id="imp-agua">0 <small style="font-size:1rem;">L</small></div>
+                                <div class="impact-label">Água Preservada</div>
+                                <div class="impact-detail">1 litro de óleo contamina 1M de litros de água. Cada litro reciclado preserva 1M</div>
+                                <span class="impact-tag">Hídrico</span>
+                            </div>
+                            <div class="impact-card">
+                                <div class="impact-icon">⚡</div>
+                                <div class="impact-value" id="imp-energia">0 <small style="font-size:1rem;">kWh</small></div>
+                                <div class="impact-label">Energia Economizada</div>
+                                <div class="impact-detail">Reciclar 1 latinha = energia para manter uma TV ligada por 3 horas</div>
+                                <span class="impact-tag">Energia</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grupo-impacto">
+                        <div class="grupo-titulo"><i>🌍</i> Emissões Evitadas</div>
+                        <div class="impact-grid grupo-1">
+                            <div class="impact-card" style="border-color:var(--amarelo);">
+                                <div class="impact-icon">🏭</div>
+                                <div class="impact-value" id="imp-co2">0 <small style="font-size:1rem;">kg</small></div>
+                                <div class="impact-label">CO₂ Não Emitido</div>
+                                <div class="impact-detail">Reciclar alumínio reduz 95% das emissões. É o equivalente a <strong style="color:var(--amarelo);" id="imp-carros-equivalente">0</strong> carros a menos por ano</div>
+                                <span class="impact-tag">Clima</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
+            <!-- ===== POTENCIÔMETRO - PROJEÇÕES ===== -->
+            <section id="potenciometro">
+                <div class="potenciometro-section">
+                    <h2 class="section-title" style="border-left-color:var(--amarelo);">📈 Potencial da Nossa Escola</h2>
+                    <p style="text-align:center;color:#aaa;margin-bottom:5px;">Quanto podemos reciclar <strong style="color:var(--amarelo);">se todos participarem?</strong> Ajuste os cenários abaixo.</p>
+
+                    <div style="background:#0a0a0a;border-radius:15px;padding:25px;margin:25px 0;border:1px solid #333;">
+                        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:15px;margin-bottom:20px;">
+                            <div><span class="poten-label">👥 Alunos Cadastrados</span><div class="poten-value" style="font-size:1.5rem;" id="poten-total-alunos">0</div></div>
+                            <div><span class="poten-label">♻️ Alunos que já participaram</span><div class="poten-value" style="font-size:1.5rem;" id="poten-alunos-ativos">0</div></div>
+                            <div><span class="poten-label">📦 Média atual por aluno</span><div class="poten-value" style="font-size:1.5rem;" id="poten-media-atual">0 kg</div></div>
+                        </div>
+
+                        <div style="border-top:1px solid #333;padding-top:20px;">
+                            <p style="text-align:center;color:var(--amarelo);font-weight:bold;margin-bottom:15px;">Quantos kg cada aluno reciclaria por SEMANA?</p>
+                            <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center;">
+                                <span style="color:#888;font-weight:bold;">0,5 kg</span>
+                                <input type="range" id="poten-slider" class="poten-slider" min="0.5" max="10" step="0.5" value="2" style="flex:1;min-width:200px;">
+                                <span style="color:var(--amarelo);font-weight:900;font-size:1.3rem;"><span id="poten-slider-valor">2,0</span> kg/semana</span>
+                            </div>
+                        </div>
+
+                        <div class="poten-periodo">
+                            <button class="poten-btn active" onclick="alterarPeriodoPoten(1, this)">1 Mês</button>
+                            <button class="poten-btn" onclick="alterarPeriodoPoten(6, this)">6 Meses</button>
+                            <button class="poten-btn" onclick="alterarPeriodoPoten(12, this)">1 Ano</button>
+                            <button class="poten-btn" onclick="alterarPeriodoPoten(60, this)">5 Anos</button>
+                        </div>
+                    </div>
+
+                    <div class="poten-grid" id="poten-grid">
+                        <div class="poten-card destaque">
+                            <div class="poten-label">📦 Total Projetado</div>
+                            <div class="poten-value" id="poten-total-kg">0 <span class="verde">kg</span></div>
+                            <div class="poten-sub">de materiais reciclados</div>
+                        </div>
+                        <div class="poten-card">
+                            <div class="poten-label">💰 Valor Gerado</div>
+                            <div class="poten-value" id="poten-total-dinheiro" style="color:var(--verde);">R$ 0</div>
+                            <div class="poten-sub">contribuição para o fundo</div>
+                        </div>
+                        <div class="poten-card">
+                            <div class="poten-label">🌳 Árvores Preservadas</div>
+                            <div class="poten-value" id="poten-arvores">0</div>
+                            <div class="poten-sub">equivalente a um pequeno bosque</div>
+                        </div>
+                        <div class="poten-card">
+                            <div class="poten-label">🏭 CO₂ Evitado</div>
+                            <div class="poten-value" id="poten-co2">0 <span class="verde">kg</span></div>
+                            <div class="poten-sub">menos gases de efeito estufa</div>
+                        </div>
+                        <div class="poten-card">
+                            <div class="poten-label">💧 Água Preservada</div>
+                            <div class="poten-value" id="poten-agua">0 <span class="verde">L</span></div>
+                            <div class="poten-sub">equivalentes a <span id="poten-piscinas">0</span> piscinas olímpicas</div>
+                        </div>
+                        <div class="poten-card">
+                            <div class="poten-label">⚡ Energia Economizada</div>
+                            <div class="poten-value" id="poten-energia">0 <span class="verde">kWh</span></div>
+                            <div class="poten-sub">equivale a <span id="poten-casas">0</span> casas/mês</div>
+                        </div>
+                    </div>
+
+                    <div class="poten-comparacao" id="poten-comparacao">
+                        <div class="poten-comp-item">
+                            <div class="poten-comp-icon">🚗</div>
+                            <div class="poten-comp-texto">Equivalente a tirar <strong class="poten-comp-destaque" id="comp-carros">0</strong> carros de circulação por 1 ano</div>
+                        </div>
+                        <div class="poten-comp-item">
+                            <div class="poten-comp-icon">🌲</div>
+                            <div class="poten-comp-texto">Mesmo que plantar <strong class="poten-comp-destaque" id="comp-arvores">0</strong> árvores cultivadas por 10 anos</div>
+                        </div>
+                        <div class="poten-comp-item">
+                            <div class="poten-comp-icon">🚿</div>
+                            <div class="poten-comp-texto">Equivalente a economizar <strong class="poten-comp-destaque" id="comp-banhos">0</strong> banhos de 15 min</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== MODO FEIRA / EXPOSIÇÃO ===== -->
+            <section id="modo-feira" style="display:none;">
+                <div class="dashboard-card" style="border:2px solid var(--amarelo);text-align:center;">
+                    <h2 style="color:var(--amarelo);">🏁 Modo Feira de Sustentabilidade</h2>
+                    <p style="color:#ccc;margin:15px 0;">Dados sendo gerados automaticamente para demonstração. As doações simuladas resetam ao recarregar a página.</p>
+                    <div style="display:flex;justify-content:center;gap:15px;flex-wrap:wrap;">
+                        <div class="impact-card" style="flex:1;min-width:150px;">
+                            <div class="impact-icon">👥</div>
+                            <div class="impact-value" id="feira-participantes" style="font-size:1.5rem;">0</div>
+                            <div class="impact-label">Participantes</div>
+                        </div>
+                        <div class="impact-card" style="flex:1;min-width:150px;">
+                            <div class="impact-icon">📦</div>
+                            <div class="impact-value" id="feira-doacoes" style="font-size:1.5rem;">0</div>
+                            <div class="impact-label">Doações Simuladas</div>
+                        </div>
+                        <div class="impact-card" style="flex:1;min-width:150px;">
+                            <div class="impact-icon">📊</div>
+                            <div class="impact-value" id="feira-kg" style="font-size:1.5rem;">0</div>
+                            <div class="impact-label">kg Coletados</div>
+                        </div>
+                    </div>
+                    <button onclick="pararSimulacaoFeira()" style="width:auto;margin-top:15px;background:#cc0000;color:#fff;padding:10px 25px;">⏹ Parar Simulação</button>
+                </div>
+            </section>
+
+            <!-- ===== QR CODE PARA FEIRA ===== -->
+            <section id="qr-visitante" style="display:none;">
+                <div class="qr-section">
+                    <h3 style="color:var(--amarelo);">📱 Acesse pelo seu Celular</h3>
+                    <p>Escaneie o QR Code abaixo para abrir o Senna Recicla no seu dispositivo e participar!</p>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://sennarecicla.vercel.app" alt="QR Code" id="qr-code-img">
+                    <p><small>Ou acesse: <span style="color:var(--verde);" id="qr-url">https://sennarecicla.vercel.app</span></small></p>
+                </div>
+            </section>
+
         </main>
+
+        <!-- ===== QUIZ AMBIENTAL — MODAL ===== -->
+        <div class="quiz-overlay" id="quiz-overlay">
+            <div class="quiz-modal">
+                <div class="quiz-modal-close" onclick="fecharQuiz()">✕</div>
+
+                <div class="quiz-head">
+                    <div class="quiz-head-icon">🧠</div>
+                    <h2>Quiz Ambiental</h2>
+                    <p>Teste seus conhecimentos — <strong>3 perguntas aleatórias</strong> a cada rodada!</p>
+                </div>
+
+                <!-- DOTS -->
+                <div class="quiz-dots" id="quiz-dots">
+                    <div class="quiz-dot" data-idx="0"></div>
+                    <div class="quiz-dot" data-idx="1"></div>
+                    <div class="quiz-dot" data-idx="2"></div>
+                </div>
+
+                <!-- STEPS CONTAINER -->
+                <div class="quiz-steps">
+
+                    <!-- START -->
+                    <div id="quiz-start">
+                        <div class="quiz-start-icon">🏁</div>
+                        <p>Você sabe quanto o Brasil recicla? Quanto CO₂ uma latinha evita? Descubra agora!</p>
+                        <div class="quiz-name-wrap">
+                            <label for="quiz-nome">Seu nome</label>
+                            <input type="text" id="quiz-nome" placeholder="Digite seu nome..." maxlength="30"
+                                   onkeydown="if(event.key==='Enter')iniciarQuiz()">
+                            <div class="quiz-name-hint">Seu nome aparecerá no ranking 🏆</div>
+                        </div>
+                        <button class="quiz-btn-primary" onclick="iniciarQuiz()">▶ Começar Quiz</button>
+                        <button class="quiz-btn-secondary" onclick="fecharQuiz()">Voltar</button>
+                        <div id="quiz-ranking-start" class="quiz-ranking-box" style="margin-top:20px;"></div>
+                    </div>
+
+                    <!-- PLAY -->
+                    <div id="quiz-play" style="display:none;">
+                        <div class="quiz-pergunta-num" id="quiz-pergunta-num">PERGUNTA 1 / 3</div>
+                        <div class="quiz-pergunta-texto" id="quiz-pergunta-texto">—</div>
+                        <div class="quiz-opcoes" id="quiz-opcoes"></div>
+                        <div class="quiz-next-btn-wrap">
+                            <button class="quiz-next-btn" id="quiz-next-btn" onclick="proximaPergunta()" style="display:none;">Próxima →</button>
+                        </div>
+                    </div>
+
+                    <!-- RESULT -->
+                    <div id="quiz-result" style="display:none;">
+                        <div class="quiz-result-icon" id="quiz-result-icon">🏆</div>
+                        <div class="quiz-result-title" id="quiz-result-title" style="color:var(--verde);">Resultado</div>
+                        <div class="quiz-result-score" id="quiz-result-score">0/3</div>
+                        <div class="quiz-result-msg" id="quiz-result-msg">—</div>
+                        <div class="quiz-result-detail" id="quiz-result-detail">—</div>
+
+                        <div class="quiz-reviews" id="quiz-reviews"></div>
+                        <div class="quiz-ranking-box" id="quiz-ranking-box"></div>
+
+                        <div class="quiz-actions">
+                            <button class="quiz-btn-primary" onclick="iniciarQuiz()" style="padding:12px 32px;font-size:.9rem;">🔄 Jogar Novamente</button>
+                            <button class="quiz-btn-secondary" onclick="fecharQuiz()" style="margin-top:0;">Fechar</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
         
         <footer>
             <p>&copy; 2024 Senna Recicla. Todos os direitos reservados.</p>
+            <p style="margin-top:8px;font-size:0.7rem;color:#666;">Projeto apresentado na Feira de Sustentabilidade</p>
+            <div style="margin-top:15px;padding-top:15px;border-top:1px solid #222;font-size:0.65rem;color:#555;line-height:1.6;max-width:650px;margin-left:auto;margin-right:auto;">
+                <strong style="color:#888;">Referências técnicas:</strong><br>
+                🇧🇷 <strong>ABAL/Abralatas</strong> — 97,3% das latas de alumínio recicladas em 2024 — maior índice global (Agência Brasil, ago/2025)<br>
+                📈 <strong>Planton + eureciclo (2025)</strong> — Estudo inédito: 1t reciclada evita 2.059 kg CO₂e. Alumínio: 10,56 tCO₂e/t; Plástico: 2,128; Papel: 1,348 (GHG Protocol / ISO 14067)<br>
+                📉 <strong>Circularity Gap Report 2026</strong> — Brasil reaproveita apenas 1,3% dos materiais (média global 6,9%). Deloitte / Circular Economy<br>
+                ♻️ <strong>ABIPLAST + Braskem (2025)</strong> — Reciclagem de embalagens plásticas no Brasil: 24,4%. 1,012 mi toneladas de PCR. R$ 4 bi em faturamento<br>
+                🌍 <strong>EPA WARM v16</strong> — Fatores de emissão: Alumínio 9,1 / Papelão 0,9 / PET 1,5 kg CO₂/kg (EPA Estados Unidos)<br>
+                🛢️ <strong>Binatural (2024)</strong> — 20 milhões de litros de óleo de cozinha reciclados → biodiesel. 503 bilhões de litros de água preservados<br>
+                👥 <strong>MNCR</strong> — 800 mil catadores de materiais recicláveis no Brasil (70% mulheres)<br>
+                📄 <strong>DEFRA 2025</strong> — Fatores de emissão para reciclagem (Governo do Reino Unido)<br>
+                🎯 <strong>ODS 12</strong> — Objetivo de Desenvolvimento Sustentável: Consumo e Produção Responsáveis (ONU)<br>
+                🧮 <strong>Calculadoras de impacto:</strong> 
+                <a href="https://hubproreciclagem.unilasalle.edu.br/calculadora/inicio.html" target="_blank" style="color:var(--verde);">Hub Pró-Reciclagem (Unilasalle)</a> · 
+                <a href="https://calculey.com/br/sustentabilidade/reciclagem-co2" target="_blank" style="color:var(--verde);">Calculey</a> · 
+                <a href="https://www.certirecicla.cl/calculadora" target="_blank" style="color:var(--verde);">CertiRecicla</a> · 
+                <a href="https://atlasbrasileirodareciclagem.ancat.org.br/" target="_blank" style="color:var(--verde);">Atlas Brasileiro da Reciclagem (ANCAT)</a>
+            </div>
         </footer>
     </div>
 
@@ -638,6 +1554,10 @@
             <div class="form-group">
                 <button class="btn-role" onclick="mostrarAuth('admin')"><i class="fas fa-user-shield"></i> Sou Administrador</button>
             </div>
+            <div style="margin-top:25px;padding-top:20px;border-top:1px solid #333;">
+                <p style="font-size:0.8rem;color:#888;margin-bottom:10px;">Visitante da Feira? Cadastre-se rápido:</p>
+                <button class="btn-secondary" onclick="cadastroRapidoVisitante()" style="background:var(--verde);color:#fff;padding:12px;">🏁 Entrar como Visitante</button>
+            </div>
         </div>
     </section>
 
@@ -646,26 +1566,24 @@
         <div class="form-box">
             <h2>Login do Aluno</h2>
             <div class="form-group">
-                <label for="loginRaNum">RA (Registro do Aluno)</label>
+                <label>RA (Registro do Aluno)</label>
                 <div style="display: flex; gap: 5px;">
                     <input type="text" id="loginRaNum" placeholder="Número" style="flex: 3;">
                     <span style="align-self: center; font-weight: bold; color: var(--amarelo);">-</span>
-                    <input type="text" id="loginRaDigito" aria-label="Dígito do RA" placeholder="Dígito" style="flex: 1; text-align: center;" maxlength="1">
-                    <input type="text" id="loginRaUF" aria-label="UF do RA" placeholder="UF" value="SP" style="flex: 1; text-align: center;" maxlength="2">
+                    <input type="text" id="loginRaDigito" placeholder="Dígito" style="flex: 1; text-align: center;" maxlength="1">
+                    <input type="text" id="loginRaUF" placeholder="UF" value="SP" style="flex: 1; text-align: center;" maxlength="2">
                 </div>
             </div>
             <div class="form-group">
-                <label for="loginSenhaAluno">Senha</label>
+                <label>Senha</label>
                 <div class="password-wrapper">
                     <input type="password" id="loginSenhaAluno" placeholder="Sua senha">
-                    <button type="button" style="width: auto; background: none; color: #888; position: absolute; right: 10px;" onclick="togglePasswordVisibility('loginSenhaAluno', 'toggleLoginSenhaAluno')">
-                        <i class="fas fa-eye" id="toggleLoginSenhaAluno"></i>
-                    </button>
+                    <i class="fas fa-eye" id="toggleLoginSenhaAluno" onclick="togglePasswordVisibility('loginSenhaAluno', 'toggleLoginSenhaAluno')"></i>
                 </div>
             </div>
             <div style="margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
                 <input type="checkbox" id="lembrarLoginAluno" style="width: auto;" checked>
-                <label for="lembrarLoginAluno" style="margin:0; cursor:pointer; color:#ccc; font-size:0.9rem;">Lembrar minha senha</label>
+                <label for="lembrarLoginAluno" style="margin:0; cursor:pointer; color:#ccc; font-size:0.9rem;">Manter conectado</label>
             </div>
             <button onclick="fazerLoginAluno()">Entrar</button>
             <button class="btn-secondary" onclick="mostrarAuth('aluno', 'cadastro')">Não tenho conta, quero me cadastrar</button>
@@ -698,9 +1616,7 @@
                 <label>Senha</label>
                 <div class="password-wrapper">
                     <input type="password" id="cadSenhaAluno" placeholder="Crie uma senha" onkeyup="validarSenhasMatch('cadSenhaAluno', 'cadSenhaAlunoConfirm', 'msgSenhaAluno')">
-                    <button type="button" style="width: auto; background: none; color: #888; position: absolute; right: 10px;" onclick="togglePasswordVisibility('cadSenhaAluno', 'toggleCadSenhaAluno')" aria-label="Mostrar senha">
-                        <i class="fas fa-eye" id="toggleCadSenhaAluno"></i>
-                    </button>
+                    <i class="fas fa-eye" id="toggleCadSenhaAluno" onclick="togglePasswordVisibility('cadSenhaAluno', 'toggleCadSenhaAluno')"></i>
                 </div>
             </div>
             <div class="form-group">
@@ -726,14 +1642,12 @@
                 <label>Senha</label>
                 <div class="password-wrapper">
                     <input type="password" id="loginSenhaProf" placeholder="Sua senha">
-                    <button type="button" style="width: auto; background: none; color: #888; position: absolute; right: 10px;" onclick="togglePasswordVisibility('loginSenhaProf', 'toggleLoginSenhaProf')" aria-label="Mostrar senha">
-                        <i class="fas fa-eye" id="toggleLoginSenhaProf"></i>
-                    </button>
+                    <i class="fas fa-eye" id="toggleLoginSenhaProf" onclick="togglePasswordVisibility('loginSenhaProf', 'toggleLoginSenhaProf')"></i>
                 </div>
             </div>
             <div style="margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
                 <input type="checkbox" id="lembrarLoginProf" style="width: auto;" checked>
-                <label for="lembrarLoginProf" style="margin:0; cursor:pointer; color:#ccc; font-size:0.9rem;">Lembrar minha senha</label>
+                <label for="lembrarLoginProf" style="margin:0; cursor:pointer; color:#ccc; font-size:0.9rem;">Manter conectado</label>
             </div>
             <button onclick="fazerLoginProfessor()">Entrar</button>
             <button class="btn-secondary" onclick="mostrarAuth('professor', 'cadastro')">Não tenho conta, quero me cadastrar</button>
@@ -866,7 +1780,7 @@
         <div class="resumo-box" style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 20px;">
             <div>
                 <p>Total Arrecadado:</p>
-                <span id="aluno-total-qtd">0.0</span> <span id="aluno-unidade">kg</span>
+                <span id="aluno-total-qtd">0.0</span> kg
             </div>
             <div id="aluno-categoria-selo" style="text-align: center;">
                 <p>Sua Categoria:</p>
@@ -895,10 +1809,10 @@
                     <button class="btn-edit" onclick="renderizarAluno()" style="width: auto; padding: 8px 12px;">Filtrar</button>
                     <button class="btn-secondary" onclick="limparFiltroAluno()" style="width: auto; margin-top: 0; padding: 8px 12px;">Limpar</button>
                 </div>
-                <table class="tabela-geral" id="tabela-aluno">
+                <div class="tabela-wrapper"><table class="tabela-geral" id="tabela-aluno">
                     <thead><tr><th>Data</th><th>Material</th><th>Quantidade</th></tr></thead>
                     <tbody></tbody>
-                </table>
+                </table></div>
             </div>
         </div>
     </section>
@@ -921,11 +1835,11 @@
             
             <div id="historico-professor-container" class="hidden">
                 <h3>Seu Relatório Pessoal</h3>
-                <p style="margin-bottom: 15px;">Total arrecadado por você: <strong id="professor-total-qtd">0,0 kg/L</strong></p>
-                <table class="tabela-geral" id="tabela-professor-relatorio" style="margin-bottom: 30px;">
+                <p style="margin-bottom: 15px;">Total arrecadado por você: <strong id="professor-total-qtd">0,0 kg</strong></p>
+                <div class="tabela-wrapper"><table class="tabela-geral" id="tabela-professor-relatorio" style="margin-bottom: 30px;">
                     <thead><tr><th>Data</th><th>Material</th><th>Quantidade</th></tr></thead>
                     <tbody></tbody>
-                </table>
+                </table></div>
 
                 <h3 style="border-top: 1px solid #444; padding-top: 20px;">Visão Geral (Todos os Alunos)</h3>
                 <div class="filtro-container" style="display: flex; gap: 10px; align-items: center; margin-bottom: 15px; flex-wrap: wrap;">
@@ -936,10 +1850,10 @@
                     <button class="btn-edit" onclick="renderizarProfessorView()" style="width: auto; padding: 8px 12px;">Filtrar</button>
                     <button class="btn-secondary" onclick="limparFiltroProfessor()" style="width: auto; margin-top: 0; padding: 8px 12px;">Limpar</button>
                 </div>
-                <table class="tabela-geral" id="tabela-admin-professor-view">
-                    <thead><tr><th>Data</th><th>Participante (Turma)</th><th>Material</th><th>Qtd (kg/L)</th></tr></thead>
+                <div class="tabela-wrapper"><table class="tabela-geral" id="tabela-admin-professor-view">
+                    <thead><tr><th>Data</th><th>Participante (Turma)</th><th>Material</th><th>Qtd (kg)</th></tr></thead>
                     <tbody></tbody>
-                </table>
+                </table></div>
             </div>
         </div>
     </section>
@@ -998,19 +1912,6 @@
         // INÍCIO DO CÓDIGO JAVASCRIPT
         // ==================================================================
         
-        // Registro do Service Worker para PWA
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('SW registrado!'))
-                    .catch(err => console.log('Erro no SW:', err));
-            });
-        }
-
-        function getUnidade(material) {
-            return material === "Óleo" ? "L" : "kg";
-        }
-
         function openMenu(){
             document.getElementById("menu").classList.add("active");
         }
@@ -1033,6 +1934,324 @@
             }
         }
 
+        // ==================================================================
+        // QUIZ AMBIENTAL — 20 perguntas, 3 aleatórias por rodada
+        // ==================================================================
+        const QUIZ_PERGUNTAS = [
+            {
+                q: "Qual porcentagem das latinhas de alumínio o Brasil reciclou em 2024?",
+                opts: ["72,5%", "89,1%", "97,3%", "100%"],
+                r: 2,
+                feedback: "O Brasil reciclou 97,3% das latinhas em 2024 — o maior índice do mundo! (Fonte: ABAL/Abralatas via Agência Brasil)"
+            },
+            {
+                q: "Quanto CO₂ 1 kg de alumínio reciclado evita, segundo a EPA WARM?",
+                opts: ["1,5 kg", "9,1 kg", "15 kg", "0,5 kg"],
+                r: 1,
+                feedback: "Cada kg de alumínio reciclado evita 9,1 kg de CO₂. Pela Planton+eureciclo 2025, o valor é 10,56 tCO₂e por tonelada."
+            },
+            {
+                q: "Quantos kg de CO₂ 1 tonelada reciclada evita, segundo o estudo Planton+eureciclo 2025?",
+                opts: ["500 kg", "1.020 kg", "2.059 kg", "5.000 kg"],
+                r: 2,
+                feedback: "O estudo inédito Planton+eureciclo (2025) concluiu que 1 tonelada reciclada evita 2.059 kg de CO₂ equivalente."
+            },
+            {
+                q: "Qual o percentual de circularidade da economia brasileira?",
+                opts: ["1,3%", "6,9%", "15%", "24,4%"],
+                r: 0,
+                feedback: "O Brasil reaproveita apenas 1,3% dos materiais que consome (Circularity Gap Report 2026). A média global é 6,9%."
+            },
+            {
+                q: "Quantos catadores de materiais recicláveis existem no Brasil?",
+                opts: ["100 mil", "300 mil", "800 mil", "2 milhões"],
+                r: 2,
+                feedback: "São cerca de 800 mil catadores no Brasil, dos quais 70% são mulheres (MNCR — Movimento Nacional dos Catadores)."
+            },
+            {
+                q: "Quantos litros de água 1 litro de óleo de cozinha pode contaminar?",
+                opts: ["1.000 L", "10.000 L", "100.000 L", "1 milhão de L"],
+                r: 3,
+                feedback: "1 litro de óleo contamina 1 milhão de litros de água — o que uma pessoa bebe em 40 anos! (Fonte: Binatural 2024)"
+            },
+            {
+                q: "Qual foi o índice de reciclagem de embalagens plásticas no Brasil em 2025?",
+                opts: ["12,8%", "24,4%", "35%", "50%"],
+                r: 1,
+                feedback: "A ABIPLAST + Braskem (2025) apontou 24,4% de reciclagem de embalagens plásticas, com 1,012 milhão de toneladas de PCR."
+            },
+            {
+                q: "Quanto o Brasil perde por ano com lixo que deixa de ser reciclado?",
+                opts: ["R$ 10 bilhões", "R$ 50 bilhões", "R$ 120 bilhões", "R$ 300 bilhões"],
+                r: 2,
+                feedback: "O Brasil perde R$ 120 bilhões por ano com resíduos que poderiam ser reciclados (Embrapa 2025)."
+            },
+            {
+                q: "Quantas toneladas de lixo o Brasil gera por ano?",
+                opts: ["30 milhões", "50 milhões", "90 milhões", "150 milhões"],
+                r: 2,
+                feedback: "O Brasil gera cerca de 90 milhões de toneladas de lixo por ano, mas apenas 7,5% são reciclados (Embrapa 2025)."
+            },
+            {
+                q: "Quantos dias uma latinha de alumínio leva para voltar às prateleiras depois de reciclada?",
+                opts: ["15 dias", "30 dias", "60 dias", "90 dias"],
+                r: 2,
+                feedback: "Uma latinha reciclada hoje pode virar uma nova latinha em apenas 60 dias — e economiza 95% da energia."
+            },
+            {
+                q: "Quantos kg de CO₂ cada kg de papelão reciclado evita?",
+                opts: ["0,3 kg", "0,9 kg", "2,1 kg", "5,0 kg"],
+                r: 1,
+                feedback: "Cada kg de papelão reciclado evita 0,9 kg de CO₂ (EPA WARM v16). E ainda poupa 20 árvores por tonelada!"
+            },
+            {
+                q: "Quantas latinhas cabem em 1 kg de alumínio?",
+                opts: ["~25", "~45", "~67", "~100"],
+                r: 2,
+                feedback: "Cerca de 67 latinhas equivalem a 1 kg de alumínio."
+            },
+            {
+                q: "Qual ODS está diretamente ligado ao consumo e produção sustentáveis?",
+                opts: ["ODS 6", "ODS 12", "ODS 13", "ODS 15"],
+                r: 1,
+                feedback: "ODS 12 — Consumo e Produção Responsáveis. A meta é reduzir drasticamente a geração de resíduos até 2030."
+            },
+            {
+                q: "Qual material reciclado gera o maior valor por kg no Brasil?",
+                opts: ["Papelão", "Plástico", "Alumínio", "Vidro"],
+                r: 2,
+                feedback: "O alumínio é o material mais valioso. Só as latinhas geraram mais de R$ 6 bilhões em 2024 para a economia."
+            },
+            {
+                q: "Quantos milhões de litros de óleo de cozinha são reciclados por ano no Brasil?",
+                opts: ["5 milhões", "10 milhões", "20 milhões", "50 milhões"],
+                r: 2,
+                feedback: "Cerca de 20 milhões de litros de óleo de cozinha viram biodiesel por ano no Brasil (Binatural 2024)."
+            },
+            {
+                q: "O que significa a sigla EPA WARM?",
+                opts: [
+                    "Environmental Protection Agency — Waste Reduction Model",
+                    "European Plastic Alliance — Waste And Recycling Model",
+                    "Eco Packaging Association — World Assessment of Recycled Materials",
+                    "Energy Protection Agency — Waste And Recycling Method"
+                ],
+                r: 0,
+                feedback: "EPA WARM = Environmental Protection Agency's Waste Reduction Model. É o modelo americano para calcular emissões evitadas pela reciclagem."
+            },
+            {
+                q: "Fabricar 1 latinha de alumínio do zero consome energia equivalente a reciclar quantas?",
+                opts: ["5 latas", "10 latas", "20 latas", "50 latas"],
+                r: 2,
+                feedback: "Fabricar 1 latinha nova consome a mesma energia que reciclar 20 latas. Reciclar alumínio economiza 95% da energia!"
+            },
+            {
+                q: "Qual a meta de CO₂ evitado da escola Senna Recicla?",
+                opts: ["10.000 kg", "25.000 kg", "50.000 kg", "100.000 kg"],
+                r: 2,
+                feedback: "A meta ambiental do projeto é evitar 50.000 kg (50 toneladas) de CO₂ — o equivalente a 12,5 carros a menos por ano."
+            },
+            {
+                q: "Quantos kg de plástico reciclado equivalem a 1 litro de petróleo não extraído?",
+                opts: ["0,5 kg", "1 kg", "1,5 kg", "2 kg"],
+                r: 1,
+                feedback: "Cada kg de plástico reciclado evita a extração de 1 litro de petróleo bruto (EPA WARM)."
+            },
+            {
+                q: "O que a economia circular busca, ao contrário da economia linear?",
+                opts: ["Produzir mais com menos recursos", "Manter materiais em uso pelo maior tempo possível", "Reciclar apenas metais nobres", "Reduzir impostos sobre indústrias"],
+                r: 1,
+                feedback: "A economia circular busca manter materiais em ciclos contínuos de uso, eliminando o conceito de 'lixo'. O Brasil reaproveita só 1,3% (Circularity Gap 2026)."
+            }
+        ];
+        let quizPerguntasAtuais = [];
+        let quizIndex = 0;
+        let quizAcertos = 0;
+        let quizNome = '';
+
+        const QUIZ_RANKING_KEY = 'sennaQuizRanking';
+
+        function getQuizRanking() {
+            try { return JSON.parse(localStorage.getItem(QUIZ_RANKING_KEY)) || []; }
+            catch { return []; }
+        }
+
+        function salvarQuizRanking(nome, acertos, total) {
+            const ranking = getQuizRanking();
+            const data = new Date().toLocaleDateString('pt-BR');
+            ranking.push({ nome: nome.trim(), acertos, total, pct: Math.round((acertos / total) * 100), data });
+            ranking.sort((a, b) => b.pct - a.pct || b.acertos - a.acertos);
+            if (ranking.length > 50) ranking.length = 50;
+            localStorage.setItem(QUIZ_RANKING_KEY, JSON.stringify(ranking));
+        }
+
+        function renderQuizRanking(containerId, limit) {
+            const ranking = getQuizRanking();
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            if (ranking.length === 0) {
+                container.innerHTML = '<div class="quiz-empty">Ninguém jogou ainda — seja o primeiro! 🏁</div>';
+                return;
+            }
+            const max = limit || ranking.length;
+            let html = '<div class="quiz-ranking-title">🏆 Ranking do Quiz</div>';
+            ranking.slice(0, max).forEach((r, i) => {
+                const medalha = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : (i + 1) + 'º';
+                const cls = i < 3 ? 'quiz-ranking-row top' : 'quiz-ranking-row';
+                html += '<div class="' + cls + '">';
+                html += '<span><span style="margin-right:6px;">' + medalha + '</span> <span class="quiz-ranking-name">' + escHtml(r.nome) + '</span></span>';
+                html += '<span class="quiz-ranking-score">' + r.acertos + '/' + r.total + ' <small>(' + r.pct + '%)</small></span>';
+                html += '</div>';
+            });
+            container.innerHTML = html;
+        }
+
+        function escHtml(t) {
+            const d = document.createElement('div');
+            d.textContent = t;
+            return d.innerHTML;
+        }
+
+        function iniciarQuiz() {
+            const nomeInput = document.getElementById('quiz-nome');
+            const nome = (nomeInput ? nomeInput.value : '').trim();
+            if (!nome) {
+                alert('Por favor, digite seu nome antes de começar!');
+                if (nomeInput) nomeInput.focus();
+                return;
+            }
+            quizNome = nome;
+
+            document.getElementById('quiz-start').style.display = 'none';
+            document.getElementById('quiz-result').style.display = 'none';
+            document.getElementById('quiz-play').style.display = 'block';
+
+            const copia = [...QUIZ_PERGUNTAS];
+            for (let i = copia.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copia[i], copia[j]] = [copia[j], copia[i]];
+            }
+            quizPerguntasAtuais = copia.slice(0, 3);
+            quizIndex = 0;
+            quizAcertos = 0;
+
+            atualizarDots(0);
+            mostrarPergunta();
+        }
+
+        function atualizarDots(ativo) {
+            document.querySelectorAll('.quiz-dot').forEach((d, i) => {
+                d.className = 'quiz-dot';
+                if (i < ativo) d.classList.add('done');
+                else if (i === ativo) d.classList.add('active');
+            });
+        }
+
+        function mostrarPergunta() {
+            const p = quizPerguntasAtuais[quizIndex];
+            const total = quizPerguntasAtuais.length;
+
+            document.getElementById('quiz-pergunta-num').innerText = 'PERGUNTA ' + (quizIndex + 1) + ' / ' + total;
+            document.getElementById('quiz-pergunta-texto').innerText = p.q;
+
+            const container = document.getElementById('quiz-opcoes');
+            container.innerHTML = '';
+            document.getElementById('quiz-next-btn').style.display = 'none';
+
+            p.opts.forEach((txt, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-opcao';
+                btn.innerText = txt;
+                btn.onclick = () => responder(i);
+                container.appendChild(btn);
+            });
+        }
+
+        function responder(escolha) {
+            const p = quizPerguntasAtuais[quizIndex];
+            const botoes = document.querySelectorAll('.quiz-opcao');
+            const total = quizPerguntasAtuais.length;
+
+            botoes.forEach((btn, i) => {
+                btn.classList.add('disabled');
+                if (i === p.r) btn.classList.add('certa');
+                else if (i === escolha && i !== p.r) btn.classList.add('errada');
+            });
+
+            if (escolha === p.r) quizAcertos++;
+
+            document.getElementById('quiz-next-btn').style.display = 'block';
+            atualizarDots(quizIndex + 1);
+        }
+
+        function proximaPergunta() {
+            quizIndex++;
+            if (quizIndex < quizPerguntasAtuais.length) {
+                mostrarPergunta();
+            } else {
+                mostrarResultado();
+            }
+        }
+
+        function mostrarResultado() {
+            document.getElementById('quiz-play').style.display = 'none';
+            document.getElementById('quiz-result').style.display = 'block';
+
+            const acertos = quizAcertos;
+            const total = quizPerguntasAtuais.length;
+            const pct = (acertos / total) * 100;
+
+            if (quizNome) salvarQuizRanking(quizNome, acertos, total);
+
+            let icon, title, msg, detail;
+            if (pct === 100) {
+                icon = '🏆'; title = 'Perfeito!'; msg = 'Você é um expert em sustentabilidade! Sabe tanto quanto o Ayrton Senna sabia sobre pistas.';
+                detail = '3/3 — Nota máxima! Mostre para seus amigos!';
+            } else if (pct >= 66) {
+                icon = '🌟'; title = 'Muito bem!'; msg = 'Você já entende bem do assunto, mas ainda dá para acelerar mais.';
+                detail = acertos + '/3 — Quase lá! Tente novamente para gabaritar.';
+            } else if (pct >= 33) {
+                icon = '📚'; title = 'Bom começo!'; msg = 'Você já sabe alguma coisa, mas vale a pena explorar mais o tema.';
+                detail = acertos + '/3 — Continue aprendendo! O meio ambiente agradece.';
+            } else {
+                icon = '🧠'; title = 'Hora de estudar!'; msg = 'Que tal dar uma olhada nas seções do nosso site? Tem muita informação legal!';
+                detail = acertos + '/3 — Não desista! Cada latinha reciclada é uma vitória.';
+            }
+            document.getElementById('quiz-result-icon').innerText = icon;
+            document.getElementById('quiz-result-title').innerText = title;
+            document.getElementById('quiz-result-score').innerText = acertos + '/' + total;
+            document.getElementById('quiz-result-msg').innerText = msg;
+            document.getElementById('quiz-result-detail').innerText = detail;
+
+            const reviewsDiv = document.getElementById('quiz-reviews');
+            reviewsDiv.innerHTML = '';
+            quizPerguntasAtuais.forEach((p, i) => {
+                const div = document.createElement('div');
+                div.className = 'quiz-review-item';
+                div.innerHTML = '<div class="quiz-review-q">' + (i + 1) + '. ' + p.q + '</div>' +
+                    '<div class="quiz-review-r">' + p.feedback + '</div>';
+                reviewsDiv.appendChild(div);
+            });
+
+            renderQuizRanking('quiz-ranking-box', 10);
+        }
+
+        function fecharQuiz() {
+            document.getElementById('quiz-overlay').classList.remove('active');
+        }
+
+        function abrirQuiz() {
+            closeMenu();
+            document.getElementById('quiz-overlay').classList.add('active');
+            document.getElementById('quiz-start').style.display = 'block';
+            document.getElementById('quiz-play').style.display = 'none';
+            document.getElementById('quiz-result').style.display = 'none';
+            document.getElementById('quiz-nome').value = '';
+            atualizarDots(0);
+            renderQuizRanking('quiz-ranking-start', 10);
+        }
+
+        // ==================================================================
         function mostrarPaginaRankings(scrollToId) {
             if (!usuarioAtual) return;
             closeMenu();
@@ -1072,16 +2291,500 @@
             "Óleo": 1.50
         };
 
-        const META_FORMATURA = 5000.00;
+        const META_CO2 = 50000; // 50 toneladas de CO₂ — meta ambiental para a escola
+        const META_KG = 5000;   // 5 toneladas de materiais
 
-        // Inicializa o Placar Geral ao carregar a página
-        buscarCotacoesMercado();
+        // ==================================================================
+        // CONSTANTES DE IMPACTO AMBIENTAL (fontes: EPA, CETESB, ABAL, UNESCO)
+        // ==================================================================
+        const IMPACTO = {
+            "Latinhas": {
+                co2_por_kg: 9.1,        // kg CO₂ evitados por kg — EPA WARM v16 / DEFRA 2025
+                energia_kwh: 162.0,     // kWh economizados por kg
+                latinhas_por_kg: 67,     // ~67 latinhas = 1kg
+                icone: "🥫",
+                label: "Latinhas (Alumínio)"
+            },
+            "Papelão": {
+                arvores_por_ton: 20,    // 20 árvores por tonelada
+                agua_l_por_kg: 12,      // litros de água economizados por kg
+                co2_por_kg: 0.9,        // kg CO₂ evitados por kg — EPA WARM v16 / DEFRA 2025
+                icone: "📦",
+                label: "Papelão"
+            },
+            "Tampinhas": {
+                petroleo_l_por_kg: 1.5, // litros de petróleo não extraídos por kg
+                co2_por_kg: 1.5,        // kg CO₂ evitados por kg (referência PET) — EPA WARM v16
+                energia_kwh: 22.0,
+                icone: "🔵",
+                label: "Tampinhas (Plástico)"
+            },
+            "Óleo": {
+                agua_preservada_por_l: 1000000, // 1 litro contamina 1 milhão de litros de água
+                co2_por_l: 2.5,
+                icone: "🛢️",
+                label: "Óleo de Cozinha"
+            }
+        };
+
+        // ==================================================================
+        // ESTADO DO POTENCIÔMETRO
+        // ==================================================================
+        let potenPeriodoMeses = 1; // 1 mês, 6 meses, 1 ano, 5 anos
+        let potenKgSemana = 2.0;
+
+        // ==================================================================
+        // FUNÇÕES DO POTENCIÔMETRO
+        // ==================================================================
+        function calcularPotencial() {
+            const totalAlunos = usuarios.filter(u => u.role === 'aluno').length;
+            const alunosAtivos = new Set(registros.filter(r => {
+                const user = usuarios.find(u => u.nome === r.aluno);
+                return user && user.role === 'aluno';
+            }).map(r => r.aluno)).size;
+
+            const totalKgAtual = registros.reduce((acc, r) => {
+                const user = usuarios.find(u => u.nome === r.aluno);
+                return user && user.role === 'aluno' ? acc + parseFloat(r.qtd) : acc;
+            }, 0);
+
+            const mediaAtual = alunosAtivos > 0 ? totalKgAtual / alunosAtivos : 0;
+
+            document.getElementById('poten-total-alunos').innerText = totalAlunos;
+            document.getElementById('poten-alunos-ativos').innerText = alunosAtivos;
+            document.getElementById('poten-media-atual').innerHTML = mediaAtual.toFixed(1).replace('.',',') + ' <small style="font-size:0.8rem;color:#888;">kg</small>';
+
+            // Calcula projeção
+            const semanasNoPeriodo = potenPeriodoMeses * 4.33; // semanas por mês
+            const totalParticipantes = Math.max(totalAlunos, 1);
+            const kgTotalProjetado = potenKgSemana * totalParticipantes * semanasNoPeriodo;
+
+            // Distribuição dos materiais (usa proporção real ou fallback)
+            const distMateriais = { "Latinhas": 0, "Papelão": 0, "Tampinhas": 0, "Óleo": 0 };
+            const totalRegistros = registros.filter(r => {
+                const user = usuarios.find(u => u.nome === r.aluno);
+                return user && user.role === 'aluno';
+            }).length || 1;
+
+            registros.filter(r => {
+                const user = usuarios.find(u => u.nome === r.aluno);
+                return user && user.role === 'aluno';
+            }).forEach(r => {
+                if (distMateriais[r.material] !== undefined) distMateriais[r.material]++;
+            });
+
+            // Se não há dados, usa distribuição padrão 25% cada
+            const proporcao = {};
+            Object.keys(distMateriais).forEach(mat => {
+                proporcao[mat] = distMateriais[mat] / totalRegistros || 0.25;
+            });
+
+            // Arredonda para soma 1
+            const somaProp = Object.values(proporcao).reduce((a, b) => a + b, 0);
+            if (somaProp > 0) {
+                Object.keys(proporcao).forEach(mat => proporcao[mat] /= somaProp);
+            } else {
+                Object.keys(proporcao).forEach(mat => proporcao[mat] = 0.25);
+            }
+
+            // Cálculos por material
+            let totalDinheiro = 0, totalCO2 = 0, totalEnergia = 0, totalPetroleo = 0, totalAgua = 0, totalLatinhas = 0, totalArvores = 0;
+
+            Object.keys(proporcao).forEach(mat => {
+                const kg = kgTotalProjetado * proporcao[mat];
+                const preco = precos[mat] || 0;
+                totalDinheiro += kg * preco;
+
+                if (mat === "Latinhas") {
+                    totalCO2 += kg * (IMPACTO.Latinhas.co2_por_kg || 0);
+                    totalEnergia += kg * (IMPACTO.Latinhas.energia_kwh || 0);
+                    totalLatinhas += kg * (IMPACTO.Latinhas.latinhas_por_kg || 0);
+                } else if (mat === "Papelão") {
+                    totalArvores += kg / 50;
+                    totalCO2 += kg * (IMPACTO.Papelão.co2_por_kg || 0);
+                } else if (mat === "Tampinhas") {
+                    totalPetroleo += kg * (IMPACTO.Tampinhas.petroleo_l_por_kg || 0);
+                    totalCO2 += kg * (IMPACTO.Tampinhas.co2_por_kg || 0);
+                    totalEnergia += kg * (IMPACTO.Tampinhas.energia_kwh || 0);
+                } else if (mat === "Óleo") {
+                    totalAgua += kg * (IMPACTO.Óleo.agua_preservada_por_l || 0);
+                    totalCO2 += kg * (IMPACTO.Óleo.co2_por_l || 0);
+                }
+            });
+
+            // Atualiza DOM
+            const kgFormat = kgTotalProjetado.toFixed(1).replace('.', ',');
+            document.getElementById('poten-total-kg').innerHTML = kgTotalProjetado >= 1000
+                ? (kgTotalProjetado / 1000).toFixed(1).replace('.', ',') + ' <span class="verde">ton</span>'
+                : kgFormat + ' <span class="verde">kg</span>';
+
+            document.getElementById('poten-total-dinheiro').innerText = 'R$ ' + totalDinheiro.toFixed(2).replace('.', ',');
+            document.getElementById('poten-arvores').innerText = Math.round(totalArvores);
+            document.getElementById('poten-co2').innerHTML = (totalCO2 >= 1000
+                ? (totalCO2 / 1000).toFixed(1).replace('.', ',')
+                : totalCO2.toFixed(1).replace('.', ',')) + ' <span class="verde">' + (totalCO2 >= 1000 ? 'ton' : 'kg') + '</span>';
+
+            // Água: converter para piscinas olímpicas (2.5M L cada)
+            const aguaFormat = totalAgua >= 1000000
+                ? (totalAgua / 1000000).toFixed(1).replace('.', ',') + 'M'
+                : totalAgua.toFixed(0);
+            document.getElementById('poten-agua').innerHTML = aguaFormat + ' <span class="verde">L</span>';
+            const piscinas = totalAgua / 2500000;
+            document.getElementById('poten-piscinas').innerText = piscinas.toFixed(1).replace('.', ',');
+
+            document.getElementById('poten-energia').innerHTML = (totalEnergia >= 1000
+                ? (totalEnergia / 1000).toFixed(1).replace('.', ',')
+                : totalEnergia.toFixed(1).replace('.', ',')) + ' <span class="verde">' + (totalEnergia >= 1000 ? 'MWh' : 'kWh') + '</span>';
+
+            // Comparações do mundo real
+            const carros = Math.round(totalCO2 / 4000); // 4000 kg CO2/carro/ano
+            document.getElementById('comp-carros').innerText = carros || '<1';
+
+            const arvoresComp = Math.round(totalArvores);
+            document.getElementById('comp-arvores').innerText = arvoresComp || '<1';
+
+            const banhos = Math.round(totalEnergia / 5); // 5 kWh por banho de 15 min com chuveiro elétrico
+            document.getElementById('comp-banhos').innerText = banhos;
+            document.getElementById('poten-casas').innerText = Math.round(totalEnergia / 150); // 150 kWh/mês casa média
+        }
+
+        function alterarPeriodoPoten(meses, btn) {
+            potenPeriodoMeses = meses;
+            document.querySelectorAll('.poten-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            calcularPotencial();
+        }
+
+        // Inicializa slider do potenciômetro
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.getElementById('poten-slider');
+            if (slider) {
+                slider.addEventListener('input', function() {
+                    potenKgSemana = parseFloat(this.value);
+                    document.getElementById('poten-slider-valor').innerText = potenKgSemana.toFixed(1).replace('.', ',');
+                    calcularPotencial();
+                });
+                // Chama após carregar dados
+                setTimeout(calcularPotencial, 100);
+            }
+        });
+
+        // ==================================================================
+        // ESTADO DO MODO FEIRA
+        // ==================================================================
+        let modoFeiraAtivo = false;
+        let intervaloSimulacao = null;
+        let contadorFeira = { participantes: 5, doacoes: 0, kg: 0 };
+
+        // ==================================================================
+        // FUNÇÕES DO IMPACTÔMETRO AMBIENTAL
+        // ==================================================================
+        function calcularImpacto() {
+            let totalArvores = 0, totalCO2 = 0, totalAgua = 0, totalEnergia = 0, totalPetroleo = 0, totalLatinhas = 0;
+
+            registros.forEach(r => {
+                const qtd = parseFloat(r.qtd) || 0;
+                const mat = r.material;
+
+                if (mat === "Latinhas") {
+                    totalCO2 += qtd * (IMPACTO.Latinhas.co2_por_kg || 0);
+                    totalEnergia += qtd * (IMPACTO.Latinhas.energia_kwh || 0);
+                    totalLatinhas += qtd * (IMPACTO.Latinhas.latinhas_por_kg || 0);
+                } else if (mat === "Papelão") {
+                    totalArvores += qtd / 50; // 1 árvore a cada 50kg
+                    totalCO2 += qtd * (IMPACTO.Papelão.co2_por_kg || 0);
+                } else if (mat === "Tampinhas") {
+                    totalPetroleo += qtd * (IMPACTO.Tampinhas.petroleo_l_por_kg || 0);
+                    totalCO2 += qtd * (IMPACTO.Tampinhas.co2_por_kg || 0);
+                    totalEnergia += qtd * (IMPACTO.Tampinhas.energia_kwh || 0);
+                } else if (mat === "Óleo") {
+                    totalAgua += qtd * (IMPACTO.Óleo.agua_preservada_por_l || 0);
+                    totalCO2 += qtd * (IMPACTO.Óleo.co2_por_l || 0);
+                }
+            });
+
+            atualizarImpactoDOM(totalArvores, totalCO2, totalAgua, totalEnergia, totalPetroleo, totalLatinhas);
+        }
+
+        function animarContador(elId, valorFinal, sufixo = '') {
+            const el = document.getElementById(elId);
+            if (!el) return;
+            const atual = parseFloat(el.innerText.replace(/[^\d.,]/g, '').replace(',', '.')) || 0;
+            const passo = Math.max(1, Math.ceil((valorFinal - atual) / 30));
+            let count = atual;
+
+            const timer = setInterval(() => {
+                count += passo;
+                if (count >= valorFinal) {
+                    count = valorFinal;
+                    clearInterval(timer);
+                }
+                if (Number.isInteger(valorFinal) && valorFinal < 10000) {
+                    el.innerHTML = Math.round(count) + sufixo;
+                } else {
+                    el.innerHTML = count.toFixed(1).replace('.', ',') + sufixo;
+                }
+            }, 40);
+        }
+
+        function atualizarImpactoDOM(arvores, co2, agua, energia, petroleo, latinhas) {
+            animarContador('imp-arvores', Math.round(arvores));
+            animarContador('imp-co2', co2, ' <small style="font-size:1rem;">kg</small>');
+            
+            const aguaFormatada = agua >= 1000000 ? (agua / 1000000).toFixed(1) + 'M' : agua.toFixed(0);
+            const elAgua = document.getElementById('imp-agua');
+            if (elAgua) elAgua.innerHTML = aguaFormatada + ' <small style="font-size:1rem;">L</small>';
+            
+            animarContador('imp-energia', energia, ' <small style="font-size:1rem;">kWh</small>');
+            animarContador('imp-petroleo', petroleo, ' <small style="font-size:1rem;">L</small>');
+            animarContador('imp-latinhas', Math.round(latinhas));
+
+            // Equivalente em carros (4.000 kg CO₂/carro/ano)
+            const carrosEq = Math.round(co2 / 4000);
+            const elCarros = document.getElementById('imp-carros-equivalente');
+            if (elCarros) elCarros.innerText = carrosEq || '<1';
+        }
+
+        // ==================================================================
+        // MODO FEIRA — DADOS DE DEMONSTRAÇÃO
+        // ==================================================================
+        function ativarModoFeira() {
+            if (modoFeiraAtivo) return;
+            modoFeiraAtivo = true;
+
+            document.getElementById('feira-bar').classList.remove('hidden');
+            document.getElementById('modo-feira').style.display = 'block';
+            document.getElementById('qr-visitante').style.display = 'block';
+            document.querySelector('.hero-content button').style.display = 'none';
+
+            // Gera dados seed se estiver vazio
+            if (registros.length === 0) {
+                gerarDadosSeed();
+            }
+
+            // Inicia simulação automática
+            contadorFeira = {
+                participantes: usuarios.filter(u => u.role === 'aluno').length || 5,
+                doacoes: registros.length,
+                kg: registros.reduce((acc, r) => acc + parseFloat(r.qtd), 0)
+            };
+            atualizarPainelFeira();
+
+            if (intervaloSimulacao) clearInterval(intervaloSimulacao);
+            intervaloSimulacao = setInterval(simularDoacao, 3000);
+
+            // Atualiza QR Code com URL da página atual
+            const url = window.location.href;
+            document.getElementById('qr-url').innerText = url;
+            document.getElementById('qr-code-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(url)}`;
+
+            alert('🏁 Modo Feira ativado! Dados sendo gerados automaticamente a cada 3 segundos.');
+        }
+
+        function gerarDadosSeed() {
+            const nomes = [
+                "Ana Beatriz", "Carlos Silva", "Julia Costa", "Lucas Oliveira", "Mariana Santos",
+                "Pedro Almeida", "Sofia Lima", "Rafael Souza", "Isabella Pereira", "Gabriel Fernandes",
+                "Laura Rodrigues", "Enzo Martins", "Valentina Gomes", "Henrique Barbosa", "Manuela Dias"
+            ];
+            const anos = ["7º Ano", "8º Ano", "9º Ano"];
+            const turmas = ["A", "B", "C"];
+            const materiais = ["Latinhas", "Papelão", "Tampinhas", "Óleo"];
+
+            // Cria usuários seed
+            nomes.forEach((nome, i) => {
+                if (!usuarios.find(u => u.nome === nome)) {
+                    usuarios.push({
+                        nome: nome,
+                        ra: `${10000 + i}-${String.fromCharCode(65 + i % 6)} SP`,
+                        numero: `(11) 9${String(1000 + i).padStart(4, '0')}-${String(4000 + i * 137).padStart(4, '0')}`,
+                        ano: anos[i % 3],
+                        turma: turmas[i % 3],
+                        senha: "123456",
+                        role: "aluno",
+                        codigoVerificacao: "123456"
+                    });
+                }
+            });
+
+            // Cria registros seed (30 registros nos últimos 30 dias)
+            const hoje = new Date();
+            for (let i = 0; i < 30; i++) {
+                const aluno = nomes[Math.floor(Math.random() * nomes.length)];
+                const material = materiais[Math.floor(Math.random() * materiais.length)];
+                const qtd = parseFloat((Math.random() * 8 + 0.5).toFixed(1));
+                const diasAtras = Math.floor(Math.random() * 30);
+                const data = new Date(hoje);
+                data.setDate(data.getDate() - diasAtras);
+
+                registros.push({
+                    id: Date.now() + i,
+                    aluno: aluno,
+                    material: material,
+                    qtd: qtd,
+                    valor: (qtd * precos[material]).toFixed(2),
+                    data: data.toISOString().split('T')[0]
+                });
+            }
+
+            salvarUsuarios();
+            salvarDados();
+
+            // Atualiza tudo
+            atualizarTotalGeral();
+            atualizarRanking();
+            atualizarRankingIndividual();
+            atualizarFeed();
+        }
+
+        function simularDoacao() {
+            if (!modoFeiraAtivo) return;
+
+            const nomes = usuarios.filter(u => u.role === 'aluno').map(u => u.nome);
+            if (nomes.length === 0) return;
+
+            const aluno = nomes[Math.floor(Math.random() * nomes.length)];
+            const materiais = ["Latinhas", "Papelão", "Tampinhas", "Óleo"];
+            const material = materiais[Math.floor(Math.random() * materiais.length)];
+            const qtd = parseFloat((Math.random() * 5 + 0.2).toFixed(1));
+            const hoje = new Date().toISOString().split('T')[0];
+
+            registros.push({
+                id: Date.now(),
+                aluno: aluno,
+                material: material,
+                qtd: qtd,
+                valor: (qtd * precos[material]).toFixed(2),
+                data: hoje
+            });
+            salvarDados();
+
+            contadorFeira.doacoes++;
+            contadorFeira.kg += qtd;
+            atualizarPainelFeira();
+
+            // Atualiza todas as visualizações
+            atualizarTotalGeral();
+            atualizarRanking();
+            atualizarRankingIndividual();
+            atualizarFeed();
+            calcularImpacto();
+        }
+
+        function atualizarPainelFeira() {
+            document.getElementById('feira-participantes').innerText = contadorFeira.participantes;
+            document.getElementById('feira-doacoes').innerText = contadorFeira.doacoes;
+            document.getElementById('feira-kg').innerText = contadorFeira.kg.toFixed(1);
+        }
+
+        function pararSimulacaoFeira() {
+            modoFeiraAtivo = false;
+            if (intervaloSimulacao) {
+                clearInterval(intervaloSimulacao);
+                intervaloSimulacao = null;
+            }
+            document.getElementById('feira-bar').classList.add('hidden');
+            document.getElementById('modo-feira').style.display = 'none';
+            document.getElementById('qr-visitante').style.display = 'none';
+            const btn = document.querySelector('.hero-content button');
+            if (btn) btn.style.display = 'inline-block';
+            alert('⏹ Modo Feira desativado.');
+        }
+
+        // ==================================================================
+        // CADASTRO RÁPIDO PARA VISITANTES DA FEIRA
+        // ==================================================================
+        function cadastroRapidoVisitante() {
+            const nome = prompt("Digite seu nome para participar:");
+            if (!nome || nome.trim() === "") return;
+
+            const visitId = "VISIT-" + Date.now();
+            if (usuarios.find(u => u.ra === visitId)) return;
+
+            const visitante = {
+                nome: nome.trim(),
+                ra: visitId,
+                numero: "(11) 99999-9999",
+                ano: "Visitante",
+                turma: "Feira",
+                senha: "123456",
+                role: "aluno"
+            };
+
+            usuarios.push(visitante);
+            salvarUsuarios();
+
+            // Faz login automático
+            usuarioAtual = visitante;
+            sessionStorage.setItem('sennaUsuarioLogado', JSON.stringify(visitante));
+
+            alert(`✅ Bem-vindo(a), ${nome}! Você está cadastrado como visitante. Vá até "Meu Painel" para simular uma doação!`);
+            voltarParaHome();
+            verificarLogin();
+
+            // Se modo feira estiver ativo, já registra uma doação de boas-vindas
+            if (modoFeiraAtivo) {
+                setTimeout(() => {
+                    const materiais = ["Latinhas", "Papelão", "Tampinhas", "Óleo"];
+                    const material = materiais[Math.floor(Math.random() * materiais.length)];
+                    const qtd = parseFloat((Math.random() * 3 + 0.5).toFixed(1));
+                    registros.push({
+                        id: Date.now(),
+                        aluno: nome.trim(),
+                        material: material,
+                        qtd: qtd,
+                        valor: (qtd * precos[material]).toFixed(2),
+                        data: new Date().toISOString().split('T')[0]
+                    });
+                    salvarDados();
+                    atualizarTotalGeral();
+                    atualizarRanking();
+                    atualizarRankingIndividual();
+                    atualizarFeed();
+                    contadorFeira.participantes++;
+                    contadorFeira.doacoes++;
+                    contadorFeira.kg += qtd;
+                    atualizarPainelFeira();
+                }, 300);
+            }
+        }
+
+        // ==================================================================
+        // MELHORIAS DE OFFLINE - Fallback de fontes
+        // ==================================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Se as fonts do Google não carregarem em 3 segundos, usa fallback
+            setTimeout(function() {
+                const el = document.createElement('div');
+                el.style.cssText = 'font-family:"Inter",sans-serif;position:absolute;visibility:hidden;top:-999px;';
+                el.innerText = 'test';
+                document.body.appendChild(el);
+                const interWidth = el.offsetWidth;
+                el.style.fontFamily = 'Arial, sans-serif';
+                const arialWidth = el.offsetWidth;
+                document.body.removeChild(el);
+
+                if (interWidth === arialWidth) {
+                    document.documentElement.style.setProperty('--font-fallback', 'Arial, sans-serif');
+                }
+            }, 3000);
+        });
+
+        // Verifica se deve ativar modo feira automaticamente (URL param)
+        (function() {
+            if (window.location.search.includes('feira') || window.location.search.includes('demo')) {
+                setTimeout(ativarModoFeira, 500);
+            }
+        })();
+
+        // Inicializa o Placar Geral, Impactômetro e Potenciômetro ao carregar a página
         atualizarTotalGeral();
         atualizarRanking();
         atualizarRankingIndividual();
         atualizarFeed();
+        calcularImpacto();
+        calcularPotencial();
         verificarLogin();
-        carregarDadosSalvos();
 
         function atualizarFeed() {
             const feedContainer = document.getElementById("live-feed");
@@ -1107,7 +2810,6 @@
                 if(r.material === "Papelão") icone = "📦";
                 if(r.material === "Tampinhas") icone = "🔵";
                 if(r.material === "Óleo") icone = "🛢️";
-                const unidade = getUnidade(r.material);
 
                 const dataFormatada = formatarDataParaBR(r.data);
 
@@ -1116,7 +2818,7 @@
                 item.innerHTML = `
                     <div class="feed-icon">${icone}</div>
                     <div class="feed-text">
-                        <strong>${r.aluno}${infoExtra}</strong> acabou de reciclar <strong style="color: var(--amarelo);">${r.qtd} ${unidade}</strong> de ${r.material}!
+                        <strong>${r.aluno}${infoExtra}</strong> acabou de reciclar <strong style="color: var(--amarelo);">${r.qtd} kg/L</strong> de ${r.material}!
                         <span class="feed-time">${dataFormatada}</span>
                     </div>
                 `;
@@ -1124,39 +2826,65 @@
             });
         }
 
-        async function buscarCotacoesMercado() {
-            const grid = document.getElementById("cotacao-grid");
-            if(!grid) return;
+        function mexerSimulador(valor) {
+            const alunos = parseInt(valor) || 0;
+            const d = window.__simData;
+            if (!d) return;
+            const label = document.getElementById('sim-slider-label');
+            const marca = document.getElementById('sim-slider-atual-marca');
+            if (label) label.innerText = alunos + ' alunos';
+            if (marca) marca.innerText = alunos;
 
-            // Simulação de busca em API (como Metals-API ou similar)
-            // No mundo real, você usaria fetch('URL_DA_API')
-            // Aqui vamos simular uma pequena variação diária para parecer real
-            const variacao = () => (Math.random() * 0.2) - 0.1; // Varia entre -0.1 e +0.1
+            // Interpolação linear entre 0 e 590
 
-            precos["Latinhas"] = (8.50 + variacao()).toFixed(2);
-            precos["Papelão"] = (0.60 + variacao()).toFixed(2);
-            precos["Tampinhas"] = (2.10 + variacao()).toFixed(2);
-            precos["Óleo"] = (1.80 + variacao()).toFixed(2);
+            // Se slider <= alunos reais, escala linear do zero até o valor real
+            // Se slider > alunos reais, interpola do real até o potencial
+            let co2, kg, dinheiro, arvores, latinhas;
+            if (alunos <= d.alunosAtivos) {
+                const f = d.alunosAtivos > 0 ? alunos / d.alunosAtivos : 0;
+                co2 = d.totalCO2 * f;
+                kg = d.totalKg * f;
+                dinheiro = d.totalDinheiro * f;
+                arvores = d.totalArvores * f;
+                latinhas = d.totalLatinhas * f;
+            } else {
+                const f = (alunos - d.alunosAtivos) / (590 - d.alunosAtivos);
+                co2 = d.totalCO2 + (d.projCO2 - d.totalCO2) * f;
+                kg = d.totalKg + (d.projKg - d.totalKg) * f;
+                dinheiro = d.totalDinheiro + (d.projDinheiro - d.totalDinheiro) * f;
+                arvores = d.totalArvores + (d.projArvores - d.totalArvores) * f;
+                arvores = Math.max(0, arvores);
+                latinhas = d.totalLatinhas + (d.projLatinhas - d.totalLatinhas) * f;
+            }
 
-            grid.innerHTML = "";
-            Object.keys(precos).forEach(material => {
-                const card = document.createElement("div");
-                card.className = "card-info";
-                card.style.background = "var(--cinza)";
-                card.style.borderRadius = "10px";
-                card.style.padding = "15px";
-                card.style.textAlign = "center";
-                card.style.border = "1px solid #333";
-                
-                card.innerHTML = `
-                    <h3 style="font-size: 1rem; color: #fff;">${material}</h3>
-                    <p class="preco" style="font-size: 1.4rem; color: var(--amarelo); margin: 10px 0;">R$ ${parseFloat(precos[material]).toFixed(2).replace('.', ',')}</p>
-                    <span style="font-size: 0.7rem; color: var(--verde);"><i class="fas fa-arrow-up"></i> mercado instável</span>
-                `;
-                grid.appendChild(card);
-            });
+            // Atualiza DOM
+            const progresso = (co2 / META_CO2) * 100;
+            const porcentagem = Math.min(progresso, 100).toFixed(1);
 
-            atualizarTotalGeral();
+            const co2Str = co2 >= 1000
+                ? (co2 / 1000).toFixed(1).replace('.', ',') + ' ton'
+                : co2.toFixed(1).replace('.', ',') + ' kg';
+
+            const el = id => document.getElementById(id);
+            const barra = el('meta-barra');
+            if (barra) { barra.style.width = porcentagem + '%'; barra.innerText = porcentagem + '%'; }
+
+            // Atualiza a cor do track do slider
+            const sliderEl = el('sim-slider');
+            if (sliderEl) {
+                const pct = (alunos / 590) * 100;
+                sliderEl.style.background = 'linear-gradient(to right, var(--verde) ' + pct + '%, #333 ' + pct + '%)';
+            }
+
+            const pEls = ['meta-porcentagem', 'meta-porcentagem-texto'];
+            pEls.forEach(id => { const e = el(id); if (e) e.innerText = porcentagem + '%'; });
+
+            if (el('meta-atual')) el('meta-atual').innerText = co2Str;
+            if (el('valor-total-co2')) el('valor-total-co2').innerHTML = co2Str;
+            if (el('meta-kg-atual')) el('meta-kg-atual').innerText = kg.toFixed(1).replace('.', ',') + ' kg';
+            if (el('meta-dinheiro-atual')) el('meta-dinheiro-atual').innerText = 'R$ ' + dinheiro.toFixed(2).replace('.', ',');
+            if (el('meta-arvores-atual')) el('meta-arvores-atual').innerText = Math.round(arvores);
+            if (el('meta-latinhas-atual')) el('meta-latinhas-atual').innerText = Math.round(latinhas);
         }
 
         function atualizarTotalGeral() {
@@ -1166,21 +2894,94 @@
                 return acc + (parseFloat(item.qtd) * preco);
             }, 0);
 
-            document.getElementById("valor-total-geral").innerText = totalKg.toFixed(1).replace('.', ',') + " kg/L";
-            document.getElementById("valor-total-dinheiro").innerText = "R$ " + totalDinheiro.toFixed(2).replace('.', ',');
+            // Calcula CO₂ total evitado e latinhas
+            let totalCO2 = 0, totalArvores = 0, totalLatinhas = 0;
+            registros.forEach(r => {
+                const qtd = parseFloat(r.qtd) || 0;
+                const mat = r.material;
+                if (mat === "Latinhas") { totalCO2 += qtd * 9.1; totalLatinhas += qtd * 67; }
+                else if (mat === "Papelão") { totalCO2 += qtd * 0.9; totalArvores += qtd / 50; }
+                else if (mat === "Tampinhas") totalCO2 += qtd * 1.5;
+                else if (mat === "Óleo") totalCO2 += qtd * 2.5;
+            });
 
-            // Atualiza Barra de Progresso
-            const progresso = (totalDinheiro / META_FORMATURA) * 100;
-            const porcentagem = Math.min(progresso, 100).toFixed(1);
-            
-            const barra = document.getElementById("meta-barra");
-            const porcentagemTexto = document.getElementById("meta-porcentagem");
-            const atualTexto = document.getElementById("meta-atual");
+            // Armazena para o slider interativo
+            window.__simData = { totalCO2, totalKg, totalDinheiro, totalArvores, totalLatinhas };
 
-            if(barra) barra.style.width = porcentagem + "%";
-            if(barra) barra.innerText = porcentagem + "%";
-            if(porcentagemTexto) porcentagemTexto.innerText = porcentagem + "%";
-            if(atualTexto) atualTexto.innerText = "R$ " + totalDinheiro.toFixed(2).replace('.', ',');
+            // SIMULAÇÃO: e se todos participassem?
+            const registrosAlunos = registros.filter(r => {
+                const user = usuarios.find(u => u.nome === r.aluno);
+                return user && user.role === 'aluno';
+            });
+            const alunosAtivos = new Set(registrosAlunos.map(r => r.aluno)).size;
+            const totalKgAlunos = registrosAlunos.reduce((acc, r) => acc + parseFloat(r.qtd), 0);
+            const totalDinheiroAlunos = registrosAlunos.reduce((acc, r) => {
+                return acc + (parseFloat(r.qtd) * (precos[r.material] || 0));
+            }, 0);
+            let totalCO2Alunos = 0, totalLatinhasAlunos = 0, totalArvoresAlunos = 0;
+            registrosAlunos.forEach(r => {
+                const qtd = parseFloat(r.qtd) || 0;
+                const mat = r.material;
+                if (mat === "Latinhas") { totalCO2Alunos += qtd * 9.1; totalLatinhasAlunos += qtd * 67; }
+                else if (mat === "Papelão") { totalCO2Alunos += qtd * 0.9; totalArvoresAlunos += qtd / 50; }
+                else if (mat === "Tampinhas") totalCO2Alunos += qtd * 1.5;
+                else if (mat === "Óleo") totalCO2Alunos += qtd * 2.5;
+            });
+            const baseAtiva = Math.max(alunosAtivos, 1);
+            const mediaKg = totalKgAlunos / baseAtiva;
+            const mediaDinheiro = totalDinheiroAlunos / baseAtiva;
+            const mediaCO2 = totalCO2Alunos / baseAtiva;
+            const mediaLatinhas = totalLatinhasAlunos / baseAtiva;
+            const mediaArvores = totalArvoresAlunos / baseAtiva;
+            const fatorProjecao = 590;
+            window.__simData.projKg = mediaKg * fatorProjecao;
+            window.__simData.projDinheiro = mediaDinheiro * fatorProjecao;
+            window.__simData.projCO2 = mediaCO2 * fatorProjecao;
+            window.__simData.projLatinhas = mediaLatinhas * fatorProjecao;
+            window.__simData.projArvores = mediaArvores * fatorProjecao;
+            window.__simData.alunosAtivos = alunosAtivos;
+
+            // Agora
+            const fmtNum = v => v.toFixed(0).replace('.', ',');
+            const s = id => document.getElementById(id);
+            if(s('simul-alunos-ativos')) s('simul-alunos-ativos').innerText = alunosAtivos;
+            if(s('simul-kg-agora')) s('simul-kg-agora').innerText = totalKgAlunos.toFixed(1).replace('.', ',') + ' kg';
+            if(s('simul-dinheiro-agora')) s('simul-dinheiro-agora').innerText = 'R$ ' + totalDinheiroAlunos.toFixed(2).replace('.', ',');
+            if(s('simul-latinhas-agora')) s('simul-latinhas-agora').innerText = Math.round(totalLatinhasAlunos).toLocaleString('pt-BR');
+            const co2Agora = totalCO2Alunos >= 1000
+                ? (totalCO2Alunos / 1000).toFixed(1).replace('.', ',') + ' ton'
+                : totalCO2Alunos.toFixed(0).replace('.', ',') + ' kg';
+            if(s('simul-co2-agora')) s('simul-co2-agora').innerText = co2Agora;
+
+            // Potencial
+            if(s('simul-kg-potencial')) s('simul-kg-potencial').innerText = fmtNum(window.__simData.projKg) + ' kg';
+            if(s('simul-dinheiro-potencial')) s('simul-dinheiro-potencial').innerText = 'R$ ' + window.__simData.projDinheiro.toFixed(2).replace('.', ',');
+            if(s('simul-latinhas-potencial')) s('simul-latinhas-potencial').innerText = Math.round(window.__simData.projLatinhas).toLocaleString('pt-BR');
+            const co2ProjStr = window.__simData.projCO2 >= 1000
+                ? (window.__simData.projCO2 / 1000).toFixed(1).replace('.', ',') + ' ton'
+                : fmtNum(window.__simData.projCO2) + ' kg';
+            if(s('simul-co2-potencial')) s('simul-co2-potencial').innerText = co2ProjStr;
+            if(s('simul-arvores-potencial')) s('simul-arvores-potencial').innerText = Math.round(window.__simData.projArvores).toLocaleString('pt-BR');
+
+            // Per-family per-week
+            const porSemana = window.__simData.projKg / 52;
+            if(s('simul-por-semana')) s('simul-por-semana').innerText = porSemana < 1
+                ? (porSemana * 1000).toFixed(0) + ' g'
+                : porSemana.toFixed(1).replace('.', ',') + ' kg';
+
+            // VS ratio
+            const ratio = (alunosAtivos / 590) * 100;
+            if(s('simul-ratio-pct')) s('simul-ratio-pct').innerText = ratio.toFixed(1).replace('.', ',') + '%';
+
+            // Sincroniza slider com dados reais
+            const slider = document.getElementById('sim-slider');
+            if (slider) {
+                slider.value = alunosAtivos;
+                mexerSimulador(alunosAtivos);
+            }
+
+            calcularImpacto();
+            calcularPotencial();
         }
 
         function voltarParaHome() {
@@ -1263,17 +3064,6 @@
                 const greetingEl = document.getElementById('nav-user-greeting');
                 greetingEl.innerHTML = `Olá, <span>${usuarioAtual.nome.split(' ')[0]}</span>!`;
                 greetingEl.classList.remove('hidden');
-
-                // Garante que containers de login fiquem ocultos se o login já foi feito
-                document.getElementById("area-acesso").classList.add("hidden");
-                document.getElementById("aluno-login-auth").classList.add("hidden");
-                document.getElementById("aluno-cadastro-auth").classList.add("hidden");
-                document.getElementById("professor-login-auth").classList.add("hidden");
-                document.getElementById("professor-cadastro-auth").classList.add("hidden");
-                document.getElementById("admin-auth").classList.add("hidden");
-                document.getElementById("recovery-auth").classList.add("hidden");
-                document.getElementById("contact-choice-auth").classList.add("hidden");
-                document.getElementById("signup-verification").classList.add("hidden");
             } else {
                 usuarioAtual = null;
                 document.getElementById('menu-rankings').classList.add('hidden');
@@ -1429,31 +3219,10 @@
 
             if (method === 'email') {
                 contactInfo = data.email;
-                message = `Aguarde... Enviando código para: ${contactInfo}.`;
-
-                // SIMULAÇÃO PARA APRESENTAÇÃO:
-                // Em um ambiente real, você faria uma chamada para um backend que enviaria o e-mail.
-                // Para a apresentação, vamos apenas mostrar o código.
-                console.log(`[SIMULAÇÃO] Enviando código ${code} para o e-mail: ${contactInfo}`);
                 mostrarTelaInputCodigo(`(SIMULAÇÃO) Enviamos um código para o e-mail: ${contactInfo}. Código: ${code}`, code, true);
-                // Se você tiver um backend real rodando, descomente o código abaixo e comente as linhas acima:
-                /*
-                fetch('https://seu-backend-real.com/enviar-email', { // Substitua pela URL do seu backend
-                    method: 'POST', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: contactInfo, codigo: code, tipo: 'Verificação de Conta' })
-                }).then(response => response.json()).then(result => {
-                    if(result.sucesso) { mostrarTelaInputCodigo(`Enviamos um código para o e-mail: ${contactInfo}. Verifique sua caixa de entrada (e spam).`, null); }
-                    else { alert("Erro ao enviar e-mail. Verifique seu backend."); console.error(result.erro); mostrarTelaInputCodigo(`(ERRO NO ENVIO REAL) Código simulado: ${code}`, code); }
-                }).catch(err => {
-                    console.error(err); alert(`Não foi possível conectar ao servidor de e-mail. Erro: ${err.message}`); mostrarTelaInputCodigo(`(ERRO DE CONEXÃO) Código simulado: ${code}`, code, true);
-                });
-                */
-
-            } else { // SMS (Continua simulado por enquanto)
+            } else {
                 contactInfo = data.numero || data.telefone;
-                message = `Enviamos um código via SMS para: ${contactInfo}.`;
-                // Mostra a tela de inserir código com simulação
-                mostrarTelaInputCodigo(message, code, true);
+                mostrarTelaInputCodigo(`(SIMULAÇÃO) Enviamos um código via SMS para: ${contactInfo}. Código: ${code}`, code, true);
             }
         }
 
@@ -1519,19 +3288,16 @@
             if(user) {
                 usuarioAtual = user;
                 
-                // Salva ou remove os dados para "Lembrar Senha"
-                gerenciarLembrarSenha('aluno', {
-                    raNum: raNum,
-                    raDig: raDig,
-                    raUF: raUF,
-                    senha: senha
-                });
-
-                sessionStorage.setItem('sennaUsuarioLogado', JSON.stringify(user));
+                const manterConectado = document.getElementById("lembrarLoginAluno").checked;
+                if(manterConectado) {
+                    localStorage.setItem('sennaUsuarioLogado', JSON.stringify(user));
+                } else {
+                    sessionStorage.setItem('sennaUsuarioLogado', JSON.stringify(user));
+                }
 
                 alert('Login realizado com sucesso!');
-                verificarLogin();
                 voltarParaHome();
+                verificarLogin();
             } else {
                 alert("RA ou senha incorretos!");
             }
@@ -1544,17 +3310,16 @@
             if (user) {
                 usuarioAtual = user;
                 
-                // Salva ou remove os dados para "Lembrar Senha"
-                gerenciarLembrarSenha('professor', {
-                    email: email,
-                    senha: senha
-                });
-
-                sessionStorage.setItem('sennaUsuarioLogado', JSON.stringify(user));
+                const manterConectado = document.getElementById("lembrarLoginProf").checked;
+                if(manterConectado) {
+                    localStorage.setItem('sennaUsuarioLogado', JSON.stringify(user));
+                } else {
+                    sessionStorage.setItem('sennaUsuarioLogado', JSON.stringify(user));
+                }
 
                 alert('Login realizado com sucesso!');
-                verificarLogin();
                 voltarParaHome();
+                verificarLogin();
             } else {
                 alert("Email ou senha incorretos!");
             }
@@ -1566,8 +3331,8 @@
                 usuarioAtual = { nome: 'Admin', role: 'admin' };
                 sessionStorage.setItem('sennaUsuarioLogado', JSON.stringify(usuarioAtual)); // Admin por padrão sessão curta
                 alert('Login de Administrador realizado com sucesso!');
-                verificarLogin();
                 voltarParaHome();
+                verificarLogin();
             } else {
                 alert("Senha incorreta!");
                 document.getElementById("loginSenhaAdmin").value = "";
@@ -1696,30 +3461,11 @@
             document.getElementById("recovery-step2").classList.remove("hidden");
 
             if (method === 'email') {
-                document.getElementById("recovery-message").innerText = `Aguarde... Enviando código para o email...`;
-                // SIMULAÇÃO PARA APRESENTAÇÃO:
-                // Em um ambiente real, você faria uma chamada para um backend que enviaria o e-mail.
-                // Para a apresentação, vamos apenas mostrar o código.
-                console.log(`[SIMULAÇÃO] Enviando código ${code} para o e-mail de recuperação: ${user.email}`);
-                document.getElementById("recovery-message").innerText = `(SIMULAÇÃO) Enviamos um código para o email cadastrado: ${maskedContact}. Código: ${code}`;
-                alert(`(SIMULAÇÃO) O seu código é: ${code}`);
-                // Se você tiver um backend real rodando, descomente o código abaixo e comente as linhas acima:
-                /*
-                fetch('https://seu-backend-real.com/enviar-email', { // Substitua pela URL do seu backend
-                    method: 'POST', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: user.email, codigo: code, tipo: 'Recuperação de Senha' })
-                }).then(response => response.json()).then(result => {
-                    if(result.sucesso) { document.getElementById("recovery-message").innerText = `Enviamos um código para o email cadastrado: ${maskedContact}.`; }
-                    else { alert("Erro ao enviar e-mail real. Usando simulação."); document.getElementById("recovery-message").innerText = `Erro no envio. Código simulado: ${code}`; alert(`(SIMULAÇÃO) O seu código é: ${code}`); }
-                }).catch(err => {
-                    alert(`Erro de conexão com o servidor. Verifique se o backend está rodando e veja o console do navegador (F12).\n\nErro: ${err.message}`); document.getElementById("recovery-message").innerText = `Erro de conexão. Código simulado:`; alert(`(SIMULAÇÃO) O seu código é: ${code}`);
-                });
-                */
-
+                document.getElementById("recovery-message").innerText = `(SIMULAÇÃO) Enviamos um código para o email: ${maskedContact}.`;
+                alert(`(SIMULAÇÃO) Seu código de recuperação é: ${code}`);
             } else {
-                // SMS Simulado
-                document.getElementById("recovery-message").innerText = `Enviamos um SMS para o número cadastrado: ${maskedContact}.`;
-                alert(`(SIMULAÇÃO SMS) O seu código é: ${code}`);
+                document.getElementById("recovery-message").innerText = `(SIMULAÇÃO) Enviamos um SMS para o número: ${maskedContact}.`;
+                alert(`(SIMULAÇÃO SMS) Seu código de recuperação é: ${code}`);
             }
         }
 
@@ -1775,12 +3521,11 @@
             const material = document.getElementById("materialAluno").value;
             const qtd = document.getElementById("qtdAluno").value;
             if(qtd <= 0) { alert("Quantidade inválida"); return; }
-            const unidade = getUnidade(material);
             const valorTotal = (parseFloat(qtd) * precos[material]).toFixed(2); // O valor não parece estar sendo usado, mas ok.
             const novoRegistro = { id: Date.now(), aluno: usuarioAtual.nome, material: material, valor: valorTotal, qtd: parseFloat(qtd), data: new Date().toISOString().split('T')[0] };
             registros.push(novoRegistro);
             salvarDados();
-            alert(`Sucesso! Você registrou ${qtd} ${unidade} de ${material}.`);
+            alert(`Sucesso! Você registrou ${qtd} kg de ${material}.`);
             document.getElementById("qtdAluno").value = "";
             renderizarAluno();
             atualizarTotalGeral();
@@ -1819,7 +3564,7 @@
             
             const faltam = (categoria.meta - totalQtd).toFixed(1);
             if (totalQtd < 100) {
-                if(metaTxt) metaTxt.innerHTML = `Faltam <strong>${faltam} kg/L</strong> para você se tornar <strong>${totalQtd >= 50 ? 'Campeão Supremo' : (totalQtd >= 20 ? 'Lenda das Pistas' : (totalQtd >= 10 ? 'Piloto Ouro' : (totalQtd >= 5 ? 'Piloto Prata' : 'Piloto Bronze')))}</strong>!`;
+                if(metaTxt) metaTxt.innerHTML = `Faltam <strong>${faltam}kg</strong> para você se tornar <strong>${totalQtd >= 50 ? 'Campeão Supremo' : (totalQtd >= 20 ? 'Lenda das Pistas' : (totalQtd >= 10 ? 'Piloto Ouro' : (totalQtd >= 5 ? 'Piloto Prata' : 'Piloto Bronze')))}</strong>!`;
                 if(progressoSelo) progressoSelo.style.width = Math.min((totalQtd / categoria.meta) * 100, 100) + "%";
             } else {
                 if(metaTxt) metaTxt.innerText = "Você atingiu o nível máximo! É uma Lenda da Reciclagem!";
@@ -1838,15 +3583,11 @@
 
             registrosFiltrados.forEach(r => {
                 const tr = document.createElement("tr");
-                const unidade = getUnidade(r.material);
-                tr.innerHTML = `<td>${formatarDataParaBR(r.data)}</td><td>${r.material}</td><td>${r.qtd.toFixed(1).replace('.',',')} ${unidade}</td>`;
+                tr.innerHTML = `<td>${formatarDataParaBR(r.data)}</td><td>${r.material}</td><td>${r.qtd.toFixed(1).replace('.',',')} kg</td>`;
                 tbody.appendChild(tr);
             });
 
             document.getElementById("aluno-total-qtd").innerText = totalQtd.toFixed(1).replace('.',',');
-            if(document.getElementById("aluno-unidade")) {
-                document.getElementById("aluno-unidade").innerText = totalQtd > 0 ? "kg/L" : "kg";
-            }
         }
 
         function limparFiltroAluno() {
@@ -1859,12 +3600,11 @@
             const material = document.getElementById("materialProfessor").value;
             const qtd = document.getElementById("qtdProfessor").value;
             if(qtd <= 0) { alert("Quantidade inválida"); return; }
-            const unidade = getUnidade(material);
             const valorTotal = (parseFloat(qtd) * precos[material]).toFixed(2); // O valor não parece estar sendo usado, mas ok.
             const novoRegistro = { id: Date.now(), aluno: usuarioAtual.nome, material: material, valor: valorTotal, qtd: parseFloat(qtd), data: new Date().toISOString().split('T')[0] };
             registros.push(novoRegistro);
             salvarDados();
-            alert(`Sucesso! Você registrou ${qtd} ${unidade} de ${material}.`);
+            alert(`Sucesso! Você registrou ${qtd} kg de ${material}.`);
             document.getElementById("qtdProfessor").value = "";
             renderizarProfessorRelatorio();
             renderizarProfessorView();
@@ -1889,12 +3629,11 @@
             meusRegistros.forEach(r => {
                 totalQtd += parseFloat(r.qtd);
                 const tr = document.createElement("tr");
-                const unidade = getUnidade(r.material);
-                tr.innerHTML = `<td>${formatarDataParaBR(r.data)}</td><td>${r.material}</td><td>${r.qtd.toFixed(1).replace('.',',')} ${unidade}</td>`;
+                tr.innerHTML = `<td>${formatarDataParaBR(r.data)}</td><td>${r.material}</td><td>${r.qtd.toFixed(1).replace('.',',')} kg</td>`;
                 tbody.appendChild(tr);
             });
             const totalEl = document.getElementById("professor-total-qtd");
-            if (totalEl) totalEl.innerText = totalQtd.toFixed(1).replace('.',',') + " kg/L";
+            if (totalEl) totalEl.innerText = totalQtd.toFixed(1).replace('.',',') + " kg";
         }
         
         function renderizarProfessorView() {
@@ -1916,8 +3655,7 @@
             registrosFiltrados.forEach(r => {
                 const user = usuarios.find(u => u.nome === r.aluno) || { turma: "?", ano: "?" };
                 const tr = document.createElement("tr");
-                const unidade = getUnidade(r.material);
-                tr.innerHTML = `<td>${formatarDataParaBR(r.data)}</td><td>${r.aluno} <small>(${user.ano} ${user.turma})</small></td><td>${r.material}</td><td>${r.qtd.toFixed(1)} ${unidade}</td>`;
+                tr.innerHTML = `<td>${formatarDataParaBR(r.data)}</td><td>${r.aluno} <small>(${user.ano} ${user.turma})</small></td><td>${r.material}</td><td>${r.qtd.toFixed(1)}</td>`;
                 tbody.appendChild(tr);
             });
         }
@@ -1989,39 +3727,37 @@
                 return matchNome && matchAno && matchTurma;
             });
 
-            html += `<div class="${showAlunos}"><h2>Registros de Alunos</h2><table class="tabela-geral"><thead><tr><th>Data</th><th>Aluno (Turma)</th><th>Material</th><th>Qtd</th><th>Ações</th></tr></thead><tbody>`;
+            html += `<div class="${showAlunos}"><h2>Registros de Alunos</h2><div class="tabela-wrapper"><table class="tabela-geral"><thead><tr><th>Data</th><th>Aluno (Turma)</th><th>Material</th><th>Qtd</th><th>Ações</th></tr></thead><tbody>`;
             registrosAlunosFiltrados.forEach(r => {
                 const user = usuarios.find(u => u.nome === r.aluno);
-                const unidade = getUnidade(r.material);
                 html += `<tr>
                     <td>${formatarDataParaBR(r.data)}</td>
                     <td>${r.aluno} <small>(${user ? user.ano : '?'} ${user ? user.turma : '?'})</small></td>
                     <td>${r.material}</td>
-                    <td>${r.qtd.toFixed(1)} ${unidade}</td>
+                    <td>${r.qtd.toFixed(1)}</td>
                     <td><button class="btn-edit" onclick="editarRegistro(${r.id})">Editar</button><button class="btn-delete" onclick="excluirRegistro(${r.id})">Excluir</button></td>
                 </tr>`;
             });
             if (registrosAlunosFiltrados.length === 0) html += `<tr><td colspan="5" style="text-align:center;">${(fNome || fAno || fTurma) ? 'Nenhum resultado encontrado.' : 'Nenhum registro de aluno.'}</td></tr>`;
-            html += '</tbody></table></div>';
+            html += '</tbody></table></div></div>';
 
             const registrosProfessoresFiltrados = registrosProfessores.filter(r => {
                 return fNome ? r.aluno.toLowerCase().includes(fNome.toLowerCase()) : true;
             });
 
 
-            html += `<div class="${showProf}"><h2>Registros de Professores</h2><table class="tabela-geral"><thead><tr><th>Data</th><th>Professor</th><th>Material</th><th>Qtd</th><th>Ações</th></tr></thead><tbody>`;
+            html += `<div class="${showProf}"><h2>Registros de Professores</h2><div class="tabela-wrapper"><table class="tabela-geral"><thead><tr><th>Data</th><th>Professor</th><th>Material</th><th>Qtd</th><th>Ações</th></tr></thead><tbody>`;
             registrosProfessoresFiltrados.forEach(r => {
-                const unidade = getUnidade(r.material);
                 html += `<tr>
                     <td>${formatarDataParaBR(r.data)}</td>
                     <td>${r.aluno}</td>
                     <td>${r.material}</td>
-                    <td>${r.qtd.toFixed(1)} ${unidade}</td>
+                    <td>${r.qtd.toFixed(1)}</td>
                     <td><button class="btn-edit" onclick="editarRegistro(${r.id})">Editar</button><button class="btn-delete" onclick="excluirRegistro(${r.id})">Excluir</button></td>
                 </tr>`;
             });
             if (registrosProfessoresFiltrados.length === 0) html += `<tr><td colspan="5" style="text-align:center;">${fNome ? 'Nenhum resultado encontrado.' : 'Nenhum registro de professor.'}</td></tr>`;
-            html += '</tbody></table></div>';
+            html += '</tbody></table></div></div>';
 
             container.innerHTML = html;
         }
@@ -2079,7 +3815,7 @@
             if (rankingArray.length === 0) { container.innerHTML = "<p>Nenhuma doação de aluno registrada ainda.</p>"; return; }
             rankingArray.forEach((item, index) => {
                 let classeExtra = index === 0 ? "top1" : "";
-                container.innerHTML += `<div class="rank-card ${classeExtra}"><span class="rank-pos">${index + 1}º</span><span class="rank-turma">${item.turma}</span><span class="rank-valor">${item.total.toFixed(1).replace('.', ',')} kg/L</span></div>`;
+                container.innerHTML += `<div class="rank-card ${classeExtra}"><span class="rank-pos">${index + 1}º</span><span class="rank-turma">${item.turma}</span><span class="rank-valor">${item.total.toFixed(1).replace('.', ',')} kg</span></div>`;
             });
         }
         
@@ -2135,7 +3871,7 @@
             });
 
 
-            html += `<div class="${showAlunos}"><h2>Lista de Alunos</h2><table class="tabela-geral"><thead><tr><th>Nome</th><th>RA</th><th>Turma</th><th>Telefone</th><th>Ações</th></tr></thead><tbody>`;
+            html += `<div class="${showAlunos}"><h2>Lista de Alunos</h2><div class="tabela-wrapper"><table class="tabela-geral"><thead><tr><th>Nome</th><th>RA</th><th>Turma</th><th>Telefone</th><th>Ações</th></tr></thead><tbody>`;
             alunosFiltrados.forEach(user => {
                 html += `<tr>
                     <td>${user.nome}</td>
@@ -2150,13 +3886,13 @@
                 </tr>`;
             });
             if (alunosFiltrados.length === 0) html += `<tr><td colspan="5" style="text-align:center;">${(fNome || fAno || fTurma) ? 'Nenhum aluno encontrado.' : 'Nenhum aluno cadastrado.'}</td></tr>`;
-            html += '</tbody></table></div>';
+            html += '</tbody></table></div></div>';
 
             const professoresFiltrados = professores.filter(user => {
                 return fNome ? (user.nome.toLowerCase().includes(fNome.toLowerCase()) || user.email.toLowerCase().includes(fNome.toLowerCase())) : true;
             });
 
-            html += `<div class="${showProf}"><h2>Lista de Professores</h2><table class="tabela-geral"><thead><tr><th>Nome</th><th>Email</th><th>Telefone</th><th>Ações</th></tr></thead><tbody>`;
+            html += `<div class="${showProf}"><h2>Lista de Professores</h2><div class="tabela-wrapper"><table class="tabela-geral"><thead><tr><th>Nome</th><th>Email</th><th>Telefone</th><th>Ações</th></tr></thead><tbody>`;
             professoresFiltrados.forEach(user => {
                 html += `<tr>
                     <td>${user.nome}</td>
@@ -2170,7 +3906,7 @@
                 </tr>`;
             });
             if (professoresFiltrados.length === 0) html += `<tr><td colspan="4" style="text-align:center;">${fNome ? 'Nenhum professor encontrado.' : 'Nenhum professor cadastrado.'}</td></tr>`;
-            html += '</tbody></table></div>';
+            html += '</tbody></table></div></div>';
 
             container.innerHTML = html;
         }
@@ -2270,7 +4006,7 @@
                         <span class="rank-pos">${index + 1}º Lugar</span>
                         <span class="rank-categoria">${catNome}</span>
                         <span class="rank-turma">${item.nome}</span>
-                        <span class="rank-valor">${item.total.toFixed(1).replace('.', ',')} kg/L</span>
+                        <span class="rank-valor">${item.total.toFixed(1).replace('.', ',')} kg</span>
                     </div>`;
             });
 
@@ -2288,36 +4024,11 @@
                         </div>
                         <div style="text-align: right;">
                             <span style="display:block; font-size: 0.8rem; color: #fff;">Seu Total:</span>
-                            <strong style="font-size: 1.5rem; color: var(--amarelo);">${meuDados.total.toFixed(1).replace('.', ',')} kg/L</strong>
+                            <strong style="font-size: 1.5rem; color: var(--amarelo);">${meuDados.total.toFixed(1).replace('.', ',')} kg</strong>
                         </div>
                     `;
                     container.parentElement.appendChild(seuCard);
                 }
-            }
-        }
-
-        function gerenciarLembrarSenha(role, dados) {
-            const checkbox = role === 'aluno' ? document.getElementById('lembrarLoginAluno') : document.getElementById('lembrarLoginProf');
-            if (checkbox && checkbox.checked) {
-                localStorage.setItem(`lembrar_${role}`, JSON.stringify(dados));
-            } else {
-                localStorage.removeItem(`lembrar_${role}`);
-            }
-        }
-
-        function carregarDadosSalvos() {
-            const dadosAluno = JSON.parse(localStorage.getItem('lembrar_aluno'));
-            if (dadosAluno) {
-                if(document.getElementById('loginRaNum')) document.getElementById('loginRaNum').value = dadosAluno.raNum;
-                if(document.getElementById('loginRaDigito')) document.getElementById('loginRaDigito').value = dadosAluno.raDigito;
-                if(document.getElementById('loginRaUF')) document.getElementById('loginRaUF').value = dadosAluno.raUF;
-                if(document.getElementById('loginSenhaAluno')) document.getElementById('loginSenhaAluno').value = dadosAluno.senha;
-            }
-
-            const dadosProf = JSON.parse(localStorage.getItem('lembrar_professor'));
-            if (dadosProf) {
-                if(document.getElementById('loginEmailProf')) document.getElementById('loginEmailProf').value = dadosProf.email;
-                if(document.getElementById('loginSenhaProf')) document.getElementById('loginSenhaProf').value = dadosProf.senha;
             }
         }
     </script>
