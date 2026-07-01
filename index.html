@@ -663,7 +663,7 @@
         }
 
         /* PAINEL DE IMPACTO UNIFICADO */
-        .painel-impacto{background:var(--cinza);border-radius:20px;padding:40px;margin-top:40px;border:2px solid var(--verde);}
+        .painel-impacto{background:var(--cinza);border-radius:20px;padding:40px;margin-top:30px;border:2px solid var(--verde);}
         .painel-hero{text-align:center;padding:20px 0 30px;border-bottom:1px solid #333;}
         .painel-hero .rotulo{font-size:0.85rem;color:#aaa;margin-bottom:5px;}
         .painel-hero .numero-principal{font-size:clamp(2rem, 6vw, 3.5rem);font-weight:900;color:var(--amarelo);line-height:1.1;}
@@ -723,7 +723,7 @@
         }
 
         /* IMPACTÔMETRO AMBIENTAL - REFATORADO */
-        .impact-section{background:var(--cinza);border-radius:20px;padding:40px;margin-top:40px;border:2px solid var(--verde);}
+        .impact-section{background:var(--cinza);border-radius:20px;padding:40px;margin-top:30px;border:2px solid var(--verde);}
         .impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:20px;}
         .impact-card{background:#111;border-radius:15px;padding:25px;text-align:center;border:1px solid #333;transition:.3s;}
         .impact-card:hover{border-color:var(--amarelo);transform:translateY(-5px);}
@@ -763,7 +763,7 @@
         .decomp-hint{font-size:0.65rem;color:#555;margin-top:8px;border-top:1px solid #222;padding-top:6px;width:100%;}
 
         /* POTENCIÔMETRO - PROJEÇÕES DE IMPACTO */
-        .potenciometro-section{background:var(--cinza);border-radius:20px;padding:40px;margin-top:40px;border:2px solid var(--amarelo);}
+        .potenciometro-section{background:var(--cinza);border-radius:20px;padding:40px;margin-top:30px;border:2px solid var(--amarelo);}
         .poten-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:25px;}
         .poten-card{background:#111;border-radius:15px;padding:20px;text-align:center;border:1px solid #333;transition:.3s;}
         .poten-card:hover{border-color:var(--verde);transform:translateY(-3px);}
@@ -806,10 +806,10 @@
         
         /* RESPONSIVO - TABLET E MENOR */
         @media(max-width:768px){
-            .hero{flex-direction:column;text-align:center;height:auto;padding:50px 20px;min-height:35vh;}
+            .hero{flex-direction:column;text-align:center;height:auto;padding:40px 20px;min-height:28vh;}
             .senna-img{height:250px;margin-top:20px;}
             .grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));}
-            section{padding:55px 5%;}
+            section{padding:40px 5%;}
             .sobre-content{flex-direction:column;text-align:center;}
             .sobre-content img{max-width:100%;}
             .dashboard-header{flex-direction:column;gap:15px;text-align:center;}
@@ -827,10 +827,12 @@
             .simul-footer .sf-badge{display:none;}
             .placar-banner{padding:12px 20px;width:90%;max-width:500px;}
             .placar-banner p,.placar-banner h2{display:block;margin:0 0 4px 0;}
-            .painel-impacto{padding:25px 15px;}
+            .painel-impacto,.impact-section,.potenciometro-section{padding:25px 15px;margin-top:20px;}
             .painel-stats{gap:20px;}
             .painel-simulacao .simul-header .simul-titulo{font-size:0.8rem;text-align:center;}
             .card-info p{font-size:0.85rem;line-height:1.5;}
+            .dashboard-card{margin-top:20px!important;}
+            .section-title{margin-bottom:28px;}
         }
 
         /* RESPONSIVO - CELULAR PEQUENO */
@@ -838,14 +840,14 @@
             .nav-bar{padding:10px 4%;}
             .logo{font-size:1rem;}
             .sidebar{width:220px;right:-230px;}
-            .hero{padding:35px 18px;margin-top:60px;min-height:30vh;}
+            .hero{padding:28px 18px;margin-top:60px;min-height:22vh;}
             .hero-content h1{font-size:2rem;}
             .hero-content p{font-size:0.95rem;line-height:1.7;margin-top:10px;}
             .senna-img{height:180px;}
-            section{padding:40px 4%;}
-            .section-title{margin-bottom:25px;}
+            section{padding:26px 4%;}
+            .section-title{margin-bottom:20px;}
             .grid{grid-template-columns:1fr;}
-            .card img{height:120px;}
+            .card img{height:95px;}
             .card-info{padding:12px;}
             .card-info p{font-size:0.88rem;line-height:1.6;}
             .sobre-texto p{font-size:0.95rem!important;line-height:1.7;}
@@ -882,7 +884,7 @@
             .meta-info{flex-direction:column;gap:5px;text-align:center;}
             .seu-ranking-card{padding:15px;}
             #dashboard-aluno,#dashboard-admin,#dashboard-professor,#rankings,#area-acesso{padding-top:80px;}
-            .impact-section,.potenciometro-section{padding:25px 15px;}
+            .impact-section,.potenciometro-section{padding:25px 15px;margin-top:16px;}
             .impact-card{padding:18px 12px;}
             .impact-value{font-size:1.6rem;}
             .impact-label{font-size:0.82rem;}
@@ -892,7 +894,8 @@
             .poten-grid{grid-template-columns:1fr;}
             .poten-periodo{gap:5px;flex-wrap:wrap;}
             .poten-btn{padding:8px 14px;font-size:0.82rem;}
-            .painel-impacto{padding:20px 12px;}
+            .painel-impacto{padding:20px 12px;margin-top:16px;}
+            .dashboard-card{margin-top:16px!important;}
             .painel-stats{gap:15px;}
             .painel-stat .stat-valor{font-size:1.1rem;}
             .painel-stat .stat-rotulo{font-size:0.78rem;}
@@ -981,8 +984,8 @@
                     <p>Cada material reciclado aqui <strong>evita emissões de CO₂, preserva árvores e despolui nossos rios</strong>. O que seria descartado vira recurso — para o planeta e para a nossa comunidade. É a vitória do meio ambiente e da sua turma!</p>
                 </div>
                 
-                <h3 style="text-align: center; color: var(--amarelo); margin-top: 40px; margin-bottom: 10px;">Como participar na prática?</h3>
-                <div class="step-container" style="margin-bottom: 40px;">
+                <h3 style="text-align: center; color: var(--amarelo); margin-top: 28px; margin-bottom: 10px;">Como participar na prática?</h3>
+                <div class="step-container" style="margin-bottom: 28px;">
                     <div class="step-box">
                         <div class="step-number">1</div>
                         <h3>Separe em Casa</h3>
@@ -1006,7 +1009,7 @@
                 </div>
 
                 <!-- TABELA DE DECOMPOSIÇÃO E IMPACTO -->
-                <div class="dashboard-card" style="margin-top: 40px; border: 1px solid #444; padding: 25px;">
+                <div class="dashboard-card" style="margin-top: 28px; border: 1px solid #444; padding: 25px;">
                     <h3 style="color: var(--amarelo); text-align: center; margin: 0 0 5px 0;">⏳ O que cada material faz com o planeta</h3>
                     <p style="text-align:center;font-size:0.8rem;color:#888;margin-bottom:20px;">Tempo de decomposição e impacto de cada item que você recicla</p>
                     <div class="decomp-grid">
@@ -1187,7 +1190,7 @@
                 </div>
 
                 <!-- POR QUE SUA PARTICIPAÇÃO É VITAL -->
-                <div id="importancia-reciclagem" class="dashboard-card" style="margin-top: 40px; border: 1px solid #444; padding: 30px;">
+                <div id="importancia-reciclagem" class="dashboard-card" style="margin-top: 28px; border: 1px solid #444; padding: 30px;">
                     <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:20px;">
                         <a href="https://odsbrasil.gov.br/objetivo12" target="_blank" style="background:rgba(255,255,255,0.06);border:1px solid #444;border-radius:20px;padding:4px 14px;font-size:0.7rem;color:#aaa;text-decoration:none;">🎯 ODS 12 — Consumo e Produção Sustentáveis (ONU)</a>
                         <a href="https://agenciabrasil.ebc.com.br/economia/noticia/2025-08/brasil-reciclou-973-das-latinhas-de-aluminio-em-2024" target="_blank" style="background:rgba(255,255,255,0.06);border:1px solid #444;border-radius:20px;padding:4px 14px;font-size:0.7rem;color:#aaa;text-decoration:none;">📄 ABAL: 97,3% latas recicladas (2024)</a>
@@ -1263,7 +1266,7 @@
                 </div>
 
                 <!-- FEED DE ATIVIDADES -->
-                <div class="dashboard-card" style="margin-top: 40px; border: 1px solid #444;">
+                <div class="dashboard-card" style="margin-top: 28px; border: 1px solid #444;">
                     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
                         <h3 style="color: var(--verde);">🏁 Últimas Acelerações</h3>
                         <span style="font-size: 0.75rem; color: #888;">Doações recentes dos participantes</span>
