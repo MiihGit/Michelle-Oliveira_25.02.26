@@ -806,10 +806,10 @@
         
         /* RESPONSIVO - TABLET E MENOR */
         @media(max-width:768px){
-            .hero{flex-direction:column;text-align:center;height:auto;padding:50px 20px;}
+            .hero{flex-direction:column;text-align:center;height:auto;padding:50px 20px;min-height:35vh;}
             .senna-img{height:250px;margin-top:20px;}
             .grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));}
-            section{padding:80px 5%;}
+            section{padding:55px 5%;}
             .sobre-content{flex-direction:column;text-align:center;}
             .sobre-content img{max-width:100%;}
             .dashboard-header{flex-direction:column;gap:15px;text-align:center;}
@@ -838,42 +838,45 @@
             .nav-bar{padding:10px 4%;}
             .logo{font-size:1rem;}
             .sidebar{width:220px;right:-230px;}
-            .hero{padding:30px 15px;margin-top:60px;}
-            .hero-content p{font-size:0.9rem;line-height:1.6;}
+            .hero{padding:35px 18px;margin-top:60px;min-height:30vh;}
+            .hero-content h1{font-size:2rem;}
+            .hero-content p{font-size:0.95rem;line-height:1.7;margin-top:10px;}
             .senna-img{height:180px;}
             section{padding:40px 4%;}
             .section-title{margin-bottom:25px;}
             .grid{grid-template-columns:1fr;}
             .card img{height:120px;}
             .card-info{padding:12px;}
-            .card-info p{font-size:0.82rem;line-height:1.55;}
+            .card-info p{font-size:0.88rem;line-height:1.6;}
+            .sobre-texto p{font-size:0.95rem!important;line-height:1.7;}
             .form-box,.auth-box{padding:25px 15px;margin:0 10px;}
-            h2{font-size:clamp(1rem, 4vw, 1.3rem);}
-            h3{font-size:clamp(0.9rem, 3.5vw, 1.1rem);}
-            input,select,button{padding:10px;font-size:0.9rem;}
+            h2{font-size:clamp(1.1rem, 4.5vw, 1.4rem);}
+            h3{font-size:clamp(1rem, 4vw, 1.2rem);}
+            input,select,button{padding:11px;font-size:0.95rem;}
             .step-container{gap:15px;}
             .step-box{padding:20px;max-width:100%;}
-            .step-box p{font-size:0.82rem;line-height:1.5;}
+            .step-box p{font-size:0.88rem;line-height:1.55;}
+            .step-box h3{font-size:1rem;}
             .placar-banner{padding:12px 15px;width:95%;}
             .placar-banner p{font-size:0.85rem;}
             .placar-banner h2{font-size:1.1rem;}
             .feed-container{padding:15px;}
             .feed-item{gap:10px;padding:10px;}
             .feed-icon{width:32px;height:32px;font-size:1rem;}
-            .feed-text{font-size:0.8rem;}
+            .feed-text{font-size:0.85rem;}
             .tabela-wrapper{border-radius:8px;}
-            th,td{padding:10px 8px;font-size:0.8rem;}
-            .btn-edit,.btn-delete,.btn-reset{padding:6px 8px;font-size:0.7rem;margin-bottom:3px;display:inline-block;}
+            th,td{padding:10px 8px;font-size:0.82rem;}
+            .btn-edit,.btn-delete,.btn-reset{padding:6px 8px;font-size:0.72rem;margin-bottom:3px;display:inline-block;}
             .admin-tabs{gap:5px;}
-            .tab-btn{padding:12px;font-size:0.85rem;}
-            .dashboard-card{padding:15px;}
+            .tab-btn{padding:12px;font-size:0.88rem;}
+            .dashboard-card{padding:15px!important;}
             .dashboard-header h1{font-size:1.2rem;}
-            .btn-sair{padding:8px 12px;font-size:0.8rem;}
+            .btn-sair{padding:8px 12px;font-size:0.85rem;}
             .filtro-container{flex-direction:column;align-items:stretch;}
             .filtro-container label{margin-bottom:0;}
             .filtro-container input[type=date]{width:100%!important;}
             .filtro-container button{width:100%!important;}
-            footer{padding:25px;font-size:0.85rem;line-height:1.8;}
+            footer{padding:25px 15px;font-size:0.85rem;line-height:1.8;}
             .ranking-grid{gap:15px;}
             .rank-card{max-width:100%;padding:15px;}
             .meta-info{flex-direction:column;gap:5px;text-align:center;}
@@ -882,33 +885,46 @@
             .impact-section,.potenciometro-section{padding:25px 15px;}
             .impact-card{padding:18px 12px;}
             .impact-value{font-size:1.6rem;}
-            .impact-detail{font-size:0.72rem;}
+            .impact-label{font-size:0.82rem;}
+            .impact-detail{font-size:0.78rem;line-height:1.5;}
             .poten-value{font-size:1.4rem;}
             .poten-comparacao{grid-template-columns:1fr;}
             .poten-grid{grid-template-columns:1fr;}
-            .poten-periodo{gap:5px;}
-            .poten-btn{padding:8px 14px;font-size:0.8rem;}
+            .poten-periodo{gap:5px;flex-wrap:wrap;}
+            .poten-btn{padding:8px 14px;font-size:0.82rem;}
             .painel-impacto{padding:20px 12px;}
             .painel-stats{gap:15px;}
             .painel-stat .stat-valor{font-size:1.1rem;}
+            .painel-stat .stat-rotulo{font-size:0.78rem;}
+            .painel-hero .rotulo{font-size:0.82rem;}
+            /* Esconde badges técnicos minúsculos no mobile */
+            .painel-impacto > div:first-child{display:none;}
+            #importancia-reciclagem > div:first-child{display:none;}
             .simul-col-numero{font-size:1.3rem;}
             .simul-footer{flex-direction:column;text-align:center;gap:6px;}
             .simul-footer .sf-badge{display:none;}
+            .simul-footer .sf-texto{font-size:0.82rem;}
+            /* Quiz */
             .quiz-modal{padding:25px 18px;}
-            .quiz-pergunta-texto{font-size:1rem;}
-            .quiz-opcao{font-size:0.88rem;padding:13px 15px;}
+            .quiz-pergunta-texto{font-size:1rem;line-height:1.5;}
+            .quiz-opcao{font-size:0.9rem;padding:13px 15px;}
+            /* Flip cards */
             .decomp-grid{grid-template-columns:1fr;}
-            .decomp-card{height:280px;}
+            .decomp-card{height:270px;}
+            /* Citação */
+            .sobre-texto ul li{font-size:0.9rem;line-height:1.6;}
         }
 
         /* RESPONSIVO - CELULAR MUITO PEQUENO */
         @media(max-width:360px){
             .logo{font-size:0.9rem;}
+            .hero-content h1{font-size:1.7rem;}
             .hero-content p{font-size:0.85rem;}
-            .card-info p{font-size:0.78rem;}
+            .card-info p{font-size:0.82rem;}
             .painel-hero .numero-principal{font-size:1.8rem;}
             .impact-value{font-size:1.4rem;}
             .step-box h3{font-size:0.95rem;}
+            h2{font-size:1rem;}
         }
     </style>
 </head>
