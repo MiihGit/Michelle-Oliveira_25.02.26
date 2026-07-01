@@ -4,7 +4,8 @@
     { "src": "server.js", "use": "@vercel/node" },
     { "src": "index.html", "use": "@vercel/static" },
     { "src": "manifest.json", "use": "@vercel/static" },
-    { "src": "sw.js", "use": "@vercel/static" }
+    { "src": "sw.js", "use": "@vercel/static" },
+    { "src": "assets/**", "use": "@vercel/static" }
   ],
   "routes": [
     { "src": "/enviar-email", "dest": "/server.js" },
