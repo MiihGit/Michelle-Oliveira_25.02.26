@@ -1101,7 +1101,7 @@
             </div>
             <button class="a11y-opcao" id="a11y-contraste-btn" onclick="alternarContraste()" aria-pressed="false">🌓 Alto contraste</button>
             <button class="a11y-opcao" id="a11y-sublinhado-btn" onclick="alternarSublinhado()" aria-pressed="false">🔗 Sublinhar links</button>
-            <button class="a11y-opcao" id="a11y-libras-btn" onclick="alternarLibras()" aria-pressed="false">🤟 Tradutor de Libras</button>
+            <button class="a11y-opcao" id="a11y-libras-btn" onclick="alternarLibras()">🤟 Tradutor de Libras</button>
             <button class="a11y-opcao" id="a11y-leitura-btn" onclick="alternarLeitura()" aria-pressed="false">🔊 Ouvir texto</button>
             <button class="a11y-opcao" id="a11y-animacao-btn" onclick="alternarAnimacoes()" aria-pressed="false">⏸ Pausar animações</button>
         </div>
@@ -4356,7 +4356,6 @@
                     passoFonte: parseInt(localStorage.getItem('a11yPassoFonte') || '0', 10),
                     contraste: localStorage.getItem('a11yContraste') === '1',
                     sublinhado: localStorage.getItem('a11ySublinhado') === '1',
-                    libras: localStorage.getItem('a11yLibras') === '1',
                     semAnimacao: localStorage.getItem('a11ySemAnimacao') === '1'
                 };
             }
@@ -4385,32 +4384,12 @@
                 document.getElementById('a11y-sublinhado-btn').setAttribute('aria-pressed', ativo);
             };
 
-            var librasCarregado = false;
             window.alternarLibras = function(){
-                var btn = document.getElementById('a11y-libras-btn');
-                var ativo = btn.getAttribute('aria-pressed') === 'true';
-                ativo = !ativo;
-                btn.setAttribute('aria-pressed', ativo);
-                localStorage.setItem('a11yLibras', ativo ? '1' : '0');
-
-                if (!librasCarregado) {
-                    if (!ativo) return;
-                    librasCarregado = true;
-                    var container = document.createElement('div');
-                    container.setAttribute('vw', '');
-                    container.className = 'enabled';
-                    container.innerHTML = '<div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div>';
-                    container.id = 'vlibras-container';
-                    document.body.appendChild(container);
-                    var script = document.createElement('script');
-                    script.src = 'https://vlibras.gov.br/app/vlibras-plugin.js';
-                    script.onload = function(){
-                        new window.VLibras.Widget('https://vlibras.gov.br/app');
-                    };
-                    document.body.appendChild(script);
+                var vwBtn = document.querySelector('[vw-access-button]');
+                if (vwBtn) {
+                    vwBtn.click();
                 } else {
-                    var el = document.getElementById('vlibras-container');
-                    if (el) el.style.display = ativo ? '' : 'none';
+                    alert('O tradutor de Libras ainda está carregando, tente novamente em alguns segundos.');
                 }
             };
 
@@ -4490,11 +4469,24 @@
                 document.getElementById('a11y-contraste-btn').setAttribute('aria-pressed', estadoSalvo.contraste);
                 document.getElementById('a11y-sublinhado-btn').setAttribute('aria-pressed', estadoSalvo.sublinhado);
                 document.getElementById('a11y-animacao-btn').setAttribute('aria-pressed', estadoSalvo.semAnimacao);
-                if (estadoSalvo.libras) {
-                    window.alternarLibras();
-                }
             });
         })();
+    </script>
+
+    <!-- ===== WIDGET VLIBRAS (TRADUTOR DE LIBRAS) ===== -->
+    <div vw class="enabled" id="vlibras-container">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        try {
+            new window.VLibras.Widget('https://vlibras.gov.br/app');
+        } catch (e) {
+            console.warn('VLibras não pôde ser carregado:', e);
+        }
     </script>
 
 </body>
