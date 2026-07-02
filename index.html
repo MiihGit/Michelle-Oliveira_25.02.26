@@ -1066,6 +1066,13 @@
         /* Sublinhar todos os links, para facilitar identificação */
         body.a11y-sublinhado a{text-decoration:underline !important;}
 
+        /* Pausa manual de animações (carrossel do hero, contadores, etc.) */
+        body.a11y-sem-animacao *{
+            animation-duration:.01ms !important;
+            animation-iteration-count:1 !important;
+            transition-duration:.01ms !important;
+        }
+
         /* Respeita a preferência do usuário por menos animação */
         @media (prefers-reduced-motion: reduce){
             *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;}
@@ -1095,6 +1102,8 @@
             <button class="a11y-opcao" id="a11y-contraste-btn" onclick="alternarContraste()" aria-pressed="false">🌓 Alto contraste</button>
             <button class="a11y-opcao" id="a11y-sublinhado-btn" onclick="alternarSublinhado()" aria-pressed="false">🔗 Sublinhar links</button>
             <button class="a11y-opcao" id="a11y-libras-btn" onclick="alternarLibras()" aria-pressed="false">🤟 Tradutor de Libras</button>
+            <button class="a11y-opcao" id="a11y-leitura-btn" onclick="alternarLeitura()" aria-pressed="false">🔊 Ouvir texto</button>
+            <button class="a11y-opcao" id="a11y-animacao-btn" onclick="alternarAnimacoes()" aria-pressed="false">⏸ Pausar animações</button>
         </div>
     </div>
 
@@ -4347,7 +4356,8 @@
                     passoFonte: parseInt(localStorage.getItem('a11yPassoFonte') || '0', 10),
                     contraste: localStorage.getItem('a11yContraste') === '1',
                     sublinhado: localStorage.getItem('a11ySublinhado') === '1',
-                    libras: localStorage.getItem('a11yLibras') === '1'
+                    libras: localStorage.getItem('a11yLibras') === '1',
+                    semAnimacao: localStorage.getItem('a11ySemAnimacao') === '1'
                 };
             }
 
@@ -4404,6 +4414,37 @@
                 }
             };
 
+            window.alternarLeitura = function(){
+                var btn = document.getElementById('a11y-leitura-btn');
+                if (!('speechSynthesis' in window)) {
+                    alert('Seu navegador não suporta leitura em voz alta.');
+                    return;
+                }
+                if (window.speechSynthesis.speaking) {
+                    window.speechSynthesis.cancel();
+                    btn.setAttribute('aria-pressed', 'false');
+                    btn.textContent = '🔊 Ouvir texto';
+                    return;
+                }
+                var conteudo = document.getElementById('main-content');
+                var texto = (conteudo ? conteudo.innerText : document.body.innerText).trim();
+                var utter = new SpeechSynthesisUtterance(texto);
+                utter.lang = 'pt-BR';
+                utter.onend = function(){
+                    btn.setAttribute('aria-pressed', 'false');
+                    btn.textContent = '🔊 Ouvir texto';
+                };
+                window.speechSynthesis.speak(utter);
+                btn.setAttribute('aria-pressed', 'true');
+                btn.textContent = '⏹ Parar leitura';
+            };
+
+            window.alternarAnimacoes = function(){
+                var ativo = document.body.classList.toggle('a11y-sem-animacao');
+                localStorage.setItem('a11ySemAnimacao', ativo ? '1' : '0');
+                document.getElementById('a11y-animacao-btn').setAttribute('aria-pressed', ativo);
+            };
+
             window.toggleA11yPainel = function(){
                 var painel = document.getElementById('a11y-painel');
                 var toggle = document.getElementById('a11y-toggle');
@@ -4442,9 +4483,13 @@
             if (estadoSalvo.sublinhado) {
                 document.body.classList.add('a11y-sublinhado');
             }
+            if (estadoSalvo.semAnimacao) {
+                document.body.classList.add('a11y-sem-animacao');
+            }
             document.addEventListener('DOMContentLoaded', function(){
                 document.getElementById('a11y-contraste-btn').setAttribute('aria-pressed', estadoSalvo.contraste);
                 document.getElementById('a11y-sublinhado-btn').setAttribute('aria-pressed', estadoSalvo.sublinhado);
+                document.getElementById('a11y-animacao-btn').setAttribute('aria-pressed', estadoSalvo.semAnimacao);
                 if (estadoSalvo.libras) {
                     window.alternarLibras();
                 }
