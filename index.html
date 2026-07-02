@@ -16,11 +16,48 @@
             --azul:#002776;
             --preto:#0a0a0a;
             --cinza:#1a1a1a;
+            --vermelho:#e10600;
         }
 
         *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;overflow-wrap:break-word;word-break:break-word;}
 
         body{background:var(--preto);color:#fff;overflow-x:hidden;}
+        body.intro-ativa{overflow:hidden;height:100vh;}
+
+        /* ABERTURA — semáforo de largada */
+        #intro-overlay{
+            position:fixed;inset:0;z-index:99999;
+            display:flex;flex-direction:column;align-items:center;justify-content:center;
+            background:var(--preto);
+            transition:opacity .5s ease;
+        }
+        #intro-overlay.intro-saindo{opacity:0;pointer-events:none;}
+        .intro-skip-btn{
+            position:absolute;top:20px;right:20px;
+            background:transparent;border:1px solid #666;color:#ccc;
+            padding:8px 18px;font-size:.8rem;font-weight:700;letter-spacing:.5px;
+            text-transform:uppercase;cursor:pointer;border-radius:20px;
+            transition:.2s;
+        }
+        .intro-skip-btn:hover{border-color:var(--amarelo);color:var(--amarelo);}
+        .intro-lights{display:flex;gap:22px;margin-bottom:26px;}
+        .intro-light{
+            width:36px;height:36px;border-radius:50%;
+            background:#2a2a2a;border:3px solid #444;
+            box-shadow:inset 0 0 8px #000;
+            transition:.25s;
+        }
+        .intro-light.red.on{background:var(--vermelho);border-color:#ff4d42;box-shadow:0 0 22px var(--vermelho);}
+        .intro-light.yellow.on{background:var(--amarelo);border-color:#fff3a0;box-shadow:0 0 22px var(--amarelo);}
+        .intro-light.green.on{background:var(--verde);border-color:#3fd18e;box-shadow:0 0 28px var(--verde);}
+        .intro-titulo{font-weight:900;font-style:italic;font-size:1.4rem;letter-spacing:1px;opacity:.85;}
+        .intro-titulo span{color:var(--amarelo);}
+        .intro-sub{margin-top:8px;color:#888;font-size:.85rem;letter-spacing:2px;text-transform:uppercase;}
+        .intro-go{
+            position:absolute;font-weight:900;font-style:italic;font-size:3rem;color:var(--verde);
+            opacity:0;transform:scale(.7);transition:.35s;text-shadow:0 0 30px rgba(0,135,81,.7);
+        }
+        .intro-go.show{opacity:1;transform:scale(1);}
 
         /* NAV */
         .nav-bar{
@@ -942,7 +979,21 @@
         }
     </style>
 </head>
-<body>
+<body class="intro-ativa">
+
+    <!-- ===== ABERTURA (SEMÁFORO DE LARGADA) ===== -->
+    <div id="intro-overlay">
+        <button class="intro-skip-btn" onclick="pularAbertura()">Pular ⏭</button>
+        <div class="intro-lights">
+            <div class="intro-light red" id="intro-l1"></div>
+            <div class="intro-light red" id="intro-l2"></div>
+            <div class="intro-light yellow" id="intro-l3"></div>
+            <div class="intro-light green" id="intro-l4"></div>
+        </div>
+        <div class="intro-go" id="intro-go">VAI!</div>
+        <div class="intro-titulo">SENNA <span>RECICLA</span></div>
+        <div class="intro-sub">preparando a largada...</div>
+    </div>
 
     <!-- ===== BARRA DE NAVEGAÇÃO ===== -->
     <nav class="nav-bar">
@@ -4096,6 +4147,38 @@
                 }
             }
         }
+    </script>
+
+    <!-- ===== SCRIPT DA ABERTURA (SEMÁFORO) ===== -->
+    <script>
+        (function(){
+            var overlay = document.getElementById('intro-overlay');
+            var lightIds = ['intro-l1', 'intro-l2', 'intro-l3', 'intro-l4'];
+            var finalizada = false;
+
+            function finalizarAbertura(){
+                if (finalizada) return;
+                finalizada = true;
+                overlay.classList.add('intro-saindo');
+                document.body.classList.remove('intro-ativa');
+                setTimeout(function(){ overlay.style.display = 'none'; }, 500);
+            }
+
+            function rodarSequencia(){
+                lightIds.forEach(function(id, i){
+                    setTimeout(function(){
+                        document.getElementById(id).classList.add('on');
+                    }, 400 * (i + 1));
+                });
+                setTimeout(function(){
+                    document.getElementById('intro-go').classList.add('show');
+                }, 400 * lightIds.length + 300);
+                setTimeout(finalizarAbertura, 400 * lightIds.length + 1400);
+            }
+
+            window.pularAbertura = finalizarAbertura;
+            rodarSequencia();
+        })();
     </script>
 
 </body>

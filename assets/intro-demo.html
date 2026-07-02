@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo — Telas de Abertura | Senna Recicla</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+    --amarelo:#FFD700;
+    --verde:#008751;
+    --preto:#0a0a0a;
+    --vermelho:#e10600;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{background:var(--preto);color:#fff;overflow-x:hidden;}
+
+/* ---------- picker (only for this demo page) ---------- */
+.picker{
+    position:fixed;top:0;left:0;right:0;z-index:9999;
+    display:flex;gap:8px;justify-content:center;padding:10px;
+    background:#111;border-bottom:1px solid #333;flex-wrap:wrap;
+}
+.picker button{
+    background:#1c1c1c;color:#fff;border:1px solid #444;padding:8px 16px;
+    font-weight:700;font-size:.85rem;cursor:pointer;border-radius:4px;
+}
+.picker button.active{background:var(--amarelo);color:#0a0a0a;border-color:var(--amarelo);}
+.picker button:hover{border-color:var(--amarelo);}
+.stage{padding-top:52px;}
+
+/* ---------- shared intro shell ---------- */
+.intro{
+    position:relative;height:calc(100vh - 52px);width:100%;
+    display:flex;align-items:center;justify-content:center;flex-direction:column;
+    overflow:hidden;background:var(--preto);
+}
+.skip-btn{
+    position:absolute;top:20px;right:20px;z-index:10;
+    background:transparent;border:1px solid #666;color:#ccc;
+    padding:8px 18px;font-size:.8rem;font-weight:700;letter-spacing:.5px;
+    text-transform:uppercase;cursor:pointer;border-radius:20px;
+    transition:.2s;
+}
+.skip-btn:hover{border-color:var(--amarelo);color:var(--amarelo);}
+
+/* ---------- reveal target (fake hero) ---------- */
+.reveal-hero{
+    display:none;height:calc(100vh - 52px);width:100%;
+    align-items:center;justify-content:center;text-align:center;flex-direction:column;
+    background:linear-gradient(to top,var(--preto),transparent), url('img/senna-01.jpg') center top/cover no-repeat;
+}
+.reveal-hero.show{display:flex;animation:fadeIn .8s ease;}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.reveal-hero h1{font-size:clamp(2rem,6vw,3.5rem);font-weight:900;font-style:italic;letter-spacing:-1px;}
+.reveal-hero h1 span{color:var(--amarelo);}
+.reveal-hero p{margin-top:10px;color:#ddd;}
+
+/* =========================================================
+   OPTION 1 — SEMÁFORO DE LARGADA (starting lights)
+   ========================================================= */
+.op1-lights{display:flex;gap:22px;margin-bottom:26px;}
+.op1-light{
+    width:36px;height:36px;border-radius:50%;
+    background:#2a2a2a;border:3px solid #444;
+    box-shadow:inset 0 0 8px #000;
+    transition:.25s;
+}
+.op1-light.red.on{background:var(--vermelho);border-color:#ff4d42;box-shadow:0 0 22px var(--vermelho);}
+.op1-light.yellow.on{background:var(--amarelo);border-color:#fff3a0;box-shadow:0 0 22px var(--amarelo);}
+.op1-light.green.on{background:var(--verde);border-color:#3fd18e;box-shadow:0 0 28px var(--verde);}
+.op1-title{font-weight:900;font-style:italic;font-size:1.4rem;letter-spacing:1px;opacity:.85;}
+.op1-title span{color:var(--amarelo);}
+.op1-sub{margin-top:8px;color:#888;font-size:.85rem;letter-spacing:2px;text-transform:uppercase;}
+.op1-go{
+    position:absolute;font-weight:900;font-style:italic;font-size:3rem;color:var(--verde);
+    opacity:0;transform:scale(.7);transition:.35s;text-shadow:0 0 30px rgba(0,135,81,.7);
+}
+.op1-go.show{opacity:1;transform:scale(1);}
+
+/* =========================================================
+   OPTION 2 — BANDEIRA QUADRICULADA (checkered flag)
+   ========================================================= */
+.op2-flag-wrap{perspective:600px;margin-bottom:10px;}
+.op2-flag{
+    width:min(70vw,420px);height:min(45vw,260px);
+    background-image:
+        linear-gradient(45deg,#111 25%,transparent 25%),
+        linear-gradient(-45deg,#111 25%,transparent 25%),
+        linear-gradient(45deg,transparent 75%,#111 75%),
+        linear-gradient(-45deg,transparent 75%,#111 75%);
+    background-size:40px 40px;
+    background-position:0 0,0 20px,20px -20px,-20px 0px;
+    background-color:#eee;
+    animation:wave 2.2s ease-in-out infinite;
+    transform-origin:left center;
+    box-shadow:0 10px 40px rgba(0,0,0,.6);
+}
+@keyframes wave{
+    0%,100%{transform:rotateY(0deg) skewY(0deg);}
+    50%{transform:rotateY(8deg) skewY(1.5deg);}
+}
+.op2-title{
+    margin-top:26px;font-weight:900;font-style:italic;font-size:2rem;letter-spacing:1px;
+    opacity:0;animation:op2fade .6s ease .4s forwards;
+}
+.op2-title span{color:var(--amarelo);}
+@keyframes op2fade{to{opacity:1;}}
+.op2-enter{
+    margin-top:22px;background:var(--verde);color:#fff;border:none;
+    padding:12px 34px;font-size:1rem;font-weight:900;letter-spacing:1px;
+    text-transform:uppercase;border-radius:4px;cursor:pointer;
+    opacity:0;animation:op2fade .6s ease .8s forwards;
+}
+.op2-enter:hover{background:#00a862;}
+
+/* =========================================================
+   OPTION 3 — VELOCÍMETRO ACELERANDO (rev gauge)
+   ========================================================= */
+.op3-gauge{position:relative;width:240px;height:240px;margin-bottom:10px;}
+.op3-gauge svg{width:100%;height:100%;transform:rotate(-90deg);}
+.op3-track{fill:none;stroke:#2a2a2a;stroke-width:14;}
+.op3-fill{
+    fill:none;stroke:var(--amarelo);stroke-width:14;stroke-linecap:round;
+    stroke-dasharray:502;stroke-dashoffset:502;
+    animation:op3fill 2.4s cubic-bezier(.2,.7,.3,1) forwards;
+    filter:drop-shadow(0 0 8px var(--amarelo));
+}
+@keyframes op3fill{
+    0%{stroke-dashoffset:502;stroke:var(--verde);}
+    70%{stroke:var(--amarelo);}
+    100%{stroke-dashoffset:40;stroke:var(--vermelho);}
+}
+.op3-rpm{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    flex-direction:column;
+}
+.op3-rpm b{font-size:2.4rem;font-weight:900;font-style:italic;}
+.op3-rpm span{font-size:.75rem;color:#888;letter-spacing:2px;text-transform:uppercase;margin-top:4px;}
+.op3-title{
+    margin-top:14px;font-weight:900;font-style:italic;font-size:1.4rem;
+    opacity:0;animation:op2fade .5s ease 2.2s forwards;
+}
+.op3-title span{color:var(--amarelo);}
+
+.panel{display:none;}
+.panel.active{display:block;}
+</style>
+</head>
+<body>
+
+<div class="picker">
+    <button class="opt-btn active" data-panel="p1">1 — Semáforo de largada</button>
+    <button class="opt-btn" data-panel="p2">2 — Bandeira quadriculada</button>
+    <button class="opt-btn" data-panel="p3">3 — Velocímetro acelerando</button>
+</div>
+
+<div class="stage">
+
+    <!-- ===================== PANEL 1 ===================== -->
+    <div class="panel active" id="p1">
+        <div class="intro" id="intro1">
+            <button class="skip-btn" onclick="reveal('r1')">Pular ⏭</button>
+            <div class="op1-lights">
+                <div class="op1-light red" id="l1-1"></div>
+                <div class="op1-light red" id="l1-2"></div>
+                <div class="op1-light yellow" id="l1-3"></div>
+                <div class="op1-light green" id="l1-4"></div>
+            </div>
+            <div class="op1-go" id="l1-go">VAI!</div>
+            <div class="op1-title">SENNA <span>RECICLA</span></div>
+            <div class="op1-sub">preparando a largada...</div>
+        </div>
+        <div class="reveal-hero" id="r1">
+            <h1>RUMO À <span>VITÓRIA</span></h1>
+            <p>Inspirado em Ayrton Senna, transformamos reciclagem em conquista.</p>
+        </div>
+    </div>
+
+    <!-- ===================== PANEL 2 ===================== -->
+    <div class="panel" id="p2">
+        <div class="intro" id="intro2">
+            <button class="skip-btn" onclick="reveal('r2')">Pular ⏭</button>
+            <div class="op2-flag-wrap"><div class="op2-flag"></div></div>
+            <div class="op2-title">SENNA <span>RECICLA</span></div>
+            <button class="op2-enter" onclick="reveal('r2')">Entrar na pista →</button>
+        </div>
+        <div class="reveal-hero" id="r2">
+            <h1>RUMO À <span>VITÓRIA</span></h1>
+            <p>Inspirado em Ayrton Senna, transformamos reciclagem em conquista.</p>
+        </div>
+    </div>
+
+    <!-- ===================== PANEL 3 ===================== -->
+    <div class="panel" id="p3">
+        <div class="intro" id="intro3">
+            <button class="skip-btn" onclick="reveal('r3')">Pular ⏭</button>
+            <div class="op3-gauge">
+                <svg viewBox="0 0 180 180">
+                    <circle class="op3-track" cx="90" cy="90" r="80"/>
+                    <circle class="op3-fill" cx="90" cy="90" r="80"/>
+                </svg>
+                <div class="op3-rpm"><b id="rpm-num">0</b><span>RPM x1000</span></div>
+            </div>
+            <div class="op3-title">SENNA <span>RECICLA</span></div>
+        </div>
+        <div class="reveal-hero" id="r3">
+            <h1>RUMO À <span>VITÓRIA</span></h1>
+            <p>Inspirado em Ayrton Senna, transformamos reciclagem em conquista.</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+// ---- panel switcher (demo only) ----
+document.querySelectorAll('.opt-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+        document.querySelectorAll('.opt-btn').forEach(b=>b.classList.remove('active'));
+        document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.panel).classList.add('active');
+        restart(btn.dataset.panel);
+    });
+});
+
+function reveal(id){
+    document.getElementById(id).classList.add('show');
+    document.getElementById(id).previousElementSibling.style.display='none';
+}
+
+// ---- Option 1: sequential lights ----
+function runOption1(){
+    const ids=['l1-1','l1-2','l1-3','l1-4'];
+    ids.forEach(id=>document.getElementById(id).classList.remove('on'));
+    document.getElementById('l1-go').classList.remove('show');
+    ids.forEach((id,i)=>{
+        setTimeout(()=>document.getElementById(id).classList.add('on'), 400*(i+1));
+    });
+    setTimeout(()=>{
+        document.getElementById('l1-go').classList.add('show');
+    }, 400*ids.length + 300);
+    setTimeout(()=>reveal('r1'), 400*ids.length + 1400);
+}
+
+// ---- Option 3: rpm number ticking ----
+function runOption3(){
+    const el=document.getElementById('rpm-num');
+    let start=null;
+    const duration=2400;
+    function step(ts){
+        if(!start) start=ts;
+        const p=Math.min((ts-start)/duration,1);
+        el.textContent=Math.floor(p*p*9);
+        if(p<1) requestAnimationFrame(step);
+        else el.textContent='9';
+    }
+    requestAnimationFrame(step);
+    setTimeout(()=>reveal('r3'), duration + 900);
+}
+
+function restart(panel){
+    if(panel==='p1'){
+        document.getElementById('r1').classList.remove('show');
+        document.getElementById('intro1').style.display='flex';
+        runOption1();
+    }
+    if(panel==='p2'){
+        document.getElementById('r2').classList.remove('show');
+        document.getElementById('intro2').style.display='flex';
+    }
+    if(panel==='p3'){
+        document.getElementById('r3').classList.remove('show');
+        document.getElementById('intro3').style.display='flex';
+        runOption3();
+    }
+}
+
+// init first panel
+runOption1();
+</script>
+</body>
+</html>
