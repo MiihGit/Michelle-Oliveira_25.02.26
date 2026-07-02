@@ -83,6 +83,18 @@
             padding:10px;
         }
 
+        .fullscreen-btn{
+            font-size:1.3rem;
+            cursor:pointer;
+            color:var(--amarelo);
+            padding:10px;
+            transition:.2s;
+        }
+        .fullscreen-btn:hover{color:var(--verde);}
+        @media(max-width:768px){
+            .fullscreen-btn{display:none;}
+        }
+
         .nav-right {
             display: flex;
             align-items: center;
@@ -1000,6 +1012,9 @@
         <div class="logo" onclick="voltarParaHome()">Senna<span>Recicla</span></div>
         <div class="nav-right">
             <div id="nav-user-greeting" class="hidden"></div>
+            <div class="fullscreen-btn" id="fullscreen-btn" onclick="alternarTelaCheia()" title="Tela cheia">
+                <i class="fas fa-expand" id="fullscreen-icon"></i>
+            </div>
             <div class="menu-btn" onclick="openMenu()">
                 <i class="fas fa-bars"></i>
             </div>
@@ -4179,6 +4194,36 @@
             window.pularAbertura = finalizarAbertura;
             rodarSequencia();
         })();
+    </script>
+
+    <!-- ===== SCRIPT DE TELA CHEIA ===== -->
+    <script>
+        function alternarTelaCheia(){
+            var elem = document.documentElement;
+            if (!document.fullscreenElement) {
+                if (elem.requestFullscreen) elem.requestFullscreen();
+                else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+                else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
+            } else {
+                if (document.exitFullscreen) document.exitFullscreen();
+                else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                else if (document.msExitFullscreen) document.msExitFullscreen();
+            }
+        }
+
+        document.addEventListener('fullscreenchange', atualizarIconeTelaCheia);
+        document.addEventListener('webkitfullscreenchange', atualizarIconeTelaCheia);
+        document.addEventListener('msfullscreenchange', atualizarIconeTelaCheia);
+
+        function atualizarIconeTelaCheia(){
+            var icone = document.getElementById('fullscreen-icon');
+            var btn = document.getElementById('fullscreen-btn');
+            if (!icone) return;
+            var ativa = !!document.fullscreenElement;
+            icone.classList.toggle('fa-expand', !ativa);
+            icone.classList.toggle('fa-compress', ativa);
+            btn.title = ativa ? 'Sair da tela cheia' : 'Tela cheia';
+        }
     </script>
 
 </body>
