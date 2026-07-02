@@ -21,6 +21,11 @@
 
         *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;overflow-wrap:break-word;word-break:break-word;}
 
+        /* Tipografia fluida: como quase todo texto do site usa "rem", o tamanho
+           base escala continuamente com a largura da tela (320px a 768px),
+           em vez de saltar apenas nos breakpoints fixos. */
+        html{font-size:clamp(14px, 0.45vw + 12.57px, 16px);}
+
         body{background:var(--preto);color:#fff;overflow-x:hidden;}
         body.intro-ativa{overflow:hidden;height:100vh;}
 
