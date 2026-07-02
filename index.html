@@ -24,7 +24,7 @@
         /* Tipografia fluida: como quase todo texto do site usa "rem", o tamanho
            base escala continuamente com a largura da tela (320px a 768px),
            em vez de saltar apenas nos breakpoints fixos. */
-        html{font-size:clamp(14px, 0.45vw + 12.57px, 16px);}
+        html{font-size:calc(clamp(14px, 0.45vw + 12.57px, 16px) * var(--a11y-mult, 1));}
 
         body{background:var(--preto);color:#fff;overflow-x:hidden;}
         body.intro-ativa{overflow:hidden;height:100vh;}
@@ -994,9 +994,109 @@
             .step-box h3{font-size:0.95rem;}
             h2{font-size:1rem;}
         }
+
+        /* ===== ACESSIBILIDADE ===== */
+
+        /* Oculta visualmente mas mantém acessível para leitores de tela */
+        .visually-hidden{
+            position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+            overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+        }
+
+        /* Link para pular direto ao conteúdo (usuários de teclado/leitor de tela) */
+        .skip-link{
+            position:absolute;top:-60px;left:10px;z-index:100000;
+            background:var(--amarelo);color:#000;padding:10px 18px;
+            font-weight:900;border-radius:4px;text-decoration:none;
+            transition:top .2s;
+        }
+        .skip-link:focus{top:10px;}
+
+        /* Indicador de foco visível para navegação por teclado */
+        a:focus-visible, button:focus-visible, [role="button"]:focus-visible,
+        input:focus-visible, select:focus-visible, textarea:focus-visible{
+            outline:3px solid var(--amarelo);
+            outline-offset:2px;
+        }
+
+        /* Widget flutuante de acessibilidade */
+        #a11y-widget{position:fixed;bottom:20px;left:20px;z-index:99998;}
+        #a11y-toggle{
+            width:52px;height:52px;border-radius:50%;
+            background:var(--amarelo);color:#0a0a0a;border:none;
+            font-size:1.4rem;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.5);
+        }
+        #a11y-toggle:hover{background:#ffe14d;}
+        #a11y-painel{
+            position:absolute;bottom:64px;left:0;width:240px;
+            background:var(--cinza);border:1px solid var(--amarelo);border-radius:10px;
+            padding:16px;box-shadow:0 6px 24px rgba(0,0,0,.6);
+        }
+        #a11y-painel.hidden{display:none;}
+        #a11y-painel h3{font-size:1rem;color:var(--amarelo);margin-bottom:12px;}
+        .a11y-linha{margin-bottom:12px;}
+        .a11y-linha span{display:block;font-size:.8rem;color:#ccc;margin-bottom:6px;}
+        .a11y-botoes{display:flex;gap:6px;}
+        .a11y-botoes button{
+            flex:1;background:#2a2a2a;color:#fff;border:1px solid #555;
+            padding:8px 4px;font-size:.8rem;font-weight:700;border-radius:4px;cursor:pointer;
+        }
+        .a11y-botoes button:hover{border-color:var(--amarelo);}
+        .a11y-opcao{
+            width:100%;text-align:left;background:#2a2a2a;color:#fff;border:1px solid #555;
+            padding:9px 10px;font-size:.82rem;border-radius:4px;cursor:pointer;margin-top:8px;
+        }
+        .a11y-opcao:hover{border-color:var(--amarelo);}
+        .a11y-opcao[aria-pressed="true"]{background:var(--verde);border-color:var(--verde);}
+
+        /* Modo de alto contraste */
+        body.a11y-contraste, body.a11y-contraste *{
+            background-color:#000 !important;
+            color:#fff !important;
+            border-color:#ffeb3b !important;
+            text-shadow:none !important;
+            box-shadow:none !important;
+        }
+        body.a11y-contraste a,
+        body.a11y-contraste button,
+        body.a11y-contraste .amarelo{
+            color:#ffeb3b !important;
+        }
+
+        /* Sublinhar todos os links, para facilitar identificação */
+        body.a11y-sublinhado a{text-decoration:underline !important;}
+
+        /* Respeita a preferência do usuário por menos animação */
+        @media (prefers-reduced-motion: reduce){
+            *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;}
+        }
     </style>
 </head>
 <body class="intro-ativa">
+
+    <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
+
+    <!-- ===== WIDGET DE ACESSIBILIDADE ===== -->
+    <div id="a11y-widget">
+        <button id="a11y-toggle" onclick="toggleA11yPainel()" aria-expanded="false" aria-controls="a11y-painel" title="Acessibilidade">
+            <i class="fas fa-universal-access" aria-hidden="true"></i>
+            <span class="visually-hidden">Abrir opções de acessibilidade</span>
+        </button>
+        <div id="a11y-painel" class="hidden" role="dialog" aria-label="Opções de acessibilidade">
+            <h3>Acessibilidade</h3>
+            <div class="a11y-linha">
+                <span>Tamanho do texto</span>
+                <div class="a11y-botoes">
+                    <button onclick="ajustarFonteA11y(-1)" aria-label="Diminuir tamanho do texto">A-</button>
+                    <button onclick="ajustarFonteA11y(0)" aria-label="Tamanho de texto padrão">Padrão</button>
+                    <button onclick="ajustarFonteA11y(1)" aria-label="Aumentar tamanho do texto">A+</button>
+                </div>
+            </div>
+            <button class="a11y-opcao" id="a11y-contraste-btn" onclick="alternarContraste()" aria-pressed="false">🌓 Alto contraste</button>
+            <button class="a11y-opcao" id="a11y-sublinhado-btn" onclick="alternarSublinhado()" aria-pressed="false">🔗 Sublinhar links</button>
+            <button class="a11y-opcao" id="a11y-libras-btn" onclick="alternarLibras()" aria-pressed="false">🤟 Tradutor de Libras</button>
+        </div>
+    </div>
 
     <!-- ===== ABERTURA (SEMÁFORO DE LARGADA) ===== -->
     <div id="intro-overlay">
@@ -1017,18 +1117,18 @@
         <div class="logo" onclick="voltarParaHome()">Senna<span>Recicla</span></div>
         <div class="nav-right">
             <div id="nav-user-greeting" class="hidden"></div>
-            <div class="fullscreen-btn" id="fullscreen-btn" onclick="alternarTelaCheia()" title="Tela cheia">
-                <i class="fas fa-expand" id="fullscreen-icon"></i>
+            <div class="fullscreen-btn" id="fullscreen-btn" onclick="alternarTelaCheia()" title="Tela cheia" role="button" tabindex="0" aria-label="Alternar tela cheia">
+                <i class="fas fa-expand" id="fullscreen-icon" aria-hidden="true"></i>
             </div>
-            <div class="menu-btn" onclick="openMenu()">
-                <i class="fas fa-bars"></i>
+            <div class="menu-btn" onclick="openMenu()" role="button" tabindex="0" aria-label="Abrir menu" aria-controls="menu">
+                <i class="fas fa-bars" aria-hidden="true"></i>
             </div>
         </div>
     </nav>
 
     <!-- ===== MENU LATERAL ===== -->
     <div class="sidebar" id="menu">
-        <div class="close-btn" onclick="closeMenu()"><i class="fas fa-times"></i></div>
+        <div class="close-btn" onclick="closeMenu()" role="button" tabindex="0" aria-label="Fechar menu"><i class="fas fa-times" aria-hidden="true"></i></div>
         <a onclick="voltarParaHome(); closeMenu();">Início</a>
         <a id="menu-dashboard" class="hidden" onclick="abrirDashboard()">Meu Painel</a>
         <a id="menu-acesso" onclick="mostrarAreaAcesso()">Acessar / Cadastrar</a>
@@ -1049,7 +1149,7 @@
     </div>
 
     <!-- ===== CONTEÚDO PRINCIPAL (HOME) ===== -->
-    <div id="main-content">
+    <div id="main-content" tabindex="-1">
         <header class="hero">
             <div class="hero-content">
                 <h1>RUMO À <span>VITÓRIA</span></h1>
@@ -4197,7 +4297,13 @@
             }
 
             window.pularAbertura = finalizarAbertura;
-            rodarSequencia();
+
+            var prefereMenosMovimento = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefereMenosMovimento) {
+                finalizarAbertura();
+            } else {
+                rodarSequencia();
+            }
         })();
     </script>
 
@@ -4229,6 +4335,121 @@
             icone.classList.toggle('fa-compress', ativa);
             btn.title = ativa ? 'Sair da tela cheia' : 'Tela cheia';
         }
+    </script>
+
+    <!-- ===== SCRIPT DE ACESSIBILIDADE ===== -->
+    <script>
+        (function(){
+            var PASSO_MIN = -2, PASSO_MAX = 3;
+
+            function lerEstado(){
+                return {
+                    passoFonte: parseInt(localStorage.getItem('a11yPassoFonte') || '0', 10),
+                    contraste: localStorage.getItem('a11yContraste') === '1',
+                    sublinhado: localStorage.getItem('a11ySublinhado') === '1',
+                    libras: localStorage.getItem('a11yLibras') === '1'
+                };
+            }
+
+            function aplicarFonte(passo){
+                var mult = 1 + (passo * 0.1);
+                document.documentElement.style.setProperty('--a11y-mult', mult);
+                localStorage.setItem('a11yPassoFonte', passo);
+            }
+
+            window.ajustarFonteA11y = function(delta){
+                var estado = lerEstado();
+                var novoPasso = delta === 0 ? 0 : Math.max(PASSO_MIN, Math.min(PASSO_MAX, estado.passoFonte + delta));
+                aplicarFonte(novoPasso);
+            };
+
+            window.alternarContraste = function(){
+                var ativo = document.body.classList.toggle('a11y-contraste');
+                localStorage.setItem('a11yContraste', ativo ? '1' : '0');
+                document.getElementById('a11y-contraste-btn').setAttribute('aria-pressed', ativo);
+            };
+
+            window.alternarSublinhado = function(){
+                var ativo = document.body.classList.toggle('a11y-sublinhado');
+                localStorage.setItem('a11ySublinhado', ativo ? '1' : '0');
+                document.getElementById('a11y-sublinhado-btn').setAttribute('aria-pressed', ativo);
+            };
+
+            var librasCarregado = false;
+            window.alternarLibras = function(){
+                var btn = document.getElementById('a11y-libras-btn');
+                var ativo = btn.getAttribute('aria-pressed') === 'true';
+                ativo = !ativo;
+                btn.setAttribute('aria-pressed', ativo);
+                localStorage.setItem('a11yLibras', ativo ? '1' : '0');
+
+                if (!librasCarregado) {
+                    if (!ativo) return;
+                    librasCarregado = true;
+                    var container = document.createElement('div');
+                    container.setAttribute('vw', '');
+                    container.className = 'enabled';
+                    container.innerHTML = '<div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div>';
+                    container.id = 'vlibras-container';
+                    document.body.appendChild(container);
+                    var script = document.createElement('script');
+                    script.src = 'https://vlibras.gov.br/app/vlibras-plugin.js';
+                    script.onload = function(){
+                        new window.VLibras.Widget('https://vlibras.gov.br/app');
+                    };
+                    document.body.appendChild(script);
+                } else {
+                    var el = document.getElementById('vlibras-container');
+                    if (el) el.style.display = ativo ? '' : 'none';
+                }
+            };
+
+            window.toggleA11yPainel = function(){
+                var painel = document.getElementById('a11y-painel');
+                var toggle = document.getElementById('a11y-toggle');
+                var abrindo = painel.classList.contains('hidden');
+                painel.classList.toggle('hidden');
+                toggle.setAttribute('aria-expanded', abrindo);
+            };
+
+            document.addEventListener('click', function(e){
+                var widget = document.getElementById('a11y-widget');
+                var painel = document.getElementById('a11y-painel');
+                if (!painel.classList.contains('hidden') && !widget.contains(e.target)) {
+                    painel.classList.add('hidden');
+                    document.getElementById('a11y-toggle').setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Torna botões-div (ícones) acessíveis via teclado (Enter/Espaço)
+            document.addEventListener('DOMContentLoaded', function(){
+                document.querySelectorAll('[role="button"]').forEach(function(el){
+                    el.addEventListener('keydown', function(e){
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            el.click();
+                        }
+                    });
+                });
+            });
+
+            // Restaura preferências salvas
+            var estadoSalvo = lerEstado();
+            aplicarFonte(estadoSalvo.passoFonte);
+            if (estadoSalvo.contraste) {
+                document.body.classList.add('a11y-contraste');
+            }
+            if (estadoSalvo.sublinhado) {
+                document.body.classList.add('a11y-sublinhado');
+            }
+            document.addEventListener('DOMContentLoaded', function(){
+                document.getElementById('a11y-contraste-btn').setAttribute('aria-pressed', estadoSalvo.contraste);
+                document.getElementById('a11y-sublinhado-btn').setAttribute('aria-pressed', estadoSalvo.sublinhado);
+                if (estadoSalvo.libras) {
+                    window.alternarLibras();
+                }
+            });
+        })();
     </script>
 
 </body>
